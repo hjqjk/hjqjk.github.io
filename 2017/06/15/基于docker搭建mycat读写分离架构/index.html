@@ -93,15 +93,16 @@
 
 
 
-<meta name="description" content="记录着过程，记录着变化，记录着希望~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ensign blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="前言最近在学docker，应业务需求，要研究mycat的使用，为了方便学习测试，就想着用docker的镜像和容器来构造所有的组件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于docker搭建mycat读写分离架构">
+<meta property="og:url" content="http://yoursite.com/2017/06/15/基于docker搭建mycat读写分离架构/index.html">
 <meta property="og:site_name" content="Ensign blog">
-<meta property="og:description" content="记录着过程，记录着变化，记录着希望~">
+<meta property="og:description" content="前言最近在学docker，应业务需求，要研究mycat的使用，为了方便学习测试，就想着用docker的镜像和容器来构造所有的组件。">
+<meta property="og:updated_time" content="2017-06-15T09:46:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ensign blog">
-<meta name="twitter:description" content="记录着过程，记录着变化，记录着希望~">
+<meta name="twitter:title" content="基于docker搭建mycat读写分离架构">
+<meta name="twitter:description" content="前言最近在学docker，应业务需求，要研究mycat的使用，为了方便学习测试，就想着用docker的镜像和容器来构造所有的组件。">
 
 
 
@@ -129,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/15/基于docker搭建mycat读写分离架构/"/>
 
 
 
 
 
-  <title>Ensign blog</title>
+  <title>基于docker搭建mycat读写分离架构 | Ensign blog</title>
   
 
 
@@ -160,9 +161,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-   page-home 
- ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,9 +274,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -303,9 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/15/基于docker搭建mycat读写分离架构/" itemprop="url">基于docker搭建mycat读写分离架构</a></h1>
+          <h1 class="post-title" itemprop="name headline">基于docker搭建mycat读写分离架构</h1>
         
 
         <div class="post-meta">
@@ -363,28 +360,52 @@
       
 
       
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在学docker，应业务需求，要研究mycat的使用，为了方便学习测试，就想着用docker的镜像和容器来构造所有的组件。</p>
+<a id="more"></a>
+<h2 id="mysql主从架构搭建"><a href="#mysql主从架构搭建" class="headerlink" title="mysql主从架构搭建"></a>mysql主从架构搭建</h2><p>创建总目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkidr mycat-ms</div><div class="line">cd mycat-ms</div></pre></td></tr></table></figure>
+<p>在宿主机创建本地目录，印射为容器的数据目录，方便以后查看数据内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir mysql-ms/data/&#123;master,slave&#125; -p</div></pre></td></tr></table></figure>
+<p>在宿主机创建配置文件，印射为容器的配置文件。可通过本地修改配置文件，达到修改容器配置文件的效果。</p>
+<p>master配置文件： mysql-ms/etc/master.cnf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line"># 开启logbin</div><div class="line">log-bin = mysql-bin</div><div class="line">binlog_format = mixed</div><div class="line"></div><div class="line"># 设置唯一服务ID,要跟slave不同</div><div class="line">server-id=1</div><div class="line"></div><div class="line">datadir = /var/lib/mysql</div></pre></td></tr></table></figure>
+<p>slave 配置文件： mysql-ms/etc/slave.cnf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line"># 开启log-bin</div><div class="line">log-bin = mysql-bin</div><div class="line">binlog_format = mixed</div><div class="line"></div><div class="line"># 开启relay-log</div><div class="line">relay-log = mysql-relay</div><div class="line"></div><div class="line"># 设置唯一服务ID,要跟master不同</div><div class="line">server-id = 3</div><div class="line"></div><div class="line">datadir = /var/lib/mysql</div></pre></td></tr></table></figure>
+<p>创建网络mscat，用于各容器之间通信</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker network create mscat</div></pre></td></tr></table></figure>
+<p>分别启动master、slave容器(用的是docker官方提供的 mysql5.6.36 的镜像)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">docker run --name mysql-master -v $PWD/mysql-ms/etc/master.cnf:/etc/mysql/my.cnf -v $PWD/mysql-ms/data/master:/var/lib/mysql --net=mscat -e MYSQL_ROOT_PASSWORD=&apos;yueioe123&apos; -d mysql:5.6.36</div><div class="line">docker run --name mysql-slave -v $PWD/mysql-ms/etc/slave.cnf:/etc/mysql/my.cnf -v $PWD/mysql-ms/data/slave:/var/lib/mysql --net=mscat -e MYSQL_ROOT_PASSWORD=&apos;yueioe123&apos; -d mysql:5.6.36</div></pre></td></tr></table></figure>
+<p>master上，创建主从复制账号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker exec -ti mysql-master mysql -uroot -p&apos;yueioe123&apos; -e &quot;CREATE USER &apos;repl&apos;@&apos;%&apos; IDENTIFIED BY &apos;repl123&apos;;GRANT REPLICATION SLAVE ON *.* TO &apos;repl&apos;@&apos;%&apos;;&quot;</div></pre></td></tr></table></figure>
+<p>在master上，获取复制开始的二进制文件和位置(File和Position)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># docker exec -ti mysql-master mysql -uroot -p&apos;yueioe123&apos; -e &quot;show master status\G&quot; </div><div class="line">*************************** 1. row ***************************</div><div class="line">             File: mysql-bin.000005</div><div class="line">         Position: 441</div><div class="line">     Binlog_Do_DB:</div><div class="line"> Binlog_Ignore_DB:</div><div class="line">Executed_Gtid_Set:</div></pre></td></tr></table></figure>
+<p>在slave上，连接master:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 连接master</div><div class="line">docker exec -it mysql-slave mysql -uroot -p&apos;&apos; -e &quot;CHANGE MASTER TO MASTER_HOST=&apos;mysql-master&apos;,MASTER_USER=&apos;repl&apos;,MASTER_PASSWORD=&apos;repl123&apos;,MASTER_LOG_FILE=&apos;mysql-bin.000005&apos;,MASTER_LOG_POS=441;&quot;</div><div class="line"># 启动 slave 线程</div><div class="line">docker exec -it mysql-slave mysql -uroot -pyueioe123 -e &quot;start slave;&quot;</div></pre></td></tr></table></figure>
+<p>查看主从是否成功:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># docker exec -it mysql-slave mysql -uroot -pyueioe123 -e &quot;show slave status\G&quot;</div><div class="line">Slave_IO_Running: Yes</div><div class="line">Slave_SQL_Running: Yes</div><div class="line"># docker exec -ti mysql-master mysql -uroot -pyueioe123 -e &quot;create database test;&quot;</div><div class="line"># docker exec -ti mysql-slave mysql -uroot -pyueioe123 -e &quot;show databases;&quot;</div><div class="line"></div><div class="line">+--------------------+</div><div class="line">| Database           |</div><div class="line">+--------------------+</div><div class="line">| information_schema |</div><div class="line">| test               |</div><div class="line">+--------------------+</div></pre></td></tr></table></figure>
+<h2 id="mycat读写分离"><a href="#mycat读写分离" class="headerlink" title="mycat读写分离"></a>mycat读写分离</h2><p>mycat是用java语言编写的，需要jdk的支持，这次将安装mycat1.6，jdk版本需要1.7以上</p>
+
+      
+    </div>
+
+    <div>
+      
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在学docker，应业务需求，要研究mycat的使用，为了方便学习测试，就想着用docker的镜像和容器来构造所有的组件。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/15/基于docker搭建mycat读写分离架构/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
@@ -392,299 +413,38 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/CentOS-6-5下部署日志服务器-Rsyslog-LogAnalyzer-MySQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hjqjk">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ensign blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/15/CentOS-6-5下部署日志服务器-Rsyslog-LogAnalyzer-MySQL/" itemprop="url">CentOS 6.5下部署日志服务器 Rsyslog+LogAnalyzer+MySQL</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T11:09:19+08:00">
-                2017-06-15
-              </time>
+              <a href="/2017/06/15/CentOS-6-5下部署日志服务器-Rsyslog-LogAnalyzer-MySQL/" rel="next" title="CentOS 6.5下部署日志服务器 Rsyslog+LogAnalyzer+MySQL">
+                <i class="fa fa-chevron-left"></i> CentOS 6.5下部署日志服务器 Rsyslog+LogAnalyzer+MySQL
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/06/15/CentOS-6-5下部署日志服务器-Rsyslog-LogAnalyzer-MySQL/" class="leancloud_visitors" data-flag-title="CentOS 6.5下部署日志服务器 Rsyslog+LogAnalyzer+MySQL">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>LogAnalyzer 是一款syslog日志和其他网络事件数据的Web前端。它提供了对日志的简单浏览、搜索、基本分析和一些图表报告的功能。数据可以从数据库或一般的syslog文本文件中获取，所以LogAnalyzer不需要改变现有的记录架构。基于当前的日志数据，它可以处理syslog日志消息，Windows事件日志记录，支持故障排除，使用户能够快速查找日志数据中看出问题的解决方案。</p>
-<p>LogAnalyzer 获取客户端日志会有两种保存模式，一种是直接读取客户端/var/log/目录下的日志并保存到服务端该目录下，一种是读取后保存到日志服务器数据库中，推荐使用后者。</p>
-<p>LogAnalyzer 采用php开发，日志服务器需要php的运行环境，本文采用LNMP。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/15/CentOS-6-5下部署日志服务器-Rsyslog-LogAnalyzer-MySQL/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/14/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hjqjk">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ensign blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/14/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-14T21:20:33+08:00">
-                2017-06-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/06/14/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/14/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -692,6 +452,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -711,8 +475,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpeg"
@@ -774,6 +547,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql主从架构搭建"><span class="nav-number">2.</span> <span class="nav-text">mysql主从架构搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mycat读写分离"><span class="nav-number">3.</span> <span class="nav-text">mycat读写分离</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -892,10 +681,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
