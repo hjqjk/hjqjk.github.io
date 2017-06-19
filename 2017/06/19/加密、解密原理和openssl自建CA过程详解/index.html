@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/17-6-19/38392141.jpg">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/17-6-19/86778904.jpg">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/17-6-19/27547946.jpg">
-<meta property="og:updated_time" content="2017-06-19T10:41:51.000Z">
+<meta property="og:updated_time" content="2017-06-19T10:50:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="加密、解密原理和openssl自建CA过程详解">
 <meta name="twitter:description" content="一、加密和解密相关知识简介1、信息安全标准NIST（National Institute of Standards and Technology）美国国家标准与技术研究院，制定了网络信息安全与保密的三个要素：（这三大要素被简称为：CIA）   保密性(confidentiality)：信息不泄露给非授权用户、实体或过程，或供其利用的特性。（一般包括数据保密性、隐私性。） 完整性(Integrity">
@@ -446,7 +446,9 @@
 </blockquote>
 </li>
 <li><p>为了解决上述问题，B在把加密的特征码附加到报文后，把特征码和报文当做一个数据（假设为data），使用对称加密算法对该数据(data)加密得出一个密码，再把密码附加到该数据(data)后。为了使得在传输过程中密码不被其他人获取或篡改，使用A的公钥对密码进行加密（只有A的私钥能对其解密），把加密的密码附加到数据data后，再这些数据一并发送给A。</p>
-<h3 id="2、接收端A"><a href="#2、接收端A" class="headerlink" title="2、接收端A"></a>2、接收端A</h3></li>
+</li>
+</ul>
+<h3 id="2、接收端A"><a href="#2、接收端A" class="headerlink" title="2、接收端A"></a>2、接收端A</h3><ul>
 <li>A接收到B传来的报文，利用自身的私钥对其解密，获得密码。因为只有A的私钥能对B传来的报文（使用A的公钥加密密码）解密，所以能防止其他人对该传输的报文进行解密而获得其中的信息，保证了数据的保密性。</li>
 <li>A利用获得的密码解密其中对称加密的数据，获得经过加密的特征码和原报文。</li>
 <li>A使用B的公钥对该特征码解密，能解密则说明该报文是B发送过来的，实现了身份验证。（假设解密后的特征码是fcode）</li>
@@ -525,7 +527,7 @@
 <li>签署证书</li>
 </ul>
 <blockquote>
-<p>格式：openssl ca -in /path/to/somefile.csr -out /path/to/somefile.crt -days N<br>说明：-in 指定证书签署请求文件 ； -out CA根据请求文件生成的证书，一般为 .crt 后缀</p>
+<p>格式：openssl ca -in /path/to/somefile.csr -out /path/to/somefile.crt -days N<br>说明：-in 指定证书签署请求文件 ； -out CA根据请求文件生成的证书，一般为 .crt 后缀；N 指定证书生效时长，天为单位</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">[root@localhost CA]# openssl ca -in /etc/httpd/ssl/httpd.csr -out /etc/httpd/ssl/httpd.crt -days 1000     </div><div class="line">Using configuration from /etc/pki/tls/openssl.cnf      </div><div class="line">Check that the request matches the signature      </div><div class="line">Signature ok      </div><div class="line">Certificate Details:      </div><div class="line">        Serial Number: 1 (0x1)      </div><div class="line">        Validity      </div><div class="line">            Not Before: Jul  3 14:07:23 2014 GMT      </div><div class="line">            Not After : Mar 29 14:07:23 2017 GMT      </div><div class="line">        Subject:      </div><div class="line">            countryName               = CN      #国家名</div><div class="line">            stateOrProvinceName       = GuangDong   #省份名   </div><div class="line">            organizationName          = 51CTOblog   #公司名</div><div class="line">            organizationalUnitName    = Ops         #部门名</div><div class="line">            commonName                = www.hjqjk.com   #主机名   </div><div class="line">            emailAddress              = hjqjk@163.com   #邮箱   </div><div class="line">        X509v3 extensions:      </div><div class="line">            X509v3 Basic Constraints:       </div><div class="line">                CA:FALSE      </div><div class="line">            Netscape Comment:       </div><div class="line">                OpenSSL Generated Certificate      </div><div class="line">            X509v3 Subject Key Identifier:       </div><div class="line">                F9:DB:00:04:8A:D7:17:C8:21:B7:2D:15:F2:E9:89:66:BB:6D:D5:F9      </div><div class="line">            X509v3 Authority Key Identifier:       </div><div class="line">                keyid:98:56:B3:30:B0:9D:75:A1:69:AD:BF:2F:E4:0D:FE:3F:17:87:B0:A8</div><div class="line">Certificate is to be certified until Mar 29 14:07:23 2017 GMT (1000 days)     </div><div class="line">Sign the certificate? [y/n]:y  #询问是否签署证书</div><div class="line">1 out of 1 certificate requests certified, commit? [y/n]y     </div><div class="line">Write out database with 1 new entries      </div><div class="line">Data Base Updated      </div><div class="line">[root@localhost CA]# ls /etc/httpd/ssl      #证书已签署，自建CA到这里就成功了</div><div class="line">httpd.crt  httpd.csr  httpd.key</div></pre></td></tr></table></figure>
 <ul>
