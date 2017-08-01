@@ -1,0 +1,913 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="根据业务需求，已部署GitLab-CE，网站代码上线流程如下图：  开发者 push 推送代码之后，网站代码仍没更新，还需要操作多一步：登录前端web服务器，手动git pull 拉取更新的代码。这一步是运维的工作，很无趣又烦琐。 幸亏，GitLab提供了Webhooks功能，可以轻松实现网站代码自动更新部署。">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用GitLab的Webhooks功能，实现网站代码自动更新部署">
+<meta property="og:url" content="http://yoursite.com/2017/07/04/利用GitLab的Webhooks功能，实现网站代码自动更新部署/index.html">
+<meta property="og:site_name" content="Ensign&#39;s Blog">
+<meta property="og:description" content="根据业务需求，已部署GitLab-CE，网站代码上线流程如下图：  开发者 push 推送代码之后，网站代码仍没更新，还需要操作多一步：登录前端web服务器，手动git pull 拉取更新的代码。这一步是运维的工作，很无趣又烦琐。 幸亏，GitLab提供了Webhooks功能，可以轻松实现网站代码自动更新部署。">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993278977067.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993282026422.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/17-7-5/48924488.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993335564376.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993342147315.jpg">
+<meta property="og:updated_time" content="2017-07-06T10:16:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用GitLab的Webhooks功能，实现网站代码自动更新部署">
+<meta name="twitter:description" content="根据业务需求，已部署GitLab-CE，网站代码上线流程如下图：  开发者 push 推送代码之后，网站代码仍没更新，还需要操作多一步：登录前端web服务器，手动git pull 拉取更新的代码。这一步是运维的工作，很无趣又烦琐。 幸亏，GitLab提供了Webhooks功能，可以轻松实现网站代码自动更新部署。">
+<meta name="twitter:image" content="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993278977067.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/04/利用GitLab的Webhooks功能，实现网站代码自动更新部署/"/>
+
+
+
+
+
+  <title>利用GitLab的Webhooks功能，实现网站代码自动更新部署 | Ensign's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ensign's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/利用GitLab的Webhooks功能，实现网站代码自动更新部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjqjk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ensign's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用GitLab的Webhooks功能，实现网站代码自动更新部署</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T16:33:42+08:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/版本控制/" itemprop="url" rel="index">
+                    <span itemprop="name">版本控制</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/04/利用GitLab的Webhooks功能，实现网站代码自动更新部署/" class="leancloud_visitors" data-flag-title="利用GitLab的Webhooks功能，实现网站代码自动更新部署">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>根据业务需求，已部署GitLab-CE，网站代码上线流程如下图：</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993278977067.jpg" alt=""></p>
+<p>开发者 push 推送代码之后，网站代码仍没更新，还需要操作多一步：<strong>登录前端web服务器，手动git pull 拉取更新的代码</strong>。这一步是运维的工作，很无趣又烦琐。</p>
+<p>幸亏，GitLab提供了Webhooks功能，可以轻松实现网站代码自动更新部署。</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993282026422.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="一、webhooks原理"><a href="#一、webhooks原理" class="headerlink" title="一、webhooks原理"></a>一、webhooks原理</h2><p><a href="https://docs.gitlab.com/ce/user/project/integrations/webhooks.html" target="_blank" rel="external">Webhooks的原理</a></p>
+<blockquote>
+<p>Project webhooks allow you to trigger a URL if for example new code is pushed or a new issue is created.<br>You can configure webhooks to listen for specific events like pushes, issues or merge requests. GitLab will send a POST request with data to the webhook URL.<br>Webhooks can be used to update an external issue tracker, trigger CI jobs, update a backup mirror, or even deploy to your production server.</p>
+</blockquote>
+<p>简单说明</p>
+<blockquote>
+<p>webhooks允许指定一个URL，用于触发push或其他事件时进行自定义操作。<br>例如，当开发者push代码到GitLab服务器，会触发push事件，GitLab会发送一个POST请求连带数据（<a href="https://docs.gitlab.com/ce/user/project/integrations/webhooks.html#push-events" target="_blank" rel="external">数据格式</a>）给webhooks指定的URL，该URL可以是前端web的php程序或Python程序等。这样，每当GitLab有push事件，就能在前端web服务器上执行一个脚本程序。</p>
+</blockquote>
+<p>使用webhooks的步骤：</p>
+<ul>
+<li>在前端web服务器上安装Git客户端，用于拉取远程仓库 git pull</li>
+<li>创建并添加公钥，以便免密码拉取远程仓库</li>
+<li>创建脚本程序，并配置webhooks</li>
+</ul>
+<h2 id="二、安装Git客户端"><a href="#二、安装Git客户端" class="headerlink" title="二、安装Git客户端"></a>二、安装Git客户端</h2><p>在前端web服务器上，执行以下安装命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># yum install git</span></div></pre></td></tr></table></figure>
+<h2 id="三、创建并添加公钥"><a href="#三、创建并添加公钥" class="headerlink" title="三、创建并添加公钥"></a>三、创建并添加公钥</h2><p>前端web服务器的 nginx 和 php-fpm 都是以 www 用户来运行的，所以要为www用户创建并添加公钥。</p>
+<p>www 用户的家目录是:  /home/www/</p>
+<p>修改 www 用户的 shell 为 /bin/bash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">www:x:511:511::/home/www:/bin/bash</div></pre></td></tr></table></figure>
+<h3 id="创建用户的公钥"><a href="#创建用户的公钥" class="headerlink" title="创建用户的公钥"></a>创建用户的公钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># su www</span></div><div class="line">$ ssh-keygen -t rsa</div></pre></td></tr></table></figure>
+<p>遇到交互，全部回车就好。<br>最后会在/home/www/.ssh 目录下生成两个文件，私钥文件：id_rsa，公钥文件：id_rsa.pub</p>
+<h3 id="添加公钥到GitLab后台"><a href="#添加公钥到GitLab后台" class="headerlink" title="添加公钥到GitLab后台"></a>添加公钥到GitLab后台</h3><p>获取www用户的公钥文件内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /home/www/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
+<p>复制公钥内容，添加公钥，GitLab后台添加公钥的位置：管理员 &gt; Settings &gt; SSH Keys</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/17-7-5/48924488.jpg" alt=""></p>
+<h3 id="修改网站根目录的权限"><a href="#修改网站根目录的权限" class="headerlink" title="修改网站根目录的权限"></a>修改网站根目录的权限</h3><p>修改网站根目录( /home/www/test/ ) 的权限，否则以www用户git pull 会报权限问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># chmod 775 /home/www/test/ -R</div><div class="line"># chown www.www /home/www/test/ -R</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>测试www用户基于公钥是否能从Git服务器远程拉取代码</p>
+<p>手动执行pull操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># su www</span></div><div class="line">$ <span class="built_in">cd</span> /home/www/<span class="built_in">test</span>/  </div><div class="line">$ git pull</div></pre></td></tr></table></figure>
+<h2 id="四、部署webhooks"><a href="#四、部署webhooks" class="headerlink" title="四、部署webhooks"></a>四、部署webhooks</h2><h3 id="编写webhooks应用的PHP程序"><a href="#编写webhooks应用的PHP程序" class="headerlink" title="编写webhooks应用的PHP程序"></a>编写webhooks应用的PHP程序</h3><p>在前端web服务器的网站根目录（/home/www/test/）下新建一个webhooks.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">//网站目录</span></div><div class="line">$www_file=<span class="string">'/home/www/test/'</span>;</div><div class="line"></div><div class="line"><span class="comment">//打开网站目录下的hooks.log文件,需要在服务器上创建,并给写权限</span></div><div class="line">$fs = fopen(<span class="string">'/home/www/test/hooks.log'</span>, <span class="string">'a'</span>);</div><div class="line"></div><div class="line">fwrite($fs, <span class="string">'================ Update Start ==============='</span>.PHP_EOL.PHP_EOL);</div><div class="line"></div><div class="line"><span class="comment">//自定义字串掩码 用于验证</span></div><div class="line">$access_token = <span class="string">'QhNO8YHqym5PHQQsexapF7041xOhzm62DRH'</span>;</div><div class="line"></div><div class="line"><span class="comment">//接受的ip数组，也就是允许哪些IP访问这个文件 这里是gitlab服务器IP</span></div><div class="line">$access_ip = <span class="keyword">array</span>(<span class="string">'192.168.1.15'</span>,<span class="string">'14.xxx.xxx.19'</span>);</div><div class="line"></div><div class="line"><span class="comment">//如果使用www.xxx.com/xxx.php?token=xxxxxxx 的方式来传送验证字符串，则用这个方法获取</span></div><div class="line"><span class="comment"># $client_token = $_GET['token'];</span></div><div class="line"></div><div class="line"><span class="comment">// 获取请求端的secret token</span></div><div class="line">$client_token = $_SERVER[<span class="string">"HTTP_X_GITLAB_TOKEN"</span>];</div><div class="line"></div><div class="line"><span class="comment">//获取请求端的IP</span></div><div class="line">$client_ip = $_SERVER[<span class="string">'REMOTE_ADDR'</span>];</div><div class="line"></div><div class="line"><span class="comment">//把请求的IP和时间写进log</span></div><div class="line">fwrite($fs, <span class="string">'Request on ['</span>.date(<span class="string">"Y-m-d H:i:s"</span>).<span class="string">'] from ['</span>.$client_ip.<span class="string">']'</span>.PHP_EOL);</div><div class="line"></div><div class="line"><span class="comment">//验证token 有错就写进日志并退出</span></div><div class="line"><span class="keyword">if</span> ($client_token !== $access_token)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"error 403"</span>;</div><div class="line">    fwrite($fs, <span class="string">"Invalid token [&#123;$client_token&#125;]"</span>.PHP_EOL);</div><div class="line">    <span class="keyword">exit</span>(<span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//验证ip</span></div><div class="line"><span class="keyword">if</span> ( !in_array($client_ip, $access_ip))</div><div class="line">&#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"error 503"</span>;</div><div class="line">    fwrite($fs, <span class="string">"Invalid ip [&#123;$client_ip&#125;]"</span>.PHP_EOL);</div><div class="line">    <span class="keyword">exit</span>(<span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//获取请求端发送来的信息，具体格式参见gitlab的文档</span></div><div class="line">$json = file_get_contents(<span class="string">'php://input'</span>);</div><div class="line">$data = json_decode($json, <span class="keyword">true</span>);</div><div class="line"></div><div class="line"><span class="comment">//如果有需要 可以打开下面，把传送过来的信息写进log</span></div><div class="line"><span class="comment"># fwrite($fs, 'Data: '.print_r($data, true).PHP_EOL);</span></div><div class="line"></div><div class="line"><span class="comment">//执行shell命令并把返回信息写进日志</span></div><div class="line">$output=shell_exec(<span class="string">"cd $www_file &amp;&amp; git pull 2&gt;&amp;1"</span>);</div><div class="line">fwrite($fs, <span class="string">'Info:'</span>. $output.PHP_EOL);</div><div class="line"></div><div class="line">fwrite($fs,PHP_EOL. <span class="string">'================ Update End ==============='</span>.PHP_EOL.PHP_EOL);</div><div class="line"></div><div class="line">$fs <span class="keyword">and</span> fclose($fs);</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="修改PHP配置"><a href="#修改PHP配置" class="headerlink" title="修改PHP配置"></a>修改PHP配置</h3><p>因为webhooks用到的php代码中使用了 shell_exec 函数，一般配置php会禁止这个函数，需要打开 shell_exec 函数。<br>修改前端web服务器上php.ini的 disable_functions 列表，去掉 shell_exec 。<br>重启php-fpm服务。</p>
+<h3 id="配置GitLab"><a href="#配置GitLab" class="headerlink" title="配置GitLab"></a>配置GitLab</h3><p>project &gt; Settings &gt; Integrations</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993335564376.jpg" alt=""></p>
+<p>Secret Token中字符串的值，要跟webhooks.php中$access_token 的值相同。<br>Enable SSL verification 不要勾。</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-07-06-14993342147315.jpg" alt=""></p>
+<p>可以按 [Test] 按钮，测试配置是否生效。</p>
+<h2 id="五、遇到的问题"><a href="#五、遇到的问题" class="headerlink" title="五、遇到的问题"></a>五、遇到的问题</h2><p>在部署webhooks中，遇到了个很诡异的问题。</p>
+<p>前提说明</p>
+<blockquote>
+<p>GitLab-CE 版本：9.2.6<br>使用<a href="https://gitlab.com/xhang/gitlab" target="_blank" rel="external">xhang项目</a>对GitLab-CE进行汉化过</p>
+</blockquote>
+<p>问题描述：</p>
+<blockquote>
+<p>已成功部署webhooks，按 [Test] 按钮测试正常。<br>但在实际使用中，开发者push代码后，webhooks.php没有被执行，前端web代码没有git pull 记录，日志也没有记录。<strong>GitLab没有检测到开发者的push事件。</strong></p>
+</blockquote>
+<p>问题分析：</p>
+<ul>
+<li>通过另外部署一套同版本的、不打汉化补丁的GitLab-CE，发现不是汉化补丁的问题。</li>
+<li>回想起之前遇到的一个问题，在GitLab-CE上新创建test项目时，开发者push后，GitLab上仍然显示该项目是空项目，无法检测到push事件，后来还是通过修改项目名来使得其能识别push事件。</li>
+</ul>
+<p>问题解决：</p>
+<blockquote>
+<p>后来偶然发现，webhooks时GitLab没有及时检测到开发者的push事件，是因为对 <strong>/var/opt/gitlab/</strong> 目录做了软链接的缘故。<br>去掉软链接，改为正常的目录路径。</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/27/Git问题集锦/" rel="next" title="Git问题集锦">
+                <i class="fa fa-chevron-left"></i> Git问题集锦
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/26/Git常用操作/" rel="prev" title="Git常用操作">
+                Git常用操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="hjqjk" />
+          <p class="site-author-name" itemprop="name">hjqjk</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录着过程，记录着变化，记录着希望~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、webhooks原理"><span class="nav-number">1.</span> <span class="nav-text">一、webhooks原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、安装Git客户端"><span class="nav-number">2.</span> <span class="nav-text">二、安装Git客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、创建并添加公钥"><span class="nav-number">3.</span> <span class="nav-text">三、创建并添加公钥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户的公钥"><span class="nav-number">3.1.</span> <span class="nav-text">创建用户的公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加公钥到GitLab后台"><span class="nav-number">3.2.</span> <span class="nav-text">添加公钥到GitLab后台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改网站根目录的权限"><span class="nav-number">3.3.</span> <span class="nav-text">修改网站根目录的权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">3.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、部署webhooks"><span class="nav-number">4.</span> <span class="nav-text">四、部署webhooks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编写webhooks应用的PHP程序"><span class="nav-number">4.1.</span> <span class="nav-text">编写webhooks应用的PHP程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改PHP配置"><span class="nav-number">4.2.</span> <span class="nav-text">修改PHP配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置GitLab"><span class="nav-number">4.3.</span> <span class="nav-text">配置GitLab</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、遇到的问题"><span class="nav-number">5.</span> <span class="nav-text">五、遇到的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hjqjk</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("64dehJaGSldsveSgDVUfDB4w-gzGzoHsz", "VdnYAHuVuy3LNpudNUq5r8yP");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
