@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。 由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客 修改背景色在基本配置文件 themes/next">
+<meta name="description" content="之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。 由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客 修改背景色修改背景色，包括两部分：头部、脚部的颜">
 <meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac上基于GitHub Page+Hexo 搭建个人博客">
 <meta property="og:url" content="http://yoursite.com/2017/06/16/Mac上基于GitHub-Page-Hexo-搭建个人博客/index.html">
 <meta property="og:site_name" content="Ensign&#39;s Blog">
-<meta property="og:description" content="之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。 由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客 修改背景色在基本配置文件 themes/next">
-<meta property="og:updated_time" content="2017-08-01T08:49:06.000Z">
+<meta property="og:description" content="之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。 由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客 修改背景色修改背景色，包括两部分：头部、脚部的颜">
+<meta property="og:updated_time" content="2017-08-01T09:15:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac上基于GitHub Page+Hexo 搭建个人博客">
-<meta name="twitter:description" content="之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。 由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客 修改背景色在基本配置文件 themes/next">
+<meta name="twitter:description" content="之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。 由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客 修改背景色修改背景色，包括两部分：头部、脚部的颜">
 
 
 
@@ -365,13 +365,15 @@
       
         <p>之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。</p>
 <p>由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客</p>
-<h3 id="修改背景色"><a href="#修改背景色" class="headerlink" title="修改背景色"></a>修改背景色</h3><p>在基本配置文件 <code>themes/next/source/css/_variables/base.styl</code> 中找到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// Background color for &lt;body&gt;</div><div class="line">$body-bg-color                = white</div></pre></td></tr></table></figure>
-<p>改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$body-bg-color                = #f5f5d5</div></pre></td></tr></table></figure>
-<p>头部和脚部都还是浅灰色(#f5f5f5)，为了颜色统一，还需改header和footer的背景色。</p>
-<p>为了避免修改各种关联参数的麻烦，借用统 <code>$whitesmoke</code> 变量，统一修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$whitesmoke   = #f5f5d5</div></pre></td></tr></table></figure>
+<h3 id="修改背景色"><a href="#修改背景色" class="headerlink" title="修改背景色"></a>修改背景色</h3><p>修改背景色，包括两部分：头部、脚部的颜色和主体的颜色。</p>
+<p>在基本配置文件 <code>themes/next/source/css/_variables/base.styl</code> 中增加 <code>$header-bgex</code> 和 <code>$body-bgex</code> 两个颜色变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$header-bgex = #f5f5d5</div><div class="line">$body-bgex   = #f5f5d5</div></pre></td></tr></table></figure>
+<p>同时主体背景颜色的修改，在 <code>base.styl</code> 中修改 <code>$body-bg-color</code> 的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// Background color for &lt;body&gt;</div><div class="line">$body-bg-color = $body-bgex</div></pre></td></tr></table></figure>
+<p>修改 <code>themes/next/source/css/_schemes/Mist/sidebar/_header.styl</code> 文件中头部的背景色为 <code>base.styl</code> 定义的背景色</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.header &#123; background: $header-bgex; &#125;</div></pre></td></tr></table></figure>
+<p>修改 <code>themes/next/source/css/_schemes/Mist/index.styl</code> 中footer相关定义，可以修改footer颜色值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// Footer</div><div class="line">// --------------------------------------------------</div><div class="line">.footer &#123;</div><div class="line">  margin-top: 80px;</div><div class="line">  padding: 10px 0;</div><div class="line">  background: $header-bgex;</div><div class="line">  color: $grey-dim;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>如果修改配置，发现没生效：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># hexo clean</div><div class="line"># hexo g</div></pre></td></tr></table></figure>
 
