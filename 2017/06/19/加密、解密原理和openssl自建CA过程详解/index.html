@@ -404,7 +404,7 @@
 <li>不可否认性</li>
 </ul>
 <h2 id="3、加密方式和算法"><a href="#3、加密方式和算法" class="headerlink" title="3、加密方式和算法"></a>3、加密方式和算法</h2><h3 id="1-、对称加密"><a href="#1-、对称加密" class="headerlink" title="(1)、对称加密"></a>(1)、对称加密</h3><p>对称加密：采用单钥密码系统的加密方法，同一个密钥可以同时用作信息的加密和解密。<br>  对称加密的算法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">DES : 数据加密标准（56位密钥）</div><div class="line">3DES</div><div class="line">AES ：高级加密标准（128，192，256，384，512）</div><div class="line">Blowfish</div><div class="line">Twofish</div><div class="line">IDEA</div><div class="line">RC6</div><div class="line">CAST5</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">DES : 数据加密标准（56位密钥）</div><div class="line">3DES</div><div class="line">AES ：高级加密标准（128，192，256，384，512）</div><div class="line">Blowfish</div><div class="line">Twofish</div><div class="line">IDEA</div><div class="line">RC6</div><div class="line">CAST5</div></pre></td></tr></table></figure>
 <p>对称加密的特性：</p>
 <ul>
 <li>加密、解密使用同一口令；</li>
@@ -420,14 +420,14 @@
 <p>密钥：public key, secret key  （p/s）<br>公钥是从私钥中提取出来的。<br>公钥加密，只能私钥解密。私钥加密，也只能公钥解密。</p>
 </blockquote>
 <p>常用加密算法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">RSA</div><div class="line">DSA:只能用于身份验证</div><div class="line">EIGamal</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RSA</div><div class="line">DSA:只能用于身份验证</div><div class="line">EIGamal</div></pre></td></tr></table></figure>
 <h3 id="3-、单向加密"><a href="#3-、单向加密" class="headerlink" title="(3)、单向加密"></a>(3)、单向加密</h3><p>单向加密：不可逆的加密<br>单向加密特性：</p>
 <ul>
 <li>定长输出: 无论原始数据是多大，结果大小都相同的</li>
 <li>雪崩效应: 输入的微小改变，将会引起结果的巨大改变</li>
 </ul>
 <p>单向加密算法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">MD5（128位）、SHA1、SHA256、SHA384、SHA512</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MD5（128位）、SHA1、SHA256、SHA384、SHA512</div></pre></td></tr></table></figure>
 <h1 id="二、加密和解密的过程和原理"><a href="#二、加密和解密的过程和原理" class="headerlink" title="二、加密和解密的过程和原理"></a>二、加密和解密的过程和原理</h1><p>首先问一个问题：</p>
 <blockquote>
 <p>假设B与A通信，B向A发送报文，怎么才能保证B的报文安全、可靠地被A接收到，并且保证报文数据的完整性？</p>
@@ -460,7 +460,7 @@
 <p>因而接下来，我们来说说CA。</p>
 <h1 id="三、CA（证书授权中心）"><a href="#三、CA（证书授权中心）" class="headerlink" title="三、CA（证书授权中心）"></a>三、CA（证书授权中心）</h1><h2 id="1、CA证书标准：x-509"><a href="#1、CA证书标准：x-509" class="headerlink" title="1、CA证书标准：x.509"></a>1、CA证书标准：x.509</h2><p>x.509: 定义了证书结构和认证协议标准；（基于公钥和数字签名）<br>用于：IP安全、TLS/SSL（传输层安全）和S/MIME（安全电子邮件通信）<br><img src="http://orku2pa7o.bkt.clouddn.com/17-6-19/50161478.jpg" alt=""></p>
 <p>x.509证书标准详细说明：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">（1）版本号（默认为1，如果有多个扩展，可能为3）</div><div class="line">（2）证书序列号（是一个整数，在CA中唯一标识，表明发行了多少个证书）</div><div class="line">（3）算法参数 （标志用了那种算法）</div><div class="line">（4）发行者的名称（CA自己的名字）</div><div class="line">（5）有效期限</div><div class="line">（6）主体名称（证书拥有者名称）(很关键！！！)（个人用户使用的是个人用户名，主机使用的必须是主机名而不是ip地址）</div><div class="line">（7）公钥（最重要）（公钥由证书拥有者提供）</div><div class="line">（8）发行者的ID（CA的唯一编号）</div><div class="line">（9）主体的ID（CA生成的证书拥有者唯一编号）</div><div class="line">（10）扩展</div><div class="line">（11）CA的签名（用于验证CA的来源合法性）</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">（1）版本号（默认为1，如果有多个扩展，可能为3）</div><div class="line">（2）证书序列号（是一个整数，在CA中唯一标识，表明发行了多少个证书）</div><div class="line">（3）算法参数 （标志用了那种算法）</div><div class="line">（4）发行者的名称（CA自己的名字）</div><div class="line">（5）有效期限</div><div class="line">（6）主体名称（证书拥有者名称）(很关键！！！)（个人用户使用的是个人用户名，主机使用的必须是主机名而不是ip地址）</div><div class="line">（7）公钥（最重要）（公钥由证书拥有者提供）</div><div class="line">（8）发行者的ID（CA的唯一编号）</div><div class="line">（9）主体的ID（CA生成的证书拥有者唯一编号）</div><div class="line">（10）扩展</div><div class="line">（11）CA的签名（用于验证CA的来源合法性）</div></pre></td></tr></table></figure>
 <p>CA是相对于发送方B和接收方A的第三方，是具有公信力的机构。</p>
 <h2 id="2、验证数字证书的过程"><a href="#2、验证数字证书的过程" class="headerlink" title="2、验证数字证书的过程"></a>2、验证数字证书的过程</h2><p>B在发送之前获得A的数字证书或A在接收之前获得B的数字证书，都会去验证该数字证书的真伪。<br>以B在发送之前获得A的数字证书为例，说明验证数字证书的过程：</p>
 <blockquote>
@@ -485,8 +485,8 @@
 <h1 id="五、openssl自建CA过程详解"><a href="#五、openssl自建CA过程详解" class="headerlink" title="五、openssl自建CA过程详解"></a>五、openssl自建CA过程详解</h1><p>OpenSSL是套开放源代码的软件库包，实现了SSL与TLS协议。其主要库是以C语言所写成，实现了基本的加密功能。<br>OpenSSL可以运行在绝大多数类Unix操作系统上（包括Solaris，Linux，Mac OS X与各种版本的开放源代码BSD操作系统），OpenVMS与Microsoft Windows。它也提供了一个移植版本，可以在IBM i（OS/400）上运作。<br>此软件是以Eric Young以及Tim Hudson两人所写的SSLeay为基础所发展的，SSLeay随着两人前往RSA公司任职而停止开发。<br>虽然此软件是开放源代码的，但其授权书条款与GPL有冲突之处，故GPL软件使用OpenSSL时（如Wget）必须对OpenSSL给予例外。</p>
 <h2 id="openssl建立私有CA"><a href="#openssl建立私有CA" class="headerlink" title="openssl建立私有CA"></a>openssl建立私有CA</h2><p>openssl创建私有CA的过程：</p>
 <p>前提：安装openssl</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># yum install openssl</div></pre></td></tr></table></figure>
-<h3 id="1、建立CA服务器"><a href="#1、建立CA服务器" class="headerlink" title="1、建立CA服务器"></a>1、建立CA服务器</h3><h4 id="（1）生成密钥"><a href="#（1）生成密钥" class="headerlink" title="（1）生成密钥"></a>（1）生成密钥</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># (umask 077; openssl genrsa -out /etc/pki/CA/private/cakey.pem 2048)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install openssl</div></pre></td></tr></table></figure>
+<h3 id="1、建立CA服务器"><a href="#1、建立CA服务器" class="headerlink" title="1、建立CA服务器"></a>1、建立CA服务器</h3><h4 id="（1）生成密钥"><a href="#（1）生成密钥" class="headerlink" title="（1）生成密钥"></a>（1）生成密钥</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># (umask 077; openssl genrsa -out /etc/pki/CA/private/cakey.pem 2048)</div></pre></td></tr></table></figure>
 <p><strong>命令解释：</strong></p>
 <ul>
 <li>( ) 表示将会在当前shell中新建一个子shell，将（）中的命令放到该子shell中执行，执行完毕后关闭子shell并回到当前shell。<br>由于要对生成的cakey.pem文件设置合适权限，可使用umask修改文件的默认权限设置。为了不影响当前shell的默认权限设置，使用（）将这些命令放到子shell中执行就行了！</li>
@@ -494,7 +494,7 @@
 <li>-out ：指定生成的私钥的存放位置<strong>（注意：该存放位置是在配置文件中默认定义了的，路径和文件名不能随意修改！！！）</strong></li>
 <li>2048 ：指定生成一个2048位的私钥</li>
 </ul>
-<h4 id="（2）自签证书"><a href="#（2）自签证书" class="headerlink" title="（2）自签证书"></a>（2）自签证书</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># openssl req -new -x509 -key /etc/pki/CA/private/cakey.pem -out /etc/pki/CA/cacert.pem -days 3655</div></pre></td></tr></table></figure>
+<h4 id="（2）自签证书"><a href="#（2）自签证书" class="headerlink" title="（2）自签证书"></a>（2）自签证书</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># openssl req -new -x509 -key /etc/pki/CA/private/cakey.pem -out /etc/pki/CA/cacert.pem -days 3655</div></pre></td></tr></table></figure>
 <p><img src="http://orku2pa7o.bkt.clouddn.com/17-6-19/86778904.jpg" alt=""></p>
 <p><strong>命令解释：</strong></p>
 <ul>
@@ -506,15 +506,15 @@
 <li>-days n: 有效天数（一般和-x509一起使用才有意义。）</li>
 </ul>
 <h4 id="（3）初始化工作环境"><a href="#（3）初始化工作环境" class="headerlink" title="（3）初始化工作环境"></a>（3）初始化工作环境</h4><p><strong>只有第一次创建CA时，才需要初始化工作环境</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># touch /etc/pki/CA/&#123;index.txt,serial&#125;</div><div class="line"># echo 01 &gt; /etc/pki/CA/serial   （指定序列号从那个数字开始）</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># touch /etc/pki/CA/&#123;index.txt,serial&#125;</div><div class="line"># echo 01 &gt; /etc/pki/CA/serial   （指定序列号从那个数字开始）</div></pre></td></tr></table></figure>
 <h3 id="2、节点申请证书"><a href="#2、节点申请证书" class="headerlink" title="2、节点申请证书"></a>2、节点申请证书</h3><h4 id="1-节点生成请求"><a href="#1-节点生成请求" class="headerlink" title="(1) 节点生成请求"></a>(1) 节点生成请求</h4><ul>
 <li>生成密钥对儿</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># (umask 077; openssl genrsa -out /etc/httpd/ssl/httpd.key 2048)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># (umask 077; openssl genrsa -out /etc/httpd/ssl/httpd.key 2048)</div></pre></td></tr></table></figure>
 <ul>
 <li>生成证书签署请求</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># openssl req -new -key /etc/httpd/ssl/httpd.key -out /etc/httpd/ssl/httpd.csr</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># openssl req -new -key /etc/httpd/ssl/httpd.key -out /etc/httpd/ssl/httpd.csr</div></pre></td></tr></table></figure>
 <blockquote>
 <p>.csr ：证书签署请求，一般都是这样的后缀</p>
 </blockquote>
@@ -529,7 +529,7 @@
 <blockquote>
 <p>格式：openssl ca -in /path/to/somefile.csr -out /path/to/somefile.crt -days N<br>说明：-in 指定证书签署请求文件 ； -out CA根据请求文件生成的证书，一般为 .crt 后缀；N 指定证书生效时长，天为单位</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[root@localhost CA]# openssl ca -in /etc/httpd/ssl/httpd.csr -out /etc/httpd/ssl/httpd.crt -days 1000     </div><div class="line">Using configuration from /etc/pki/tls/openssl.cnf      </div><div class="line">Check that the request matches the signature      </div><div class="line">Signature ok      </div><div class="line">Certificate Details:      </div><div class="line">        Serial Number: 1 (0x1)      </div><div class="line">        Validity      </div><div class="line">            Not Before: Jul  3 14:07:23 2014 GMT      </div><div class="line">            Not After : Mar 29 14:07:23 2017 GMT      </div><div class="line">        Subject:      </div><div class="line">            countryName               = CN      #国家名</div><div class="line">            stateOrProvinceName       = GuangDong   #省份名   </div><div class="line">            organizationName          = 51CTOblog   #公司名</div><div class="line">            organizationalUnitName    = Ops         #部门名</div><div class="line">            commonName                = www.hjqjk.com   #主机名   </div><div class="line">            emailAddress              = hjqjk@163.com   #邮箱   </div><div class="line">        X509v3 extensions:      </div><div class="line">            X509v3 Basic Constraints:       </div><div class="line">                CA:FALSE      </div><div class="line">            Netscape Comment:       </div><div class="line">                OpenSSL Generated Certificate      </div><div class="line">            X509v3 Subject Key Identifier:       </div><div class="line">                F9:DB:00:04:8A:D7:17:C8:21:B7:2D:15:F2:E9:89:66:BB:6D:D5:F9      </div><div class="line">            X509v3 Authority Key Identifier:       </div><div class="line">                keyid:98:56:B3:30:B0:9D:75:A1:69:AD:BF:2F:E4:0D:FE:3F:17:87:B0:A8</div><div class="line">Certificate is to be certified until Mar 29 14:07:23 2017 GMT (1000 days)     </div><div class="line">Sign the certificate? [y/n]:y  #询问是否签署证书</div><div class="line">1 out of 1 certificate requests certified, commit? [y/n]y     </div><div class="line">Write out database with 1 new entries      </div><div class="line">Data Base Updated      </div><div class="line">[root@localhost CA]# ls /etc/httpd/ssl      #证书已签署，自建CA到这里就成功了</div><div class="line">httpd.crt  httpd.csr  httpd.key</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">[root@localhost CA]# openssl ca -in /etc/httpd/ssl/httpd.csr -out /etc/httpd/ssl/httpd.crt -days 1000     </div><div class="line">Using configuration from /etc/pki/tls/openssl.cnf      </div><div class="line">Check that the request matches the signature      </div><div class="line">Signature ok      </div><div class="line">Certificate Details:      </div><div class="line">        Serial Number: 1 (0x1)      </div><div class="line">        Validity      </div><div class="line">            Not Before: Jul  3 14:07:23 2014 GMT      </div><div class="line">            Not After : Mar 29 14:07:23 2017 GMT      </div><div class="line">        Subject:      </div><div class="line">            countryName               = CN      #国家名</div><div class="line">            stateOrProvinceName       = GuangDong   #省份名   </div><div class="line">            organizationName          = 51CTOblog   #公司名</div><div class="line">            organizationalUnitName    = Ops         #部门名</div><div class="line">            commonName                = www.hjqjk.com   #主机名   </div><div class="line">            emailAddress              = hjqjk@163.com   #邮箱   </div><div class="line">        X509v3 extensions:      </div><div class="line">            X509v3 Basic Constraints:       </div><div class="line">                CA:FALSE      </div><div class="line">            Netscape Comment:       </div><div class="line">                OpenSSL Generated Certificate      </div><div class="line">            X509v3 Subject Key Identifier:       </div><div class="line">                F9:DB:00:04:8A:D7:17:C8:21:B7:2D:15:F2:E9:89:66:BB:6D:D5:F9      </div><div class="line">            X509v3 Authority Key Identifier:       </div><div class="line">                keyid:98:56:B3:30:B0:9D:75:A1:69:AD:BF:2F:E4:0D:FE:3F:17:87:B0:A8</div><div class="line">Certificate is to be certified until Mar 29 14:07:23 2017 GMT (1000 days)     </div><div class="line">Sign the certificate? [y/n]:y  #询问是否签署证书</div><div class="line">1 out of 1 certificate requests certified, commit? [y/n]y     </div><div class="line">Write out database with 1 new entries      </div><div class="line">Data Base Updated      </div><div class="line">[root@localhost CA]# ls /etc/httpd/ssl      #证书已签署，自建CA到这里就成功了</div><div class="line">httpd.crt  httpd.csr  httpd.key</div></pre></td></tr></table></figure>
 <ul>
 <li>发送给请求者</li>
 </ul>

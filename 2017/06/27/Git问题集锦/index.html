@@ -367,11 +367,11 @@
       
         <p>记录Git使用过程中出现的问题<br><a id="more"></a></p>
 <h2 id="git子模块问题"><a href="#git子模块问题" class="headerlink" title="git子模块问题"></a>git子模块问题</h2><p>最近要将某个项目的代码加入Git版本控制，在该项目目录做Git初始化后，提交推送到Git服务器。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># cd test</span></div><div class="line"><span class="comment"># git init</span></div><div class="line"><span class="comment"># git remote add origin git@gitlab.xxx.com:test/test.git</span></div><div class="line"><span class="comment"># git add .</span></div><div class="line"><span class="comment"># git commit -m "Initial commit"</span></div><div class="line"><span class="comment"># git push -u origin master</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># cd test</span></div><div class="line"><span class="comment"># git init</span></div><div class="line"><span class="comment"># git remote add origin git@gitlab.xxx.com:test/test.git</span></div><div class="line"><span class="comment"># git add .</span></div><div class="line"><span class="comment"># git commit -m "Initial commit"</span></div><div class="line"><span class="comment"># git push -u origin master</span></div></pre></td></tr></table></figure>
 <p>将该项目拉到本地电脑的时候，出现了问题，monolog目录下没有拉到任何文件</p>
 <p><img src="http://orku2pa7o.bkt.clouddn.com/17-6-27/86605188.jpg" alt=""></p>
 <p>手动在项目代码服务器上 git add 该目录下的文件，也报错：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">fatal: Pathspec &apos;composer.json&apos; is in submodule &apos;web/passport_v3/vendor/monolog/monolog/&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fatal: Pathspec &apos;composer.json&apos; is in submodule &apos;web/passport_v3/vendor/monolog/monolog/&apos;</div></pre></td></tr></table></figure>
 <p><strong>分析：</strong><br>monolog 本身就是一个git库，父目录被Git初始化后，monolog目录变成了子模块。</p>
 <p>现在，不需要将monolog目录作为子模块。</p>
 <p><strong>解决方法：</strong></p>
@@ -379,7 +379,7 @@
 <li>删除monolog目录下git相关的文件，如.git目录、.gitignore等</li>
 <li>用git rm –cached 删除已经被提交到暂存区的特定文件，重新添加提交</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># cd test</span></div><div class="line"><span class="comment"># git rm -rf --cached web/passport_v3/vendor/monolog/monolog/</span></div><div class="line"><span class="comment"># git add web/passport_v3/vendor/monolog/monolog/</span></div><div class="line"><span class="comment"># git commit -m "子模块问题解决"</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># cd test</span></div><div class="line"><span class="comment"># git rm -rf --cached web/passport_v3/vendor/monolog/monolog/</span></div><div class="line"><span class="comment"># git add web/passport_v3/vendor/monolog/monolog/</span></div><div class="line"><span class="comment"># git commit -m "子模块问题解决"</span></div></pre></td></tr></table></figure>
 <h2 id="Git回滚远程版本"><a href="#Git回滚远程版本" class="headerlink" title="Git回滚远程版本"></a>Git回滚远程版本</h2>
       
     </div>

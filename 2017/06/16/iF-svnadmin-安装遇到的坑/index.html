@@ -368,21 +368,21 @@
         <p>成功搭建了iF.svnadmin，但在使用过程中出现了莫名其妙的问题。</p>
 <a id="more"></a>
 <p>版本：iF.svnadmin 1.6.2<br>配置文件：/etc/httpd/conf.d/subversion.conf </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">LoadModule dav_svn_module     modules/mod_dav_svn.so</div><div class="line">LoadModule authz_svn_module   modules/mod_authz_svn.so</div><div class="line"> </div><div class="line">&lt;Location /svn&gt;</div><div class="line">    DAV svn</div><div class="line">    SVNParentPath /home/svn</div><div class="line">    AuthType Basic</div><div class="line">    AuthName &quot;Restricted Access&quot;</div><div class="line">    AuthUserFile /home/svnconfig/passwdfile</div><div class="line">    AuthzSVNAccessFile /home/svnconfig/accessfile</div><div class="line">    Require valid-user</div><div class="line">&lt;/Location&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">LoadModule dav_svn_module     modules/mod_dav_svn.so</div><div class="line">LoadModule authz_svn_module   modules/mod_authz_svn.so</div><div class="line"> </div><div class="line">&lt;Location /svn&gt;</div><div class="line">    DAV svn</div><div class="line">    SVNParentPath /home/svn</div><div class="line">    AuthType Basic</div><div class="line">    AuthName &quot;Restricted Access&quot;</div><div class="line">    AuthUserFile /home/svnconfig/passwdfile</div><div class="line">    AuthzSVNAccessFile /home/svnconfig/accessfile</div><div class="line">    Require valid-user</div><div class="line">&lt;/Location&gt;</div></pre></td></tr></table></figure>
 <p>/home/svn 目录及其子目录 的属主、属组 都改为了 apache</p>
 <p>访问： <a href="http://192.168.1.35:8088/svn/test_svn" target="_blank" rel="external">http://192.168.1.35:8088/svn/test_svn</a></p>
 <p>输入用户和密码，报403错误：<br><img src="http://orku2pa7o.bkt.clouddn.com/17-6-16/10163392.jpg" alt=""></p>
 <p>百思不得其解啊！！！</p>
 <p>后来，查apache的错误日志，有如下记录：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[Tue May 31 18:09:10.413997 2016] [authz_svn:error] [pid 19001] [client 192.168.1.202:60352] Failed to load the AuthzSVNAccessFile: An authz rule refers to group &apos;@&apos;, which is undefined</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[Tue May 31 18:09:10.413997 2016] [authz_svn:error] [pid 19001] [client 192.168.1.202:60352] Failed to load the AuthzSVNAccessFile: An authz rule refers to group &apos;@&apos;, which is undefined</div></pre></td></tr></table></figure>
 <p>查看/home/svnconfig/accessfile ：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[groups]</div><div class="line">web=test_svn</div><div class="line"> </div><div class="line">[test_svn:/]</div><div class="line">@test_svn=rw</div><div class="line">@=</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[groups]</div><div class="line">web=test_svn</div><div class="line"> </div><div class="line">[test_svn:/]</div><div class="line">@test_svn=rw</div><div class="line">@=</div></pre></td></tr></table></figure>
 <p>终于找到错误了。</p>
 <blockquote>
 <p>/home/svnconfig/accessfile 本来是空文件，里边的配置都由iF.svnadmin 负责配置，结果发现它配置错了。<br>“@=” 不能这么配置的，apapche会无法识别的，会认为有group没有定义。</p>
 </blockquote>
 <p>解决方法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">删除 @= 这一行</div><div class="line">重启httpd</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">删除 @= 这一行</div><div class="line">重启httpd</div></pre></td></tr></table></figure>
 <p>如果你遇到这种奇怪的情况：已经将某用户加入了用户组，也设置了该用户组对某项目的管理权限，但是该用户还是没有权限访问。</p>
 <p>可以去查下apache的错误日志和/home/svnconfig/accessfile 文件，看看是不是也是因为上述原因引起的。</p>
 <p>参考文档：<br><a href="http://svnadmin.insanefactory.com/" target="_blank" rel="external">iF.svnadmin官网</a><br><a href="http://blog.linhere.com/archives/214.html" target="_blank" rel="external">安装配置iF.svnadmin</a></p>
