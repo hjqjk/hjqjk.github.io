@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="简介安装php模块，不需要重新编译php，可以动态扩展php模块。 例子以安装msgpack模块为例：（此处php5.6是编译安装的） 1、下载msgpack模块源码包1wget http://pecl.php.net/get/msgpack-0.5.7.tgz">
+<meta name="description" content="简介安装php模块，不需要重新编译php，可以动态扩展php模块。 例子以安装msgpack模块为例：（此处php5.6是编译安装的） 1、下载msgpack模块源码包wget http://pecl.php.net/get/msgpack-0.5.7.tgz">
 <meta name="keywords" content="php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php扩展模块安装过程">
 <meta property="og:url" content="http://yoursite.com/2017/06/16/php扩展模块安装过程/index.html">
 <meta property="og:site_name" content="Ensign&#39;s Blog">
-<meta property="og:description" content="简介安装php模块，不需要重新编译php，可以动态扩展php模块。 例子以安装msgpack模块为例：（此处php5.6是编译安装的） 1、下载msgpack模块源码包1wget http://pecl.php.net/get/msgpack-0.5.7.tgz">
+<meta property="og:description" content="简介安装php模块，不需要重新编译php，可以动态扩展php模块。 例子以安装msgpack模块为例：（此处php5.6是编译安装的） 1、下载msgpack模块源码包wget http://pecl.php.net/get/msgpack-0.5.7.tgz">
 <meta property="og:updated_time" content="2017-06-22T02:51:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php扩展模块安装过程">
-<meta name="twitter:description" content="简介安装php模块，不需要重新编译php，可以动态扩展php模块。 例子以安装msgpack模块为例：（此处php5.6是编译安装的） 1、下载msgpack模块源码包1wget http://pecl.php.net/get/msgpack-0.5.7.tgz">
+<meta name="twitter:description" content="简介安装php模块，不需要重新编译php，可以动态扩展php模块。 例子以安装msgpack模块为例：（此处php5.6是编译安装的） 1、下载msgpack模块源码包wget http://pecl.php.net/get/msgpack-0.5.7.tgz">
 
 
 
@@ -365,18 +365,18 @@
       
         <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>安装php模块，不需要重新编译php，可以动态扩展php模块。</p>
 <h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>以安装msgpack模块为例：（此处php5.6是编译安装的）</p>
-<h2 id="1、下载msgpack模块源码包"><a href="#1、下载msgpack模块源码包" class="headerlink" title="1、下载msgpack模块源码包"></a>1、下载msgpack模块源码包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://pecl.php.net/get/msgpack-0.5.7.tgz</div></pre></td></tr></table></figure>
+<h2 id="1、下载msgpack模块源码包"><a href="#1、下载msgpack模块源码包" class="headerlink" title="1、下载msgpack模块源码包"></a>1、下载msgpack模块源码包</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">wget http://pecl.php.net/get/msgpack-0.5.7.tgz</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="2、解压，进入源码目录"><a href="#2、解压，进入源码目录" class="headerlink" title="2、解压，进入源码目录"></a>2、解压，进入源码目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar zxvf msgpack-0.5.7.tgz</div><div class="line">cd msgpack-0.5.7</div></pre></td></tr></table></figure>
-<h2 id="3、源码包是没有configure文件的，需要运行phpize-来生成configure文件"><a href="#3、源码包是没有configure文件的，需要运行phpize-来生成configure文件" class="headerlink" title="3、源码包是没有configure文件的，需要运行phpize 来生成configure文件"></a>3、源码包是没有configure文件的，需要运行phpize 来生成configure文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/php/bin/phpize</div></pre></td></tr></table></figure>
+<h2 id="2、解压，进入源码目录"><a href="#2、解压，进入源码目录" class="headerlink" title="2、解压，进入源码目录"></a>2、解压，进入源码目录</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">tar zxvf msgpack-0.5.7.tgz</div><div class="line">cd msgpack-0.5.7</div></pre></td></tr></table></figure>
+<h2 id="3、源码包是没有configure文件的，需要运行phpize-来生成configure文件"><a href="#3、源码包是没有configure文件的，需要运行phpize-来生成configure文件" class="headerlink" title="3、源码包是没有configure文件的，需要运行phpize 来生成configure文件"></a>3、源码包是没有configure文件的，需要运行phpize 来生成configure文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/usr/local/php/bin/phpize</div></pre></td></tr></table></figure>
 <h2 id="4、编译安装"><a href="#4、编译安装" class="headerlink" title="4、编译安装"></a>4、编译安装</h2><p>根据编译目录确定php-config的路径，不一定是在/usr/local/php目录下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># ./configure --with-php-config=/usr/local/php/bin/php-config </div><div class="line"># make</div><div class="line"># make install</div><div class="line">Installing shared extensions: /usr/local/php/lib/php/extensions/no-debug-non-zts-20131226/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># ./configure --with-php-config=/usr/local/php/bin/php-config </div><div class="line"># make</div><div class="line"># make install</div><div class="line">Installing shared extensions: /usr/local/php/lib/php/extensions/no-debug-non-zts-20131226/</div></pre></td></tr></table></figure>
 <p>根据上边提示，可知扩展模块存放的目录：/usr/local/php/lib/php/extensions/no-debug-non-zts-20131226/</p>
 <h2 id="5、让msgpack模块生效"><a href="#5、让msgpack模块生效" class="headerlink" title="5、让msgpack模块生效"></a>5、让msgpack模块生效</h2><p>在php.ini中加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extension=msgpack.so</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">extension=msgpack.so</div></pre></td></tr></table></figure>
 <p>重启php-fpm服务</p>
 <h2 id="6、查看msgpack模块是否生效"><a href="#6、查看msgpack模块是否生效" class="headerlink" title="6、查看msgpack模块是否生效"></a>6、查看msgpack模块是否生效</h2><p>php -m ：查看php安装了哪些模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># /usr/local/php/bin/php -m |grep msgpack</div><div class="line">msgpack</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># /usr/local/php/bin/php -m |grep msgpack</div><div class="line">msgpack</div></pre></td></tr></table></figure>
 
       
     </div>
