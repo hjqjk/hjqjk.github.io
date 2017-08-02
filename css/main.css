@@ -1677,7 +1677,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b0b32d;
+  background: #f0e450;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2779,4 +2779,9 @@ hr {
 }
 .highlight {
   border-radius: 20px;
+}
+.highlight,
+code,
+pre {
+  border: 2px solid #e0dfcc;
 }
