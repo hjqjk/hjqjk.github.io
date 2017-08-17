@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/16/Mac上基于GitHub-Page-Hexo-搭建个人博客/index.html">
 <meta property="og:site_name" content="Ensign&#39;s Blog">
 <meta property="og:description" content="之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。 由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客">
-<meta property="og:updated_time" content="2017-08-02T03:42:55.000Z">
+<meta property="og:updated_time" content="2017-08-16T03:23:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac上基于GitHub Page+Hexo 搭建个人博客">
 <meta name="twitter:description" content="之前一直在博客园写博客，但不太喜欢博客园的编辑器，而且博客园对markdown的支持不太好。之后找到个很好用的markdown编辑器 MWeb，本地编辑完，发布到博客园，经常出现格式混乱的情况，markdown的渲染效果也不好看。 由于本人很喜欢用markdown语法写博客，，一直寻求能很好支持markdown语法而且能方便使用MWeb编辑器的博客">
@@ -431,7 +431,10 @@
 <h4 id="2）自定义样式-1"><a href="#2）自定义样式-1" class="headerlink" title="2）自定义样式"></a>2）自定义样式</h4><p>修改代码块的圆角，打开 <code>themes/next/source/css/_custom/custom.styl</code>，加入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 修改代码块圆角</div><div class="line">.highlight &#123;</div><div class="line">  border-radius: 12px</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="修改代码块边框"><a href="#修改代码块边框" class="headerlink" title="修改代码块边框"></a>修改代码块边框</h3><p>自定义样式修改，打开 <code>themes/next/source/css/_custom/custom.styl</code>，加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 修改代码块的边框：大小、颜色</div><div class="line">.highlight, code, pre &#123;</div><div class="line">    border: 5px solid #E0DFCC;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>修改长代码块边框</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 修改代码块的边框：大小、颜色</div><div class="line">.highlight, pre &#123;</div><div class="line">    border: 5px solid #E0DFCC;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>修改短代码块边框</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 修改代码块的边框：大小、颜色</div><div class="line">code &#123;</div><div class="line">    border: 1px solid #E0DFCC;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -558,7 +561,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

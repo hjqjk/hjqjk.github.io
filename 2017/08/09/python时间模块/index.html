@@ -102,7 +102,7 @@
 <meta property="og:description" content="python关于时间和日期的处理模块，常见的有以下几个：  内置模块：time、datetime、calendar第三方模块：pytz  time模块基于C语言的库函数(library functions)，提供的接口与C标准库 time.h 基本一致。datetime模块是基于time模块扩展的，提供的接口则更直观、更容易调用。datetime模块有datetime.date(日期)、datet">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-08-10-15023338195274.png">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-08-10-15023354142691.jpg">
-<meta property="og:updated_time" content="2017-08-14T03:00:35.000Z">
+<meta property="og:updated_time" content="2017-08-14T03:13:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python时间模块">
 <meta name="twitter:description" content="python关于时间和日期的处理模块，常见的有以下几个：  内置模块：time、datetime、calendar第三方模块：pytz  time模块基于C语言的库函数(library functions)，提供的接口与C标准库 time.h 基本一致。datetime模块是基于time模块扩展的，提供的接口则更直观、更容易调用。datetime模块有datetime.date(日期)、datet">
@@ -439,15 +439,15 @@
 <blockquote>
 <p>class datetime.timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)<br>所有参数可选，默认都是0，参数的值可以是整数、浮点数、正数或者负数。</p>
 </blockquote>
-<p>计算昨天的日期时间：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; from datetime import timedelta</div><div class="line">&gt;&gt;&gt; datetime.now()</div><div class="line">datetime.datetime(2017, 8, 10, 16, 43, 11, 186445)</div><div class="line">&gt;&gt;&gt; datetime.now() - timedelta(days=1)</div><div class="line">datetime.datetime(2017, 8, 9, 16, 43, 39, 170063)</div></pre></td></tr></table></figure>
+<p>例子：计算昨天的日期时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; from datetime import timedelta</div><div class="line">&gt;&gt;&gt; now = datetime.now()</div><div class="line">&gt;&gt;&gt; print(now)</div><div class="line">2017-08-14 11:11:19.815021</div><div class="line">&gt;&gt;&gt; now</div><div class="line">datetime.datetime(2017, 8, 14, 11, 11, 19, 815021)</div><div class="line">&gt;&gt;&gt; now - timedelta(days=1)</div><div class="line">datetime.datetime(2017, 8, 13, 11, 11, 19, 815021)</div></pre></td></tr></table></figure>
 <h3 id="timezone类"><a href="#timezone类" class="headerlink" title="timezone类"></a>timezone类</h3><p>datetime模块中有个timezone类，是tzinfo的子类。timezone类，其每个实例表示由与UTC的固定偏移量定义的时区。</p>
 <blockquote>
 <p>class datetime.timezone(offset, name=None)</p>
 </blockquote>
 <ul>
 <li>offset 参数必须指定为表示本地时间和UTC之间差异的 timedelta 对象。它必须严格地在 -timedelta(hours=24) 和 timedelta(hours=24) 之间，并且表示整数分钟，否则产生 ValueError。</li>
-<li>name 参数是可选的。如果指定，它必须是将被用作 datetime.tzname() 方法返回的值的字符串。</li>
+<li>name 参数是可选的。如果指定，它必须是将被用作 datetime.tzname() 方法返回值的字符串。</li>
 </ul>
 <p>Python3.2开始才提供了datetime.timezone类。</p>
 <h4 id="本地时间转UTC时间"><a href="#本地时间转UTC时间" class="headerlink" title="本地时间转UTC时间"></a>本地时间转UTC时间</h4><p>本地时间是指系统设定时区的时间，例如北京时间是UTC+8:00时区的时间，而UTC时间指UTC+0:00时区的时间。</p>
@@ -512,6 +512,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/15/Python图像处理库-pillow/" rel="prev" title="Python图像处理库:pillow">
+                Python图像处理库:pillow <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -583,7 +587,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

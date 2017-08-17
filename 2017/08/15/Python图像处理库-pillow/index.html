@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="整理Git的常用命令，方便以后查找。">
-<meta name="keywords" content="git">
+<meta name="description" content="PIL(Python Imaging Library) 是pyhton常用的图像处理库，官方网站，最新版本是 1.1.7 ，于2009年9月发布，支持Python 1.5.2 - 2.7。PIL项目似乎已经停止开发了，PIL仓库 最后一次提交是2011年。python 3.x 版本是无法使用原PIL库的，得使用Pillow库。 Pillow 库则是 PIL 的一个友好Fork，维护和开发活跃，Pi">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git常用操作">
-<meta property="og:url" content="http://yoursite.com/2017/07/26/Git常用操作/index.html">
+<meta property="og:title" content="Python图像处理库:pillow">
+<meta property="og:url" content="http://yoursite.com/2017/08/15/Python图像处理库-pillow/index.html">
 <meta property="og:site_name" content="Ensign&#39;s Blog">
-<meta property="og:description" content="整理Git的常用命令，方便以后查找。">
-<meta property="og:updated_time" content="2017-08-07T09:29:48.000Z">
+<meta property="og:description" content="PIL(Python Imaging Library) 是pyhton常用的图像处理库，官方网站，最新版本是 1.1.7 ，于2009年9月发布，支持Python 1.5.2 - 2.7。PIL项目似乎已经停止开发了，PIL仓库 最后一次提交是2011年。python 3.x 版本是无法使用原PIL库的，得使用Pillow库。 Pillow 库则是 PIL 的一个友好Fork，维护和开发活跃，Pi">
+<meta property="og:updated_time" content="2017-08-17T03:32:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git常用操作">
-<meta name="twitter:description" content="整理Git的常用命令，方便以后查找。">
+<meta name="twitter:title" content="Python图像处理库:pillow">
+<meta name="twitter:description" content="PIL(Python Imaging Library) 是pyhton常用的图像处理库，官方网站，最新版本是 1.1.7 ，于2009年9月发布，支持Python 1.5.2 - 2.7。PIL项目似乎已经停止开发了，PIL仓库 最后一次提交是2011年。python 3.x 版本是无法使用原PIL库的，得使用Pillow库。 Pillow 库则是 PIL 的一个友好Fork，维护和开发活跃，Pi">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/26/Git常用操作/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/15/Python图像处理库-pillow/"/>
 
 
 
 
 
-  <title>Git常用操作 | Ensign's Blog</title>
+  <title>Python图像处理库:pillow | Ensign's Blog</title>
   
 
 
@@ -300,7 +300,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/Git常用操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/Python图像处理库-pillow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hjqjk">
@@ -317,7 +317,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Git常用操作</h1>
+          <h1 class="post-title" itemprop="name headline">Python图像处理库:pillow</h1>
         
 
         <div class="post-meta">
@@ -329,8 +329,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T11:22:04+08:00">
-                2017-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T11:51:30+08:00">
+                2017-08-15
               </time>
             
 
@@ -352,8 +352,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/版本控制/" itemprop="url" rel="index">
-                    <span itemprop="name">版本控制</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -369,7 +369,7 @@
 
           
           
-             <span id="/2017/07/26/Git常用操作/" class="leancloud_visitors" data-flag-title="Git常用操作">
+             <span id="/2017/08/15/Python图像处理库-pillow/" class="leancloud_visitors" data-flag-title="Python图像处理库:pillow">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -397,28 +397,44 @@
       
 
       
-        <p>整理Git的常用命令，方便以后查找。</p>
+        <p>PIL(Python Imaging Library) 是pyhton常用的图像处理库，<a href="http://pythonware.com/products/pil/" target="_blank" rel="external"><strong>官方网站</strong></a>，最新版本是 <code>1.1.7</code> ，于2009年9月发布，支持Python <code>1.5.2 - 2.7</code>。<br>PIL项目似乎已经停止开发了，<a href="https://web.archive.org/web/20150315041249/http://hg.effbot.org/pil-2009-raclette" target="_blank" rel="external"><strong>PIL仓库</strong></a> 最后一次提交是2011年。<br>python 3.x 版本是无法使用原PIL库的，得使用Pillow库。</p>
+<p>Pillow 库则是 PIL 的一个友好Fork，维护和开发活跃，Pillow 兼容 PIL 的绝大多数语法，推荐使用。<br>Pillow 库提供了广泛的文件格式支持，强大的图像处理能力，主要包括图像储存、图像显示、格式转换以及基本的图像处理操作等。</p>
+<blockquote>
+<p><a href="https://github.com/python-pillow/Pillow" target="_blank" rel="external"><strong>Pillow项目仓库</strong></a><br><a href="https://python-pillow.org/" target="_blank" rel="external"><strong>Pillow官网</strong></a><br><a href="http://pillow.readthedocs.io/en/latest/" target="_blank" rel="external"><strong>Pillow文档</strong></a></p>
+</blockquote>
 <a id="more"></a>
-<h3 id="配置用户信息"><a href="#配置用户信息" class="headerlink" title="配置用户信息"></a>配置用户信息</h3><p>Git的设置文件为 <code>.gitconfig</code> ，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
-<p>设置用户名称和邮箱地址，<code>--global</code> 表示全局设置，本机上所有的Git仓库通用该配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;[name]&quot;</div><div class="line">$ git config --global user.email &quot;[email address]&quot;</div></pre></td></tr></table></figure>
-<p>查看配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看[仓库级|全局级|系统级]的 config</span></div><div class="line">$ git config [--<span class="built_in">local</span>|--global|--system] -l</div><div class="line"></div><div class="line"><span class="comment"># 查看当前生效的配置</span></div><div class="line">$ git config -l</div></pre></td></tr></table></figure>
-<p>编辑配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看仓库级的config</span></div><div class="line">$ git config --<span class="built_in">local</span> -e</div><div class="line">$ git config -e </div><div class="line"></div><div class="line"><span class="comment"># 查看全局级的config</span></div><div class="line">$ git config --global -e</div><div class="line"></div><div class="line"><span class="comment"># 查看系统级的config</span></div><div class="line">$ git config --system -e</div></pre></td></tr></table></figure>
-<h3 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 添加指定文件到暂存区，可指定多个文件</span></div><div class="line">$ git add [file1] [dir/file2] ...</div><div class="line"></div><div class="line"><span class="comment"># 添加指定文件到暂存区，可指定通配符；如 *.txt，匹配所有txt文件</span></div><div class="line">$ git add [file-pattern]</div><div class="line"></div><div class="line"><span class="comment"># 添加指定目录到暂存区，包括子目录</span></div><div class="line">$ git add [dir]</div><div class="line"></div><div class="line"><span class="comment"># 添加当前目录的所有文件到暂存区</span></div><div class="line">$ git add .</div></pre></td></tr></table></figure>
-<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 提交暂存区所有文件到仓库区，一定要记得添加提交信息(message)</span></div><div class="line">$ git commit -m [message]</div><div class="line"></div><div class="line"><span class="comment"># 提交暂存区的指定文件到仓库区</span></div><div class="line">$ git commit [file1] [file2] ... -m [message]</div><div class="line"></div><div class="line"><span class="comment"># 提交工作区自上次commit之后的变化，直接到仓库区 (省略 git add 那一步)</span></div><div class="line">$ git commit -a </div><div class="line"></div><div class="line"><span class="comment"># 使用一次新的commit，替代上一次提交</span></div><div class="line"><span class="comment"># 如果代码没有任何新变化，则用来改写上一次commit的提交信息</span></div><div class="line">$ git commit --amend -m [message]</div><div class="line"></div><div class="line"><span class="comment"># 重做上一次commit，并包括指定文件的新变化</span></div><div class="line">$ git commit --amend [file1] [file2] ...</div></pre></td></tr></table></figure>
-<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 删除工作区文件(已被追踪的文件)，并将这次删除放入暂存区</span></div><div class="line">$ git rm [file1] [file2] ...</div><div class="line"></div><div class="line"><span class="comment"># 停止追踪指定文件(在暂存区中删除)，但该文件会保留在工作区</span></div><div class="line">$ git rm --cached [file]</div><div class="line"></div><div class="line"><span class="comment"># 文件改名(工作区)，并将这个改名放入暂存区</span></div><div class="line">$ git mv [file-oldname] [file-newname]</div></pre></td></tr></table></figure>
-<h3 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 检查当前文件状态</span></div><div class="line">$ git status</div><div class="line"></div><div class="line"><span class="comment"># 显示当前分支的版本历史(按提交时间排序)</span></div><div class="line">$ git <span class="built_in">log</span></div><div class="line"></div><div class="line"><span class="comment"># 简洁模式，每个提交只显示一行信息，包括 commit id（版本号）和 提交说明</span></div><div class="line">$ git <span class="built_in">log</span> --pretty=oneline</div><div class="line"></div><div class="line"><span class="comment"># 显示暂存区和工作区的差异</span></div><div class="line">$ git diff</div><div class="line"></div><div class="line"><span class="comment"># 显示暂存区和上一个commit的差异</span></div><div class="line">$ git diff --cached [file]</div><div class="line"></div><div class="line"><span class="comment"># 显示工作区与当前分支最新commit之间的差异</span></div><div class="line">$ git diff HEAD</div><div class="line"></div><div class="line"><span class="comment"># 显示两次提交之间的差异</span></div><div class="line">$ git diff [first-commit]..[second-commit]</div><div class="line"></div><div class="line"><span class="comment"># 显示某次提交的元数据和内容变化</span></div><div class="line">$ git show [commit-id]</div><div class="line"></div><div class="line"><span class="comment"># 显示当前分支的最近几次操作(操作历史)</span></div><div class="line">$ git reflog</div></pre></td></tr></table></figure>
-<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 列出所有的分支，"*" 标识的是当前分支</span></div><div class="line">$ git branch </div><div class="line"></div><div class="line"><span class="comment"># 列出所有远程分支</span></div><div class="line">$ git branch -r</div><div class="line"></div><div class="line"><span class="comment"># 列出所有本地分支和远程分支</span></div><div class="line">$ git branch -a</div><div class="line"></div><div class="line"><span class="comment"># 新建分支，但仍停留在当前分支</span></div><div class="line">$ git branch [branch-name]</div><div class="line"></div><div class="line"><span class="comment"># 新建分支，并切换到该分支</span></div><div class="line">$ git checkout -b [branch-name]</div><div class="line"></div><div class="line"><span class="comment"># 切换到指定分支，并更新工作区</span></div><div class="line">$ git checkout [branch-name]</div><div class="line"></div><div class="line"><span class="comment"># 合并指定分支到当前分支</span></div><div class="line">$ git merge [branch-name]</div><div class="line"></div><div class="line"><span class="comment"># 删除分支</span></div><div class="line">$ git branch -d [branch-name]</div></pre></td></tr></table></figure>
-<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 列出所有tag</span></div><div class="line">$ git tag</div><div class="line"></div><div class="line"><span class="comment"># 新建一个tag在当前commit</span></div><div class="line">$ git tag [tag-name]</div><div class="line"></div><div class="line"><span class="comment"># 新建一个tag在指定commit</span></div><div class="line">$ git tag [tag-name] [commit-id]</div><div class="line"></div><div class="line"><span class="comment"># 新建一个tag，并指定标签注释说明</span></div><div class="line">$ git tag -a [tag-name] -m <span class="string">"message"</span></div><div class="line"></div><div class="line"><span class="comment"># 提交指定tag到指定远程仓库（ git push 默认不提交标签到远程仓库）</span></div><div class="line">$ git push [remote-name] [tag-name]</div><div class="line"></div><div class="line"><span class="comment"># 提交所有的tag到指定远程仓库</span></div><div class="line">$ git push [remote-name] --tags</div><div class="line"></div><div class="line"><span class="comment"># 查看tag信息</span></div><div class="line">$ git show [tag-name]</div><div class="line"></div><div class="line"><span class="comment"># 删除本地tag</span></div><div class="line">$ git tag -d [tag-name]</div><div class="line"></div><div class="line"><span class="comment"># 删除指定远程仓库的tag</span></div><div class="line">$ git push [remote-name] :refs/tags/[tag-name]</div></pre></td></tr></table></figure>
-<h3 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h3><p>默认远程仓库名：origin<br>默认分支：master</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 抓取指定远程仓库的所有变动，不做合并，不影响工作区</span></div><div class="line">$ git fetch [remote]</div><div class="line"></div><div class="line"><span class="comment"># 显示所有远程仓库(显示仓库地址)</span></div><div class="line">$ git remote -v</div><div class="line"></div><div class="line"><span class="comment"># 显示指定远程仓库的信息(仓库地址、HEAD指向分支、所有分支等)</span></div><div class="line">$ git remote show [remote-name]</div><div class="line"></div><div class="line"><span class="comment"># 增加一个新的远程仓库，并命名</span></div><div class="line">$ git remote add [remote-name] [url]</div><div class="line"></div><div class="line"><span class="comment"># 删除指定的远程仓库</span></div><div class="line">$ git remote remove [remote-name]</div><div class="line"></div><div class="line"><span class="comment"># 取回指定远程仓库的变化，并与本地分支合并</span></div><div class="line">$ git pull [remote-name] [branch-name]</div><div class="line"></div><div class="line"><span class="comment"># 上传本地指定分支到指定远程仓库</span></div><div class="line">$ git push [remote-name] [branch-name]</div><div class="line"></div><div class="line"><span class="comment"># 推送所有分支到指定远程仓库</span></div><div class="line">$ git push [remote-name] --all</div><div class="line"></div><div class="line"><span class="comment"># 强行推送当前分支到指定远程仓库，即使有冲突</span></div><div class="line">$ git push [remote-name] --force</div></pre></td></tr></table></figure>
-<h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 恢复暂存区指定文件到工作区( 没"--"，就变成切换分支了 )</span></div><div class="line">$ git checkout -- [file]</div><div class="line"></div><div class="line"><span class="comment"># 恢复某个commit的指定文件到暂存区和工作区</span></div><div class="line">$ git checkout [commit-id] [file]</div><div class="line"></div><div class="line"><span class="comment"># 恢复暂存区的所有文件到工作区</span></div><div class="line">$ git checkout .</div><div class="line"></div><div class="line"><span class="comment"># 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变</span></div><div class="line">$ git reset [file]</div><div class="line"></div><div class="line"><span class="comment"># 重置暂存区与工作区，与上一次commit保持一致</span></div><div class="line">$ git reset --hard</div><div class="line"></div><div class="line"><span class="comment"># 暂时将未提交的变化移到堆栈中(工作区变干净)</span></div><div class="line"><span class="comment"># 从堆栈中恢复最新的存储，--index 重新应用之前被暂存的变更</span></div><div class="line">$ git stash</div><div class="line">$ git stash pop [--index]</div></pre></td></tr></table></figure>
-<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 新建一个commit，用来撤销指定的commit（commit历史会保留）</span></div><div class="line"><span class="comment"># 后者的所有变化都将被前者抵消，并且应用到当前分支</span></div><div class="line">$ git revert [commit-id]</div><div class="line"></div><div class="line"><span class="comment"># 回滚到commit-id，将该commit-id之后的commit都删除。(commit历史会被删掉)</span></div><div class="line"><span class="comment"># --hard 重设暂存区和工作区</span></div><div class="line">$ git reset --hard [commit-id]</div></pre></td></tr></table></figure>
-<p>抄自阮一峰老师的博文：<a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="external">常用 Git 命令清单</a></p>
-<p>基本没啥自己整理的，该篇博文权当自己备忘用。</p>
-<p>Content-Security-Policy: frame-ancestors leiphone.com;</p>
+<h2 id="安装和介绍"><a href="#安装和介绍" class="headerlink" title="安装和介绍"></a>安装和介绍</h2><p>先安装一些依赖包，对于Mac OS系统，可以用 HomeBrew 来安装。这里使用的是python3.x，所以用 pip3 来安装pillow。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ brew install libtiff libjpeg libpng webp little-cms2 freetype</div><div class="line">$ sudo pip3 install pillow</div></pre></td></tr></table></figure>
+<p>pillow库有几个重要的类：</p>
+<ul>
+<li>Image</li>
+<li>ImageDraw</li>
+<li>ImageFont</li>
+</ul>
+<h2 id="Image类"><a href="#Image类" class="headerlink" title="Image类"></a>Image类</h2><p>PIL 最重要的类是 <code>Image</code>，而<code>Image</code>类定义在同名的 <code>Image</code> 模块里。使用PIL的功能，一般都是从新建一个 <code>Image</code> 类的实例开始。你可以通过多种方法创建 <code>Image</code> 类的实例，如用 <code>Image</code> 模块的 <code>open()</code> 函数打开已有的图像，也可以处理其他实例，或者从零开始构建一个实例。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>im = Image.open(<span class="string">'avatar.jpeg'</span>)</div></pre></td></tr></table></figure>
+<p>上面代码引入了 <code>Image</code> 模块，利用模块的 <code>open()</code> 函数，打开了当前目录中的 <code>avatar.jpeg</code> 图像，构建了 <code>im</code> 实例。如果打开失败，会抛出 <code>IOError</code> 异常。</p>
+<p>Image实例有5个属性，如下：</p>
+<ul>
+<li><strong>format</strong> : 返回图像的格式(PNG,JPG,None等)。如果图像不是从文件读取的，它的值就是None</li>
+<li><strong>mode</strong> : 返回图像的模式。常用模式有 <code>L</code> (luminance) 表示灰度图像, <code>RGB</code> 表示真彩色图像, and <code>CMYK</code> 表示出版图像。<a href="http://effbot.org/imagingbook/concepts.htm#mode" target="_blank" rel="external">官方说明-图像模式完整列表</a></li>
+<li><strong>size</strong> : 是一个二元tuple，包含width和height（宽度和高度，单位都是px）</li>
+<li><strong>palette</strong> : 仅当 mode 为 <code>P</code> 时有效，返回 ImagePalette 实例</li>
+<li><strong>info</strong> : 以字典的形式返回实例的信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>print(im.format)</div><div class="line">JPEG</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>print(im.mode)</div><div class="line">RGB</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>print(im.size)</div><div class="line">(<span class="number">640</span>, <span class="number">640</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>print(im.palette)</div><div class="line"><span class="keyword">None</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>print(im.info)</div><div class="line">&#123;<span class="string">'jfif'</span>: <span class="number">257</span>, <span class="string">'jfif_unit'</span>: <span class="number">0</span>, <span class="string">'exif'</span>: <span class="string">'Exif\x00\x00MM\x00*\x00\x00\x00\x08\x00\x02\x01\x12\x00\x03\x00\x00\x00\x01\x00\x01\x00\x00\x87i\x00\x04\x00\x00\x00\x01\x00\x00\x00&amp;\x00\x00\x00\x00\x00\x03\xa0\x01\x00\x03\x00\x00\x00\x01\x00\x01\x00\x00\xa0\x02\x00\x04\x00\x00\x00\x01\x00\x00\x02\x80\xa0\x03\x00\x04\x00\x00\x00\x01\x00\x00\x02\x80\x00\x00\x00\x00'</span>, <span class="string">'progressive'</span>: <span class="number">1</span>, <span class="string">'jfif_version'</span>: (<span class="number">1</span>, <span class="number">1</span>), <span class="string">'jfif_density'</span>: (<span class="number">72</span>, <span class="number">72</span>), <span class="string">'progression'</span>: <span class="number">1</span>&#125;</div></pre></td></tr></table></figure>
+<p>可以使用 <code>show()</code> 方法来查看实例（PIL 会将实例暂存为一个临时文件，然后打开它）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>im.show()</div></pre></td></tr></table></figure>
+<h3 id="转换图像格式"><a href="#转换图像格式" class="headerlink" title="转换图像格式"></a>转换图像格式</h3><p>PIL 模块支持大量的图像格式。使用 <code>open()</code> 函数从磁盘中读取图像文件，不需要指定图像格式，它会根据文件内容自动确定图像格式。<br>可使用 <code>save(filename,format)</code> 函数以特定的图像格式保存图像。若不指定图像格式，<code>save()</code> 方法会根据文件扩展名来选择相应的图像格式。</p>
+<p>例子：转换图像格式的脚本（转为png格式）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"> </div><div class="line"><span class="keyword">for</span> infile <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</div><div class="line">    f,e = os.path.splitext(infile)   <span class="comment"># f 变量是除扩展名以外的文件名，e 变量是扩展名</span></div><div class="line">    outfile = f +<span class="string">".png"</span>  <span class="comment"># 拼凑输出文件名</span></div><div class="line">    <span class="keyword">if</span> infile != outfile:   <span class="comment"># 保存的图像格式跟原图像格式不一样</span></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            Image.open(infile).save(outfile)  <span class="comment"># 转换图像格式</span></div><div class="line">        <span class="keyword">except</span> IOError:</div><div class="line">            print(<span class="string">"Cannot convert"</span>, infile)  <span class="comment"># 图像无法打开，则处理异常</span></div></pre></td></tr></table></figure>
+<h3 id="创建缩略图"><a href="#创建缩略图" class="headerlink" title="创建缩略图"></a>创建缩略图</h3><p>缩略图是网络开发或者图像软件预览常用的一种基本技术，使用Python的Pillow图像库可以很方便地建立缩略图。<br>Image 类的 <code>thumbnail()</code> 方法可以用来制作缩略图。它接受一个二元数组作为缩略图的尺寸，然后将实例缩小到指定尺寸。</p>
+<p>例子：生成JPEG缩略图，大小是原图像的四分之一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os, sys</div><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"></div><div class="line"><span class="keyword">for</span> infile <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</div><div class="line">    outfile = os.path.splitext(infile)[<span class="number">0</span>] + <span class="string">".thumbnail"</span> <span class="comment"># 缩略图文件名+后缀</span></div><div class="line">    <span class="keyword">if</span> infile != outfile:</div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            im   = Image.open(infile) <span class="comment"># 打开图像</span></div><div class="line">            x, y = im.size  <span class="comment"># 获取原图像的大小（width、height）</span></div><div class="line">            im.thumbnail((x//<span class="number">2</span>, y//<span class="number">2</span>)) <span class="comment"># 缩略图大小</span></div><div class="line">            im.save(outfile, <span class="string">"JPEG"</span>) <span class="comment"># 保存为 JPEG 格式</span></div><div class="line">        <span class="keyword">except</span> IOError:</div><div class="line">            <span class="keyword">print</span> <span class="string">"cannot create thumbnail for"</span>, infile</div></pre></td></tr></table></figure>
+<p><strong>注意</strong>：Pillow库不会直接解码或者加载图像栅格数据。当你打开一个文件，只会读取文件头信息用来确定格式，颜色模式，大小等等，文件的剩余部分不会主动处理。这意味着打开一个图像文件的操作十分快速，跟图像大小和压缩方式无关。</p>
+<h3 id="图像的剪切、粘贴与合并操作"><a href="#图像的剪切、粘贴与合并操作" class="headerlink" title="图像的剪切、粘贴与合并操作"></a>图像的剪切、粘贴与合并操作</h3><h2 id="优秀图像处理库介绍"><a href="#优秀图像处理库介绍" class="headerlink" title="优秀图像处理库介绍"></a>优秀图像处理库介绍</h2><p>OpenCV</p>
+<p><a href="https://zhuanlan.zhihu.com/p/24425116" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/24425116</a></p>
+<p>参考文档：<br><a href="https://liam0205.me/2015/04/22/pil-tutorial-basic-usage/" target="_blank" rel="external">PIL 简明教程 - 基本用法</a></p>
 
       
     </div>
@@ -448,7 +464,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag"># git</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
         </div>
       
@@ -461,8 +477,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/04/利用GitLab的Webhooks功能，实现网站代码自动更新部署/" rel="next" title="利用GitLab的Webhooks功能，实现网站代码自动更新部署">
-                <i class="fa fa-chevron-left"></i> 利用GitLab的Webhooks功能，实现网站代码自动更新部署
+              <a href="/2017/08/09/python时间模块/" rel="next" title="python时间模块">
+                <i class="fa fa-chevron-left"></i> python时间模块
               </a>
             
           </div>
@@ -470,10 +486,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/08/换源总集/" rel="prev" title="换源总集">
-                换源总集 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -602,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置用户信息"><span class="nav-number">1.</span> <span class="nav-text">配置用户信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加"><span class="nav-number">2.</span> <span class="nav-text">添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交"><span class="nav-number">3.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">4.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看信息"><span class="nav-number">5.</span> <span class="nav-text">查看信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支"><span class="nav-number">6.</span> <span class="nav-text">分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签"><span class="nav-number">7.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程同步"><span class="nav-number">8.</span> <span class="nav-text">远程同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销修改"><span class="nav-number">9.</span> <span class="nav-text">撤销修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本回退"><span class="nav-number">10.</span> <span class="nav-text">版本回退</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和介绍"><span class="nav-number">1.</span> <span class="nav-text">安装和介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Image类"><span class="nav-number">2.</span> <span class="nav-text">Image类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转换图像格式"><span class="nav-number">2.1.</span> <span class="nav-text">转换图像格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建缩略图"><span class="nav-number">2.2.</span> <span class="nav-text">创建缩略图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像的剪切、粘贴与合并操作"><span class="nav-number">2.3.</span> <span class="nav-text">图像的剪切、粘贴与合并操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优秀图像处理库介绍"><span class="nav-number">3.</span> <span class="nav-text">优秀图像处理库介绍</span></a></li></ol></div>
             
 
           </div>
