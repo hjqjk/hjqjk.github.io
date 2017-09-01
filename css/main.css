@@ -1784,7 +1784,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ed1655;
+  background: #60ff9a;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2927,5 +2927,5 @@ code {
 .footer-inner {
   font-family: 'Comic Sans MS', sans-serif;
   text-align: center;
-  color: #4c618f;
+  color: #555;
 }
