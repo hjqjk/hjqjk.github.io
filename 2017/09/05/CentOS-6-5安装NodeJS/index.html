@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="nodejs,gcc," />
 
 
 
@@ -93,15 +93,17 @@
 
 
 
-<meta name="description" content="记录着过程，记录着变化，记录着希望~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hjqjk&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2017/06/page/2/index.html">
+<meta name="description" content="NodeJS 需要 gcc4.8+ 版本（ gcc 4.8 开始全面支持 C 11 和 C++ 11 的新特性）的支持。然而 CentOS6.5 系统默认版本是 4.4.7 ，需要升级 gcc 版本，否则在编译 NodeJS 时，会出现如下警告： 1WARNING: C++ compiler too old, need g++ 4.8 or clang++ 3.4 (CXX=g++)">
+<meta name="keywords" content="nodejs,gcc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 6.5安装NodeJS">
+<meta property="og:url" content="http://yoursite.com/2017/09/05/CentOS-6-5安装NodeJS/index.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
-<meta property="og:description" content="记录着过程，记录着变化，记录着希望~">
+<meta property="og:description" content="NodeJS 需要 gcc4.8+ 版本（ gcc 4.8 开始全面支持 C 11 和 C++ 11 的新特性）的支持。然而 CentOS6.5 系统默认版本是 4.4.7 ，需要升级 gcc 版本，否则在编译 NodeJS 时，会出现如下警告： 1WARNING: C++ compiler too old, need g++ 4.8 or clang++ 3.4 (CXX=g++)">
+<meta property="og:updated_time" content="2017-09-06T02:54:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hjqjk&#39;s Blog">
-<meta name="twitter:description" content="记录着过程，记录着变化，记录着希望~">
+<meta name="twitter:title" content="CentOS 6.5安装NodeJS">
+<meta name="twitter:description" content="NodeJS 需要 gcc4.8+ 版本（ gcc 4.8 开始全面支持 C 11 和 C++ 11 的新特性）的支持。然而 CentOS6.5 系统默认版本是 4.4.7 ，需要升级 gcc 版本，否则在编译 NodeJS 时，会出现如下警告： 1WARNING: C++ compiler too old, need g++ 4.8 or clang++ 3.4 (CXX=g++)">
 
 
 
@@ -129,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2017/06/page/2/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/05/CentOS-6-5安装NodeJS/"/>
 
 
 
 
 
-  <title>归档 | Hjqjk's Blog</title>
+  <title>CentOS 6.5安装NodeJS | Hjqjk's Blog</title>
   
 
 
@@ -160,7 +162,7 @@
     
   
 
-  <div class="container sidebar-position-right  page-archive  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -288,181 +290,221 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 23 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/CentOS-6-5安装NodeJS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjqjk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hjqjk's Blog">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CentOS 6.5安装NodeJS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T16:14:18+08:00">
+                2017-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术杂项/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂项</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/05/CentOS-6-5安装NodeJS/" class="leancloud_visitors" data-flag-title="CentOS 6.5安装NodeJS">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <p>NodeJS 需要 <code>gcc4.8+</code> 版本（ <code>gcc 4.8</code> 开始全面支持 <code>C 11</code> 和 <code>C++ 11</code> 的新特性）的支持。然而 CentOS6.5 系统默认版本是 <code>4.4.7</code> ，需要升级 gcc 版本，否则在编译 NodeJS 时，会出现如下警告：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WARNING: C++ compiler too old, need g++ 4.8 or clang++ 3.4 (CXX=g++)</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="升级-gcc-版本"><a href="#升级-gcc-版本" class="headerlink" title="升级 gcc 版本"></a>升级 gcc 版本</h2><p>查看gcc版本:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># gcc -v </div><div class="line">使用内建 specs。</div><div class="line">目标：x86_64-redhat-linux</div><div class="line">配置为：../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux</div><div class="line">线程模型：posix</div><div class="line">gcc 版本 4.4.7 20120313 (Red Hat 4.4.7-17) (GCC)</div></pre></td></tr></table></figure>
+<p>CentOS6.5 的系统源提供的 gcc 最新版本是 <code>4.4.7</code>，不能通过 <code>yum</code> 来更新 gcc，这里用编译安装。<br><a href="https://ftp.gnu.org/gnu/gcc/" target="_blank" rel="external"><strong>gcc下载点</strong></a> 有所有的 gcc 版本下载，最新版本是 <code>7.2.0</code>。</p>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">安装C和C++的静态库</div><div class="line"># yum install libgcc.i686 glibc-devel.i686</div><div class="line"></div><div class="line">安装旧版本的gcc、c++编辑器</div><div class="line"># yum install gcc gcc-c++ </div><div class="line"></div><div class="line"># yum install texinfo-tex flex zip</div></pre></td></tr></table></figure>
+<h3 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h3><p>下载解压安装包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/src</div><div class="line"># wget https://ftp.gnu.org/gnu/gcc/gcc-4.8.2/gcc-4.8.2.tar.gz</div><div class="line"># tar zxvf gcc-4.8.2.tar.gz</div></pre></td></tr></table></figure>
+<p>官方推荐，用 <code>download_prerequisites</code> 脚本下载编译必备的一些依赖包（如gmp、mpfr、mpc、cloog、isl等依赖库），自动解压当前目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd gcc-4.8.2</div><div class="line"># ./contrib/download_prerequisites</div></pre></td></tr></table></figure>
+<p>编译安装的路径是 <code>/usr/src/gcc-4.8.2/</code>，生成编译文件<code>Makefile</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/src/gcc-4.8.2</div><div class="line"># cd /usr/src/gcc-4.8.2/</div><div class="line"># /usr/local/src/gcc-4.8.2/configure --enable-checking=release --enable-languages=c,c++ --disable-multilib</div></pre></td></tr></table></figure>
+<p>执行编译（ ORZ，这过程会很久，大概两小时吧，基本把CPU和内存占光）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># make</div></pre></td></tr></table></figure>
+<p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># make install</div></pre></td></tr></table></figure>
+<h3 id="替换系统低版本gcc程序"><a href="#替换系统低版本gcc程序" class="headerlink" title="替换系统低版本gcc程序"></a>替换系统低版本gcc程序</h3><p>系统自带低版本 <code>gcc 4.4.7</code> 的文件位置是 <code>/usr/bin/gcc</code> 和 <code>/usr/bin/lib</code> ，这时需要将这些文件替换为最新安装的 gcc 文件，这里通过建立软链接替换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># mv /usr/bin/c++ /usr/bin/c++.bak</div><div class="line"># ln -s /usr/local/bin/c++ /usr/bin/c++</div><div class="line"># mv /usr/bin/g++ /usr/bin/g++.bak</div><div class="line"># ln -s /usr/local/bin/g++ /usr/bin/g++</div><div class="line"># mv /usr/bin/gcc /usr/bin/gcc.bak </div><div class="line"># ln -s /usr/local/bin/gcc /usr/bin/gcc</div></pre></td></tr></table></figure>
+<p>查看gcc版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># gcc -v</div><div class="line">使用内建 specs。</div><div class="line">COLLECT_GCC=gcc</div><div class="line">COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-unknown-linux-gnu/4.8.2/lto-wrapper</div><div class="line">目标：x86_64-unknown-linux-gnu</div><div class="line">配置为：/usr/local/src/gcc-4.8.2/configure --enable-checking=release --enable-languages=c,c++ --disable-multilib</div><div class="line">线程模型：posix</div><div class="line">gcc 版本 4.8.2 (GCC)</div></pre></td></tr></table></figure>
+<h3 id="替换系统gcc动态链接库"><a href="#替换系统gcc动态链接库" class="headerlink" title="替换系统gcc动态链接库"></a>替换系统gcc动态链接库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"># strings /usr/lib64/libstdc++.so.6 | grep GLIBC</div><div class="line">GLIBCXX_3.4</div><div class="line">GLIBCXX_3.4.1</div><div class="line">GLIBCXX_3.4.2</div><div class="line">GLIBCXX_3.4.3</div><div class="line">GLIBCXX_3.4.4</div><div class="line">GLIBCXX_3.4.5</div><div class="line">GLIBCXX_3.4.6</div><div class="line">GLIBCXX_3.4.7</div><div class="line">GLIBCXX_3.4.8</div><div class="line">GLIBCXX_3.4.9</div><div class="line">GLIBCXX_3.4.10</div><div class="line">GLIBCXX_3.4.11</div><div class="line">GLIBCXX_3.4.12</div><div class="line">GLIBCXX_3.4.13</div><div class="line">GLIBC_2.2.5</div><div class="line">GLIBC_2.3</div><div class="line">GLIBC_2.4</div><div class="line">GLIBC_2.3.2</div><div class="line">GLIBCXX_FORCE_NEW</div><div class="line">GLIBCXX_DEBUG_MESSAGE_LENGTH</div></pre></td></tr></table></figure>
+<p>可看出，gcc的动态链接库还是处于旧版本，说明生成的动态库没有替换旧版本 gcc 的动态库。</p>
+<p>新版的gcc动态链接库位置是 <code>/usr/local/lib64/libstdc++.so.6.0.18</code>，替换gcc的动态链接库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># cp /usr/local/lib64/libstdc++.so.6.0.18 /usr/lib64 </div><div class="line"># cd /usr/lib64/</div><div class="line"># rm -f ./libstdc++.so.6</div><div class="line"># ln -s libstdc++.so.6.0.18 libstdc++.so.6</div></pre></td></tr></table></figure>
+<p>查看gcc动态链接库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"># strings /usr/lib64/libstdc++.so.6 | grep GLIBC</div><div class="line">GLIBCXX_3.4</div><div class="line">GLIBCXX_3.4.1</div><div class="line">GLIBCXX_3.4.2</div><div class="line">GLIBCXX_3.4.3</div><div class="line">GLIBCXX_3.4.4</div><div class="line">GLIBCXX_3.4.5</div><div class="line">GLIBCXX_3.4.6</div><div class="line">GLIBCXX_3.4.7</div><div class="line">GLIBCXX_3.4.8</div><div class="line">GLIBCXX_3.4.9</div><div class="line">GLIBCXX_3.4.10</div><div class="line">GLIBCXX_3.4.11</div><div class="line">GLIBCXX_3.4.12</div><div class="line">GLIBCXX_3.4.13</div><div class="line">GLIBCXX_3.4.14</div><div class="line">GLIBCXX_3.4.15</div><div class="line">GLIBCXX_3.4.16</div><div class="line">GLIBCXX_3.4.17</div><div class="line">GLIBCXX_3.4.18</div><div class="line">GLIBCXX_3.4.19</div><div class="line">GLIBC_2.3</div><div class="line">GLIBC_2.2.5</div><div class="line">GLIBC_2.14</div><div class="line">GLIBC_2.3.2</div><div class="line">GLIBCXX_FORCE_NEW</div><div class="line">GLIBCXX_DEBUG_MESSAGE_LENGTH</div></pre></td></tr></table></figure>
+<p>结果表明，gcc动态链接库升级成功。</p>
+<h2 id="编译安装-NodeJS"><a href="#编译安装-NodeJS" class="headerlink" title="编译安装 NodeJS"></a>编译安装 NodeJS</h2><h3 id="下载并解压"><a href="#下载并解压" class="headerlink" title="下载并解压"></a>下载并解压</h3><p>从 <a href="https://nodejs.org/dist/" target="_blank" rel="external"><strong>NodeJS官网</strong></a> 下载想要的版本，这里安装的版本是 <code>v7.10.0</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/src/</div><div class="line"># wget https://nodejs.org/dist/v7.10.0/node-v7.10.0.tar.gz</div><div class="line"># tar zxvf node-v7.10.0.tar.gz</div></pre></td></tr></table></figure>
+<h3 id="编译安装-1"><a href="#编译安装-1" class="headerlink" title="编译安装"></a>编译安装</h3><p>安装路径 <code>/usr/local/node</code> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># cd node-v7.10.0</div><div class="line"># mkdir /usr/local/node</div><div class="line"># ./configure --prefix=/usr/local/node</div><div class="line"># make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>配置系统的环境变量，打开 <code>/etc/profile</code> ，加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NODE_HOME=/usr/local/node</div><div class="line">PATH=$NODE_HOME/bin:$PATH</div><div class="line">export NODE_HOME PATH</div></pre></td></tr></table></figure>
+<p>手动加载生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># source /etc/profile</div></pre></td></tr></table></figure>
+<h3 id="查看版本号"><a href="#查看版本号" class="headerlink" title="查看版本号"></a>查看版本号</h3><p>查看NodeJS的版本号，检查是否安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># node -v</div><div class="line">v7.10.0</div></pre></td></tr></table></figure>
+<p>参考资料：<br><a href="https://www.fanhaobai.com/2016/12/upgrade-gcc.html" target="_blank" rel="external">CentOS6.5升级gcc-4.8</a></p>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs/" rel="tag"><i class="fa fa-tag"></i>  nodejs</a>
+          
+            <a href="/tags/gcc/" rel="tag"><i class="fa fa-tag"></i>  gcc</a>
+          
         </div>
       
+
+      
+      
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/04/Git仓库迁移/" rel="next" title="Git仓库迁移">
+                <i class="fa fa-chevron-left"></i> Git仓库迁移
+              </a>
+            
+          </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          <span class="post-nav-divider"></span>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/16/在centos6-5上升级php-libxml版本到2-9-0/" itemprop="url">
-              
-                <span itemprop="name">在centos6.5上升级php-libxml版本到2.9.0</span>
-              
-            </a>
-        
-      </h2>
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-16T14:37:02+08:00"
-              content="2017-06-16" >
-          06-16
-        </time>
-      </div>
-
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/15/基于docker搭建mycat读写分离架构/" itemprop="url">
-              
-                <span itemprop="name">基于docker搭建mycat读写分离架构</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-15T17:44:23+08:00"
-              content="2017-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/15/CentOS-6-5下部署日志服务器-Rsyslog-LogAnalyzer-MySQL/" itemprop="url">
-              
-                <span itemprop="name">CentOS 6.5下部署日志服务器 Rsyslog+LogAnalyzer+MySQL</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-15T11:09:19+08:00"
-              content="2017-06-15" >
-          06-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/14/hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-14T21:20:33+08:00"
-              content="2017-06-14" >
-          06-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2017/06/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2017/06/">1</a><span class="page-number current">2</span>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -470,6 +512,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -489,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpeg"
@@ -505,7 +560,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -527,7 +582,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -552,6 +607,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#升级-gcc-版本"><span class="nav-number">1.</span> <span class="nav-text">升级 gcc 版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖"><span class="nav-number">1.1.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译安装"><span class="nav-number">1.2.</span> <span class="nav-text">编译安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换系统低版本gcc程序"><span class="nav-number">1.3.</span> <span class="nav-text">替换系统低版本gcc程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换系统gcc动态链接库"><span class="nav-number">1.4.</span> <span class="nav-text">替换系统gcc动态链接库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装-NodeJS"><span class="nav-number">2.</span> <span class="nav-text">编译安装 NodeJS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载并解压"><span class="nav-number">2.1.</span> <span class="nav-text">下载并解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译安装-1"><span class="nav-number">2.2.</span> <span class="nav-text">编译安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">2.3.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看版本号"><span class="nav-number">2.4.</span> <span class="nav-text">查看版本号</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -643,8 +714,6 @@
   
 
 
-  
-
 
 
 
@@ -673,9 +742,6 @@
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
 
   
 
@@ -690,11 +756,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   

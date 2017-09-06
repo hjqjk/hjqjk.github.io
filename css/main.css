@@ -1784,7 +1784,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #60ff9a;
+  background: #14c6ba;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2928,4 +2928,18 @@ code {
   font-family: 'Comic Sans MS', sans-serif;
   text-align: center;
   color: #555;
+}
+.bg_content {
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+#canvas {
+  width: 100%;
+  height: 100%;
+}
+.header {
+  background: transparent;
 }
