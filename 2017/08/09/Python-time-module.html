@@ -1,0 +1,1348 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hjqjk's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="python关于时间和日期的处理模块，常见的有以下几个：  内置模块：time、datetime、calendar第三方模块：pytz  time模块基于C语言的库函数(library functions)，提供的接口与C标准库 time.h 基本一致。datetime模块是基于time模块扩展的，提供的接口则更直观、更容易调用。datetime模块有datetime.date(日期)、datet">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python时间模块">
+<meta property="og:url" content="http://yoursite.com/2017/08/09/Python-time-module.html">
+<meta property="og:site_name" content="Hjqjk&#39;s Blog">
+<meta property="og:description" content="python关于时间和日期的处理模块，常见的有以下几个：  内置模块：time、datetime、calendar第三方模块：pytz  time模块基于C语言的库函数(library functions)，提供的接口与C标准库 time.h 基本一致。datetime模块是基于time模块扩展的，提供的接口则更直观、更容易调用。datetime模块有datetime.date(日期)、datet">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-08-10-15023338195274.png">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-08-10-15023354142691.jpg">
+<meta property="og:updated_time" content="2017-08-14T03:13:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python时间模块">
+<meta name="twitter:description" content="python关于时间和日期的处理模块，常见的有以下几个：  内置模块：time、datetime、calendar第三方模块：pytz  time模块基于C语言的库函数(library functions)，提供的接口与C标准库 time.h 基本一致。datetime模块是基于time模块扩展的，提供的接口则更直观、更容易调用。datetime模块有datetime.date(日期)、datet">
+<meta name="twitter:image" content="http://orku2pa7o.bkt.clouddn.com/2017-08-10-15023338195274.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/09/Python-time-module.html"/>
+
+
+
+
+
+  <title>python时间模块 | Hjqjk's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hjqjk's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/Python-time-module.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjqjk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hjqjk's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python时间模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T18:21:35+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/09/Python-time-module.html" class="leancloud_visitors" data-flag-title="python时间模块">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>python关于时间和日期的处理模块，常见的有以下几个：</p>
+<blockquote>
+<p>内置模块：time、datetime、calendar<br>第三方模块：pytz</p>
+</blockquote>
+<p>time模块基于C语言的库函数(library functions)，提供的接口与C标准库 time.h 基本一致。<br>datetime模块是基于time模块扩展的，提供的接口则更直观、更容易调用。datetime模块有datetime.date(日期)、datetime.time(时间)、datetime.datetime(日期时间)三个类</p>
+<a id="more"></a>
+<h2 id="time模块"><a href="#time模块" class="headerlink" title="time模块"></a>time模块</h2><h3 id="时间戳、元组、字符串之间相互转换"><a href="#时间戳、元组、字符串之间相互转换" class="headerlink" title="时间戳、元组、字符串之间相互转换"></a>时间戳、元组、字符串之间相互转换</h3><p>在time模块中，时间日期有三种表现形式：</p>
+<ul>
+<li>时间戳：一般指Unix时间戳，从 1970/1/1 0:0:0 到现在的秒数</li>
+<li>元组形式(struct_time)：本地时间、UTC时间</li>
+<li>格式化字符串形式</li>
+</ul>
+<p>三种表现形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> time</div><div class="line"></div><div class="line"><span class="comment"># 时间戳</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.time()</div><div class="line"><span class="number">1502333067.252786</span></div><div class="line"></div><div class="line"><span class="comment"># 元组形式，分别为本地时间和UTC时间</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.localtime()</div><div class="line">time.struct_time(tm_year=<span class="number">2017</span>, tm_mon=<span class="number">8</span>, tm_mday=<span class="number">10</span>, tm_hour=<span class="number">10</span>, tm_min=<span class="number">45</span>, tm_sec=<span class="number">54</span>, tm_wday=<span class="number">3</span>, tm_yday=<span class="number">222</span>, tm_isdst=<span class="number">0</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.gmtime()</div><div class="line">time.struct_time(tm_year=<span class="number">2017</span>, tm_mon=<span class="number">8</span>, tm_mday=<span class="number">10</span>, tm_hour=<span class="number">2</span>, tm_min=<span class="number">45</span>, tm_sec=<span class="number">59</span>, tm_wday=<span class="number">3</span>, tm_yday=<span class="number">222</span>, tm_isdst=<span class="number">0</span>)</div><div class="line"></div><div class="line"><span class="comment"># 格式化字符串</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</div><div class="line"><span class="string">'2017-08-10 10:46:43'</span></div></pre></td></tr></table></figure>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-08-10-15023338195274.png" alt=""></p>
+<p>如上图，三种方式相互转换(不能时间戳转格式化字符串，或者格式化字符串转时间戳，要通过中间元组形式转换)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> time</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>timestamp = time.time()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>print(timestamp)</div><div class="line"><span class="number">1502679390.184194</span></div><div class="line"></div><div class="line"><span class="comment"># 时间戳 转 元组形式</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.localtime(timestamp)</div><div class="line">time.struct_time(tm_year=<span class="number">2017</span>, tm_mon=<span class="number">8</span>, tm_mday=<span class="number">14</span>, tm_hour=<span class="number">10</span>, tm_min=<span class="number">56</span>, tm_sec=<span class="number">30</span>, tm_wday=<span class="number">0</span>, tm_yday=<span class="number">226</span>, tm_isdst=<span class="number">0</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.gmtime(timestamp)</div><div class="line">time.struct_time(tm_year=<span class="number">2017</span>, tm_mon=<span class="number">8</span>, tm_mday=<span class="number">14</span>, tm_hour=<span class="number">2</span>, tm_min=<span class="number">56</span>, tm_sec=<span class="number">30</span>, tm_wday=<span class="number">0</span>, tm_yday=<span class="number">226</span>, tm_isdst=<span class="number">0</span>)</div><div class="line"></div><div class="line"><span class="comment"># 元组形式 转 时间戳</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.mktime(time.localtime(timestamp))</div><div class="line"><span class="number">1502679390.0</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.mktime(time.gmtime(timestamp))</div><div class="line"><span class="number">1502650590.0</span></div><div class="line"></div><div class="line"><span class="comment"># 元组形式 转 字符串形式</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>,time.localtime(timestamp))</div><div class="line"><span class="string">'2017-08-14 10:56:30'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>,time.gmtime(timestamp))</div><div class="line"><span class="string">'2017-08-14 02:56:30'</span></div><div class="line"></div><div class="line"><span class="comment"># 字符串形式 转 元组形式</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>time.strptime(<span class="string">'2016-11-25'</span>, <span class="string">"%Y-%m-%d"</span>)</div><div class="line">time.struct_time(tm_year=<span class="number">2016</span>, tm_mon=<span class="number">11</span>, tm_mday=<span class="number">25</span>, tm_hour=<span class="number">0</span>, tm_min=<span class="number">0</span>, tm_sec=<span class="number">0</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">330</span>, tm_isdst=<span class="number">-1</span>)</div></pre></td></tr></table></figure>
+<h2 id="datetime模块"><a href="#datetime模块" class="headerlink" title="datetime模块"></a>datetime模块</h2><h3 id="时间戳、datetime类型、字符串之间相互转换"><a href="#时间戳、datetime类型、字符串之间相互转换" class="headerlink" title="时间戳、datetime类型、字符串之间相互转换"></a>时间戳、datetime类型、字符串之间相互转换</h3><p>datetime模块中包含4个主要的类：</p>
+<ul>
+<li>datetime.time：时间类，只包含时、分、秒、微秒等时间信息。</li>
+<li>datetime.date：日期类，只包含年、月、日、星期等日期信息。</li>
+<li>datetime.datetime：日期时间类，包含以上两者的全部信息。</li>
+<li>datetime.timedelta：时间日期差值类，用来表示两个datetime之间的差值。</li>
+</ul>
+<p>在datetime模块中，时间日期主要表现为三种常用形式：</p>
+<ul>
+<li>时间戳：一般指Unix时间戳，从 <code>1970-1-1 0:0:0</code> 到现在的秒数</li>
+<li>datetime类型：本地时间、UTC时间</li>
+<li>格式化字符串形式</li>
+</ul>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-08-10-15023354142691.jpg" alt=""><br>如上图，datetime模块的三种形式相互转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div><div class="line"></div><div class="line"><span class="comment"># 获取datetime.datetime类型的本地时间和UTC时间</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime_local = datetime.now()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime_utc = datetime.utcnow()</div><div class="line"></div><div class="line"><span class="comment"># datetime类型 转 时间戳</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime_local.timestamp()</div><div class="line"><span class="number">1502336341.267918</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime_utc.timestamp()</div><div class="line"><span class="number">1502307553.165676</span></div><div class="line"></div><div class="line"><span class="comment"># 时间戳 转 datetime类型 （本地时间和UTC时间）</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.fromtimestamp(time.time())</div><div class="line">datetime.datetime(<span class="number">2017</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">46</span>, <span class="number">13</span>, <span class="number">106668</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.utcfromtimestamp(time.time())</div><div class="line">datetime.datetime(<span class="number">2017</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">3</span>, <span class="number">46</span>, <span class="number">23</span>, <span class="number">873827</span>)</div><div class="line"></div><div class="line"><span class="comment"># datetime类型 转 字符串形式</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</div><div class="line"><span class="string">'2017-08-10 14:49:20'</span></div><div class="line"></div><div class="line"><span class="comment"># 字符串形式 转 datetime类型</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime.strptime(<span class="string">"2017-8-10 14:47:12"</span>,<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</div><div class="line">datetime.datetime(<span class="number">2017</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">14</span>, <span class="number">47</span>, <span class="number">12</span>)</div></pre></td></tr></table></figure>
+<p>当然，也可以将 datetime类型 转为 元组形式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># datetime类型 转 元组形式 （本地时间和UTC时间）</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime_local.timetuple()</div><div class="line">time.struct_time(tm_year=<span class="number">2017</span>, tm_mon=<span class="number">8</span>, tm_mday=<span class="number">10</span>, tm_hour=<span class="number">11</span>, tm_min=<span class="number">39</span>, tm_sec=<span class="number">1</span>, tm_wday=<span class="number">3</span>, tm_yday=<span class="number">222</span>, tm_isdst=<span class="number">-1</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>datetime_utc.utctimetuple()</div><div class="line">time.struct_time(tm_year=<span class="number">2017</span>, tm_mon=<span class="number">8</span>, tm_mday=<span class="number">10</span>, tm_hour=<span class="number">3</span>, tm_min=<span class="number">39</span>, tm_sec=<span class="number">13</span>, tm_wday=<span class="number">3</span>, tm_yday=<span class="number">222</span>, tm_isdst=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<h3 id="timedelta类"><a href="#timedelta类" class="headerlink" title="timedelta类"></a>timedelta类</h3><p>datetime模块中有个timedelta类，timedelta对象代表两个时间之间的时间差，两个date 或 datetime 类型对象相减时，可以返回一个timedelta对象。</p>
+<p>原型如下：</p>
+<blockquote>
+<p>class datetime.timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)<br>所有参数可选，默认都是0，参数的值可以是整数、浮点数、正数或者负数。</p>
+</blockquote>
+<p>例子：计算昨天的日期时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; from datetime import timedelta</div><div class="line">&gt;&gt;&gt; now = datetime.now()</div><div class="line">&gt;&gt;&gt; print(now)</div><div class="line">2017-08-14 11:11:19.815021</div><div class="line">&gt;&gt;&gt; now</div><div class="line">datetime.datetime(2017, 8, 14, 11, 11, 19, 815021)</div><div class="line">&gt;&gt;&gt; now - timedelta(days=1)</div><div class="line">datetime.datetime(2017, 8, 13, 11, 11, 19, 815021)</div></pre></td></tr></table></figure>
+<h3 id="timezone类"><a href="#timezone类" class="headerlink" title="timezone类"></a>timezone类</h3><p>datetime模块中有个timezone类，是tzinfo的子类。timezone类，其每个实例表示由与UTC的固定偏移量定义的时区。</p>
+<blockquote>
+<p>class datetime.timezone(offset, name=None)</p>
+</blockquote>
+<ul>
+<li>offset 参数必须指定为表示本地时间和UTC之间差异的 timedelta 对象。它必须严格地在 -timedelta(hours=24) 和 timedelta(hours=24) 之间，并且表示整数分钟，否则产生 ValueError。</li>
+<li>name 参数是可选的。如果指定，它必须是将被用作 datetime.tzname() 方法返回值的字符串。</li>
+</ul>
+<p>Python3.2开始才提供了datetime.timezone类。</p>
+<h4 id="本地时间转UTC时间"><a href="#本地时间转UTC时间" class="headerlink" title="本地时间转UTC时间"></a>本地时间转UTC时间</h4><p>本地时间是指系统设定时区的时间，例如北京时间是UTC+8:00时区的时间，而UTC时间指UTC+0:00时区的时间。</p>
+<p>一个datetime类型有一个时区属性tzinfo，但是默认为None，所以无法区分这个datetime到底是哪个时区，除非强行给datetime设置一个时区：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime,timedelta,timezone</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>tz_utc_8 = timezone(timedelta(hours=<span class="number">8</span>))  <span class="comment"># 创建时区UTC+8:00</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>now = datetime.now()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>now</div><div class="line">datetime.datetime(<span class="number">2017</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">17</span>, <span class="number">21</span>, <span class="number">35</span>, <span class="number">983594</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dt = now.replace(tzinfo=tz_utc_8)  <span class="comment"># 强制设置为UTC+8:00时区</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dt</div><div class="line">datetime.datetime(<span class="number">2017</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">17</span>, <span class="number">21</span>, <span class="number">35</span>, <span class="number">983594</span>, tzinfo=datetime.timezone(datetime.timedelta(<span class="number">0</span>, <span class="number">28800</span>)))</div></pre></td></tr></table></figure>
+<p>例子：获取用户输入的日期和时间，如<code>2017-8-10 15:02:11</code>，以及一个时区信息<code>UTC+6:00</code>，均是字符串类型，编写一个函数将其转换为timestamp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timezone, timedelta</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_timestamp</span><span class="params">(dt_str, tz_str)</span>:</span></div><div class="line">    date = datetime.strptime(dt_str, <span class="string">'%Y-%m-%d %H:%M:%S'</span>)  <span class="comment"># 字符串 转 datetime类型</span></div><div class="line">    tz_int = int(re.search(<span class="string">'(\-|\+)\d+'</span>, tz_str).group())  <span class="comment"># 正则匹配，获取时区号(+或-)</span></div><div class="line">    tz_utc_x = timezone(timedelta(hours=tz_int)) <span class="comment"># 时区变量</span></div><div class="line">    date_utc = date.replace(tzinfo=tz_utc_x) <span class="comment"># 强制设置时区</span></div><div class="line">    tstamp = date_utc.timestamp()  <span class="comment"># datetime类型 转 时间戳</span></div><div class="line">    <span class="keyword">return</span> tstamp</div><div class="line"></div><div class="line"><span class="comment"># 测试</span></div><div class="line">t1 = to_timestamp(<span class="string">'2015-6-1 08:10:30'</span>, <span class="string">'UTC+7:00'</span>)</div><div class="line"><span class="keyword">assert</span> t1 == <span class="number">1433121030.0</span>, t1</div></pre></td></tr></table></figure>
+<h2 id="time模块和datetime模块之间相互转换"><a href="#time模块和datetime模块之间相互转换" class="headerlink" title="time模块和datetime模块之间相互转换"></a>time模块和datetime模块之间相互转换</h2><p>time 转 datetime</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; timestamp = time.time()</div><div class="line">&gt;&gt;&gt; datetime.fromtimestamp(timestamp)</div><div class="line">datetime.datetime(2017, 8, 10, 14, 57, 47, 666371)</div></pre></td></tr></table></figure>
+<p>datetime 转 time：先将datetime类型转为元组形式，再转为时间戳</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; datetime_local = datetime.now()</div><div class="line">&gt;&gt;&gt; time.mktime(datetime_local.timetuple())</div><div class="line">1502348313.0</div></pre></td></tr></table></figure>
+<h2 id="pytz模块"><a href="#pytz模块" class="headerlink" title="pytz模块"></a>pytz模块</h2><p>pytz模块，使用<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="external">Olson TZ Database</a>解决了跨平台的时区计算一致性问题，解决了夏令时带来的计算问题。</p>
+<p>参考资料：<br><a href="https://zhuanlan.zhihu.com/p/23679915" target="_blank" rel="external">你真的了解Python中的日期时间处理吗？</a><br><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431937554888869fb52b812243dda6103214cd61d0c2000" target="_blank" rel="external">廖雪峰python教程-datetime模块</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i>  python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/08/Change-source-collection.html" rel="next" title="换源总集">
+                <i class="fa fa-chevron-left"></i> 换源总集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/15/Image-processing-library-of-python-pillow.html" rel="prev" title="Python图像处理库:pillow">
+                Python图像处理库:pillow <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDcxOS83Mjcz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="hjqjk" />
+          <p class="site-author-name" itemprop="name">hjqjk</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录着过程，记录着变化，记录着希望~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjqjk" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/2aa5ddbc0c3b" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/hjqjk" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#time模块"><span class="nav-number">1.</span> <span class="nav-text">time模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间戳、元组、字符串之间相互转换"><span class="nav-number">1.1.</span> <span class="nav-text">时间戳、元组、字符串之间相互转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#datetime模块"><span class="nav-number">2.</span> <span class="nav-text">datetime模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间戳、datetime类型、字符串之间相互转换"><span class="nav-number">2.1.</span> <span class="nav-text">时间戳、datetime类型、字符串之间相互转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timedelta类"><span class="nav-number">2.2.</span> <span class="nav-text">timedelta类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timezone类"><span class="nav-number">2.3.</span> <span class="nav-text">timezone类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地时间转UTC时间"><span class="nav-number">2.3.1.</span> <span class="nav-text">本地时间转UTC时间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#time模块和datetime模块之间相互转换"><span class="nav-number">3.</span> <span class="nav-text">time模块和datetime模块之间相互转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pytz模块"><span class="nav-number">4.</span> <span class="nav-text">pytz模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hjqjk</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("64dehJaGSldsveSgDVUfDB4w-gzGzoHsz", "VdnYAHuVuy3LNpudNUq5r8yP");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
