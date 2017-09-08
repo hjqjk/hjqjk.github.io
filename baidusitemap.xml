@@ -4,7 +4,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/16/Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT/</loc>
+    <loc>http://yoursite.com/:Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT.html</loc>
     <lastmod>2017-09-08T10:03:42.000Z</lastmod>
     <data>
         <display>
@@ -26,7 +26,7 @@
     
     
   <url>
-    <loc>http://yoursite.com/2017/09/05/CentOS-6-5-install-NodeJS/</loc>
+    <loc>http://yoursite.com/:CentOS-6-5-install-NodeJS.html</loc>
     <lastmod>2017-09-06T02:54:55.000Z</lastmod>
     <data>
         <display>
@@ -48,7 +48,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/23/GitLab-install-config/</loc>
+    <loc>http://yoursite.com/:GitLab-install-config.html</loc>
     <lastmod>2017-09-05T02:37:45.000Z</lastmod>
     <data>
         <display>
@@ -68,7 +68,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/09/04/Git-repository-move/</loc>
+    <loc>http://yoursite.com/:Git-repository-move.html</loc>
     <lastmod>2017-09-04T10:39:48.000Z</lastmod>
     <data>
         <display>
@@ -88,7 +88,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/27/Git-problem-sets/</loc>
+    <loc>http://yoursite.com/:Git-problem-sets.html</loc>
     <lastmod>2017-09-04T09:19:33.000Z</lastmod>
     <data>
         <display>
@@ -108,7 +108,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/07/26/Git-common-operations/</loc>
+    <loc>http://yoursite.com/:Git-common-operations.html</loc>
     <lastmod>2017-09-04T04:42:58.000Z</lastmod>
     <data>
         <display>
@@ -128,7 +128,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/08/29/Command-list-of-docker/</loc>
+    <loc>http://yoursite.com/:Command-list-of-docker.html</loc>
     <lastmod>2017-09-01T02:36:29.000Z</lastmod>
     <data>
         <display>
@@ -148,7 +148,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/08/15/Image-processing-library-of-python-pillow/</loc>
+    <loc>http://yoursite.com/:Image-processing-library-of-python-pillow.html</loc>
     <lastmod>2017-09-01T02:29:40.000Z</lastmod>
     <data>
         <display>
@@ -168,7 +168,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/08/08/Change-source-collection/</loc>
+    <loc>http://yoursite.com/:Change-source-collection.html</loc>
     <lastmod>2017-09-01T02:28:50.000Z</lastmod>
     <data>
         <display>
@@ -188,7 +188,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/08/31/CentOS-6-5-install-docker/</loc>
+    <loc>http://yoursite.com/:CentOS-6-5-install-docker.html</loc>
     <lastmod>2017-08-31T10:48:35.000Z</lastmod>
     <data>
         <display>
@@ -208,7 +208,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/08/30/CentOS-6-x-install-Go/</loc>
+    <loc>http://yoursite.com/:CentOS-6-x-install-Go.html</loc>
     <lastmod>2017-08-30T10:44:11.000Z</lastmod>
     <data>
         <display>
@@ -228,7 +228,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/08/30/CentOS-6-x-install-JDK8/</loc>
+    <loc>http://yoursite.com/:CentOS-6-x-install-JDK8.html</loc>
     <lastmod>2017-08-30T10:33:08.000Z</lastmod>
     <data>
         <display>
@@ -248,7 +248,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/08/09/Python-time-module/</loc>
+    <loc>http://yoursite.com/:Python-time-module.html</loc>
     <lastmod>2017-08-14T03:13:48.000Z</lastmod>
     <data>
         <display>
@@ -268,7 +268,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/07/04/The-site-code-auto-update-with-GitLab-webhooks/</loc>
+    <loc>http://yoursite.com/:The-site-code-auto-update-with-GitLab-webhooks.html</loc>
     <lastmod>2017-07-06T10:16:24.000Z</lastmod>
     <data>
         <display>
@@ -288,7 +288,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/22/Git-install/</loc>
+    <loc>http://yoursite.com/:Git-install.html</loc>
     <lastmod>2017-06-24T16:21:23.000Z</lastmod>
     <data>
         <display>
@@ -308,7 +308,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/24/GitLab-Chinesization-guide/</loc>
+    <loc>http://yoursite.com/:GitLab-Chinesization-guide.html</loc>
     <lastmod>2017-06-24T14:56:03.000Z</lastmod>
     <data>
         <display>
@@ -328,7 +328,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/16/The-install-process-of-php-extension-module/</loc>
+    <loc>http://yoursite.com/:The-install-process-of-php-extension-module.html</loc>
     <lastmod>2017-06-22T02:51:17.000Z</lastmod>
     <data>
         <display>
@@ -348,7 +348,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/20/MySQL-query-cache/</loc>
+    <loc>http://yoursite.com/:MySQL-query-cache.html</loc>
     <lastmod>2017-06-20T07:56:49.000Z</lastmod>
     <data>
         <display>
@@ -368,7 +368,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/19/The-principle-of-encryption-decryption-and-build-CA-with-openssl/</loc>
+    <loc>http://yoursite.com/:The-principle-of-encryption-decryption-and-build-CA-with-openssl.html</loc>
     <lastmod>2017-06-19T10:50:40.000Z</lastmod>
     <data>
         <display>
@@ -388,7 +388,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/16/OPS-Security-configuration/</loc>
+    <loc>http://yoursite.com/:OPS-Security-configuration.html</loc>
     <lastmod>2017-06-16T08:57:00.000Z</lastmod>
     <data>
         <display>
@@ -408,7 +408,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/16/iF-svnadmin-bug-when-config/</loc>
+    <loc>http://yoursite.com/:iF-svnadmin-bug-when-config.html</loc>
     <lastmod>2017-06-16T08:41:28.000Z</lastmod>
     <data>
         <display>
@@ -428,7 +428,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/15/Deploy-Read-and-write-separation-of-mycat-with-docker/</loc>
+    <loc>http://yoursite.com/:Deploy-Read-and-write-separation-of-mycat-with-docker.html</loc>
     <lastmod>2017-06-16T08:14:48.000Z</lastmod>
     <data>
         <display>
@@ -450,7 +450,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/16/Update-phpLibxml-to-2-9-0-on-centos6-5/</loc>
+    <loc>http://yoursite.com/:Update-phpLibxml-to-2-9-0-on-centos6-5.html</loc>
     <lastmod>2017-06-16T08:14:00.000Z</lastmod>
     <data>
         <display>
@@ -470,7 +470,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/15/CentOS-6-5-deploy-logSystem-with-Rsyslog-LogAnalyzer-MySQL/</loc>
+    <loc>http://yoursite.com/:CentOS-6-5-deploy-logSystem-with-Rsyslog-LogAnalyzer-MySQL.html</loc>
     <lastmod>2017-06-16T08:13:43.000Z</lastmod>
     <data>
         <display>
@@ -492,7 +492,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/06/14/hello-world/</loc>
+    <loc>http://yoursite.com/:hello-world.html</loc>
     <lastmod>2017-06-16T02:09:31.000Z</lastmod>
     <data>
         <display>

@@ -18,8 +18,8 @@
   
   <entry>
     <title>CentOS 6.5安装NodeJS</title>
-    <link href="http://yoursite.com/2017/09/05/CentOS-6-5-install-NodeJS/"/>
-    <id>http://yoursite.com/2017/09/05/CentOS-6-5-install-NodeJS/</id>
+    <link href="http://yoursite.com/:CentOS-6-5-install-NodeJS.html"/>
+    <id>http://yoursite.com/:CentOS-6-5-install-NodeJS.html</id>
     <published>2017-09-05T08:14:18.000Z</published>
     <updated>2017-09-06T02:54:55.000Z</updated>
     
@@ -43,8 +43,8 @@
   
   <entry>
     <title>Git仓库迁移</title>
-    <link href="http://yoursite.com/2017/09/04/Git-repository-move/"/>
-    <id>http://yoursite.com/2017/09/04/Git-repository-move/</id>
+    <link href="http://yoursite.com/:Git-repository-move.html"/>
+    <id>http://yoursite.com/:Git-repository-move.html</id>
     <published>2017-09-04T09:18:25.000Z</published>
     <updated>2017-09-04T10:39:48.000Z</updated>
     
@@ -65,8 +65,8 @@
   
   <entry>
     <title>CentOS 6.x 上搭建docker</title>
-    <link href="http://yoursite.com/2017/08/31/CentOS-6-5-install-docker/"/>
-    <id>http://yoursite.com/2017/08/31/CentOS-6-5-install-docker/</id>
+    <link href="http://yoursite.com/:CentOS-6-5-install-docker.html"/>
+    <id>http://yoursite.com/:CentOS-6-5-install-docker.html</id>
     <published>2017-08-31T09:09:28.000Z</published>
     <updated>2017-08-31T10:48:35.000Z</updated>
     
@@ -87,8 +87,8 @@
   
   <entry>
     <title>CentOS 6.x 上安装Go</title>
-    <link href="http://yoursite.com/2017/08/30/CentOS-6-x-install-Go/"/>
-    <id>http://yoursite.com/2017/08/30/CentOS-6-x-install-Go/</id>
+    <link href="http://yoursite.com/:CentOS-6-x-install-Go.html"/>
+    <id>http://yoursite.com/:CentOS-6-x-install-Go.html</id>
     <published>2017-08-30T09:52:14.000Z</published>
     <updated>2017-08-30T10:44:11.000Z</updated>
     
@@ -113,8 +113,8 @@
   
   <entry>
     <title>CentOS 6.x 安装JDK8</title>
-    <link href="http://yoursite.com/2017/08/30/CentOS-6-x-install-JDK8/"/>
-    <id>http://yoursite.com/2017/08/30/CentOS-6-x-install-JDK8/</id>
+    <link href="http://yoursite.com/:CentOS-6-x-install-JDK8.html"/>
+    <id>http://yoursite.com/:CentOS-6-x-install-JDK8.html</id>
     <published>2017-08-30T08:00:46.000Z</published>
     <updated>2017-08-30T10:33:08.000Z</updated>
     
@@ -136,8 +136,8 @@
   
   <entry>
     <title>常用docker命令清单</title>
-    <link href="http://yoursite.com/2017/08/29/Command-list-of-docker/"/>
-    <id>http://yoursite.com/2017/08/29/Command-list-of-docker/</id>
+    <link href="http://yoursite.com/:Command-list-of-docker.html"/>
+    <id>http://yoursite.com/:Command-list-of-docker.html</id>
     <published>2017-08-29T09:21:29.000Z</published>
     <updated>2017-09-01T02:36:29.000Z</updated>
     
@@ -164,8 +164,8 @@
   
   <entry>
     <title>Python图像处理库:pillow</title>
-    <link href="http://yoursite.com/2017/08/15/Image-processing-library-of-python-pillow/"/>
-    <id>http://yoursite.com/2017/08/15/Image-processing-library-of-python-pillow/</id>
+    <link href="http://yoursite.com/:Image-processing-library-of-python-pillow.html"/>
+    <id>http://yoursite.com/:Image-processing-library-of-python-pillow.html</id>
     <published>2017-08-15T03:51:30.000Z</published>
     <updated>2017-09-01T02:29:40.000Z</updated>
     
@@ -190,8 +190,8 @@
   
   <entry>
     <title>python时间模块</title>
-    <link href="http://yoursite.com/2017/08/09/Python-time-module/"/>
-    <id>http://yoursite.com/2017/08/09/Python-time-module/</id>
+    <link href="http://yoursite.com/:Python-time-module.html"/>
+    <id>http://yoursite.com/:Python-time-module.html</id>
     <published>2017-08-09T10:21:35.000Z</published>
     <updated>2017-08-14T03:13:48.000Z</updated>
     
@@ -216,8 +216,8 @@
   
   <entry>
     <title>换源总集</title>
-    <link href="http://yoursite.com/2017/08/08/Change-source-collection/"/>
-    <id>http://yoursite.com/2017/08/08/Change-source-collection/</id>
+    <link href="http://yoursite.com/:Change-source-collection.html"/>
+    <id>http://yoursite.com/:Change-source-collection.html</id>
     <published>2017-08-08T09:46:26.000Z</published>
     <updated>2017-09-01T02:28:50.000Z</updated>
     
@@ -242,8 +242,8 @@
   
   <entry>
     <title>Git常用操作</title>
-    <link href="http://yoursite.com/2017/07/26/Git-common-operations/"/>
-    <id>http://yoursite.com/2017/07/26/Git-common-operations/</id>
+    <link href="http://yoursite.com/:Git-common-operations.html"/>
+    <id>http://yoursite.com/:Git-common-operations.html</id>
     <published>2017-07-26T03:22:04.000Z</published>
     <updated>2017-09-04T04:42:58.000Z</updated>
     
@@ -264,8 +264,8 @@
   
   <entry>
     <title>利用GitLab的Webhooks功能，实现网站代码自动更新部署</title>
-    <link href="http://yoursite.com/2017/07/04/The-site-code-auto-update-with-GitLab-webhooks/"/>
-    <id>http://yoursite.com/2017/07/04/The-site-code-auto-update-with-GitLab-webhooks/</id>
+    <link href="http://yoursite.com/:The-site-code-auto-update-with-GitLab-webhooks.html"/>
+    <id>http://yoursite.com/:The-site-code-auto-update-with-GitLab-webhooks.html</id>
     <published>2017-07-04T08:33:42.000Z</published>
     <updated>2017-07-06T10:16:24.000Z</updated>
     
@@ -290,8 +290,8 @@
   
   <entry>
     <title>Git问题集锦</title>
-    <link href="http://yoursite.com/2017/06/27/Git-problem-sets/"/>
-    <id>http://yoursite.com/2017/06/27/Git-problem-sets/</id>
+    <link href="http://yoursite.com/:Git-problem-sets.html"/>
+    <id>http://yoursite.com/:Git-problem-sets.html</id>
     <published>2017-06-27T07:42:24.000Z</published>
     <updated>2017-09-04T09:19:33.000Z</updated>
     
@@ -312,8 +312,8 @@
   
   <entry>
     <title>GitLab汉化指南</title>
-    <link href="http://yoursite.com/2017/06/24/GitLab-Chinesization-guide/"/>
-    <id>http://yoursite.com/2017/06/24/GitLab-Chinesization-guide/</id>
+    <link href="http://yoursite.com/:GitLab-Chinesization-guide.html"/>
+    <id>http://yoursite.com/:GitLab-Chinesization-guide.html</id>
     <published>2017-06-24T14:22:42.000Z</published>
     <updated>2017-06-24T14:56:03.000Z</updated>
     
@@ -335,8 +335,8 @@
   
   <entry>
     <title>GitLab搭建及配置</title>
-    <link href="http://yoursite.com/2017/06/23/GitLab-install-config/"/>
-    <id>http://yoursite.com/2017/06/23/GitLab-install-config/</id>
+    <link href="http://yoursite.com/:GitLab-install-config.html"/>
+    <id>http://yoursite.com/:GitLab-install-config.html</id>
     <published>2017-06-23T10:31:06.000Z</published>
     <updated>2017-09-05T02:37:45.000Z</updated>
     
@@ -366,8 +366,8 @@
   
   <entry>
     <title>Git 安装</title>
-    <link href="http://yoursite.com/2017/06/22/Git-install/"/>
-    <id>http://yoursite.com/2017/06/22/Git-install/</id>
+    <link href="http://yoursite.com/:Git-install.html"/>
+    <id>http://yoursite.com/:Git-install.html</id>
     <published>2017-06-22T02:50:53.000Z</published>
     <updated>2017-06-24T16:21:23.000Z</updated>
     
@@ -389,8 +389,8 @@
   
   <entry>
     <title>MySQL 查询缓存</title>
-    <link href="http://yoursite.com/2017/06/20/MySQL-query-cache/"/>
-    <id>http://yoursite.com/2017/06/20/MySQL-query-cache/</id>
+    <link href="http://yoursite.com/:MySQL-query-cache.html"/>
+    <id>http://yoursite.com/:MySQL-query-cache.html</id>
     <published>2017-06-20T06:55:56.000Z</published>
     <updated>2017-06-20T07:56:49.000Z</updated>
     
@@ -414,8 +414,8 @@
   
   <entry>
     <title>加密、解密原理和openssl自建CA过程详解</title>
-    <link href="http://yoursite.com/2017/06/19/The-principle-of-encryption-decryption-and-build-CA-with-openssl/"/>
-    <id>http://yoursite.com/2017/06/19/The-principle-of-encryption-decryption-and-build-CA-with-openssl/</id>
+    <link href="http://yoursite.com/:The-principle-of-encryption-decryption-and-build-CA-with-openssl.html"/>
+    <id>http://yoursite.com/:The-principle-of-encryption-decryption-and-build-CA-with-openssl.html</id>
     <published>2017-06-19T07:21:22.000Z</published>
     <updated>2017-06-19T10:50:40.000Z</updated>
     
@@ -450,8 +450,8 @@
   
   <entry>
     <title>Mac上基于GitHub-Pages+Hexo+NexT 搭建个人博客</title>
-    <link href="http://yoursite.com/2017/06/16/Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT/"/>
-    <id>http://yoursite.com/2017/06/16/Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT/</id>
+    <link href="http://yoursite.com/:Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT.html"/>
+    <id>http://yoursite.com/:Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT.html</id>
     <published>2017-06-16T10:05:12.000Z</published>
     <updated>2017-09-08T10:03:42.000Z</updated>
     
@@ -474,8 +474,8 @@
   
   <entry>
     <title>运维安全配置</title>
-    <link href="http://yoursite.com/2017/06/16/OPS-Security-configuration/"/>
-    <id>http://yoursite.com/2017/06/16/OPS-Security-configuration/</id>
+    <link href="http://yoursite.com/:OPS-Security-configuration.html"/>
+    <id>http://yoursite.com/:OPS-Security-configuration.html</id>
     <published>2017-06-16T08:47:43.000Z</published>
     <updated>2017-06-16T08:57:00.000Z</updated>
     
@@ -501,8 +501,8 @@
   
   <entry>
     <title>iF.svnadmin 安装遇到的坑</title>
-    <link href="http://yoursite.com/2017/06/16/iF-svnadmin-bug-when-config/"/>
-    <id>http://yoursite.com/2017/06/16/iF-svnadmin-bug-when-config/</id>
+    <link href="http://yoursite.com/:iF-svnadmin-bug-when-config.html"/>
+    <id>http://yoursite.com/:iF-svnadmin-bug-when-config.html</id>
     <published>2017-06-16T08:29:32.000Z</published>
     <updated>2017-06-16T08:41:28.000Z</updated>
     
