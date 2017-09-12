@@ -4,8 +4,54 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/ELK-install.html</loc>
+    <lastmod>2017-09-12T13:01:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>ELK搭建过程</title>
+        <pubTime>2017-09-12T10:27:10.000Z</pubTime>
+        
+        <tag>elk</tag>
+         
+        <tag>elasticsearch</tag>
+         
+        <tag>logstash</tag>
+         
+        <tag>kibana</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术杂项" url="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/Git-common-operations.html</loc>
+    <lastmod>2017-09-11T10:45:37.000Z</lastmod>
+    <data>
+        <display>
+        <title>Git常用操作</title>
+        <pubTime>2017-07-26T03:22:04.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="版本控制" url="http://yoursite.com/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT.html</loc>
-    <lastmod>2017-09-08T10:03:42.000Z</lastmod>
+    <lastmod>2017-09-08T10:53:46.000Z</lastmod>
     <data>
         <display>
         <title>Mac上基于GitHub-Pages+Hexo+NexT 搭建个人博客</title>
@@ -94,26 +140,6 @@
         <display>
         <title>Git问题集锦</title>
         <pubTime>2017-06-27T07:42:24.000Z</pubTime>
-        
-        <tag>git</tag>
-         
-         
-           
-             
-              <breadCrumb title="版本控制" url="http://yoursite.com/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/Git-common-operations.html</loc>
-    <lastmod>2017-09-04T04:42:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>Git常用操作</title>
-        <pubTime>2017-07-26T03:22:04.000Z</pubTime>
         
         <tag>git</tag>
          
