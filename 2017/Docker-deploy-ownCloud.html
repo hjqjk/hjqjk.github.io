@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="elk,elasticsearch,logstash,kibana," />
+  <meta name="keywords" content="docker,ownCloud," />
 
 
 
@@ -95,17 +95,19 @@
 
 
 
-<meta name="description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
-<meta name="keywords" content="elk,elasticsearch,logstash,kibana">
+<meta name="description" content="前提相信大家都用过网盘，比如国外有 Google Drive、Dropbx、OneDrive等，国内有 百度云盘、坚果云等，这些都是公共网盘，由于公司业务需要，想架设公司自己用的私有网盘。 目前市面上，稳定、成熟的私有云存储方案有：  Seafile：国内团队开发的一个国际化开源云存储项目ownCloud：开源专业的私有云存储项目  另外，可以多去关注下 nextcloud 项目，据说 ownCl">
+<meta name="keywords" content="docker,ownCloud">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ELK搭建过程">
-<meta property="og:url" content="http://yoursite.com/2017/ELK-install.html">
+<meta property="og:title" content="Docker下快速部署ownCloud">
+<meta property="og:url" content="http://yoursite.com/2017/Docker-deploy-ownCloud.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
-<meta property="og:description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
-<meta property="og:updated_time" content="2017-09-12T13:01:41.000Z">
+<meta property="og:description" content="前提相信大家都用过网盘，比如国外有 Google Drive、Dropbx、OneDrive等，国内有 百度云盘、坚果云等，这些都是公共网盘，由于公司业务需要，想架设公司自己用的私有网盘。 目前市面上，稳定、成熟的私有云存储方案有：  Seafile：国内团队开发的一个国际化开源云存储项目ownCloud：开源专业的私有云存储项目  另外，可以多去关注下 nextcloud 项目，据说 ownCl">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-09-25-15063104057578.jpg">
+<meta property="og:updated_time" content="2017-09-26T07:12:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ELK搭建过程">
-<meta name="twitter:description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
+<meta name="twitter:title" content="Docker下快速部署ownCloud">
+<meta name="twitter:description" content="前提相信大家都用过网盘，比如国外有 Google Drive、Dropbx、OneDrive等，国内有 百度云盘、坚果云等，这些都是公共网盘，由于公司业务需要，想架设公司自己用的私有网盘。 目前市面上，稳定、成熟的私有云存储方案有：  Seafile：国内团队开发的一个国际化开源云存储项目ownCloud：开源专业的私有云存储项目  另外，可以多去关注下 nextcloud 项目，据说 ownCl">
+<meta name="twitter:image" content="http://orku2pa7o.bkt.clouddn.com/2017-09-25-15063104057578.jpg">
 
 
 
@@ -133,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/ELK-install.html"/>
+  <link rel="canonical" href="http://yoursite.com/2017/Docker-deploy-ownCloud.html"/>
 
 
 
 
 
-  <title>ELK搭建过程 | Hjqjk's Blog</title>
+  <title>Docker下快速部署ownCloud | Hjqjk's Blog</title>
   
 
 
@@ -302,7 +304,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/ELK-install.html">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/Docker-deploy-ownCloud.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hjqjk">
@@ -319,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ELK搭建过程</h1>
+          <h1 class="post-title" itemprop="name headline">Docker下快速部署ownCloud</h1>
         
 
         <div class="post-meta">
@@ -331,8 +333,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T18:27:10+08:00">
-                2017-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T17:23:27+08:00">
+                2017-09-15
               </time>
             
 
@@ -354,8 +356,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术杂项/" itemprop="url" rel="index">
-                    <span itemprop="name">技术杂项</span>
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
                   </a>
                 </span>
 
@@ -371,7 +373,7 @@
 
           
           
-             <span id="/2017/ELK-install.html" class="leancloud_visitors" data-flag-title="ELK搭建过程">
+             <span id="/2017/Docker-deploy-ownCloud.html" class="leancloud_visitors" data-flag-title="Docker下快速部署ownCloud">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -399,106 +401,35 @@
       
 
       
-        <h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>系统版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">centos-6.5</div></pre></td></tr></table></figure>
-<p>软件版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">elasticsearch-5.2.2</div><div class="line">logstash-5.2.2</div><div class="line">kibana-5.2.2</div><div class="line">jdk : 1.8.0</div></pre></td></tr></table></figure>
-<p>主机环境：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">主机1（192.168.10.197）：安装 jdk、logstash agent </div><div class="line">主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticsearch、kibana</div></pre></td></tr></table></figure>
+        <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>相信大家都用过网盘，比如国外有 <a href="https://www.google.com/drive/" target="_blank" rel="external"><strong>Google Drive</strong></a>、<a href="https://www.dropbox.com/" target="_blank" rel="external"><strong>Dropbx</strong></a>、<a href="https://onedrive.live.com/about/zh-cn/" target="_blank" rel="external"><strong>OneDrive</strong></a>等，国内有 <a href="https://pan.baidu.com/" target="_blank" rel="external"><strong>百度云盘</strong></a>、<a href="https://www.jianguoyun.com/" target="_blank" rel="external"><strong>坚果云</strong></a>等，这些都是公共网盘，由于公司业务需要，想架设公司自己用的私有网盘。</p>
+<p>目前市面上，稳定、成熟的私有云存储方案有：</p>
+<blockquote>
+<p><a href="https://www.seafile.com/home/" target="_blank" rel="external"><strong>Seafile</strong></a>：国内团队开发的一个国际化开源云存储项目<br><a href="https://owncloud.org/" target="_blank" rel="external"><strong>ownCloud</strong></a>：开源专业的私有云存储项目</p>
+</blockquote>
+<p>另外，可以多去关注下 <a href="https://nextcloud.com/" target="_blank" rel="external"><strong>nextcloud</strong></a> 项目，据说 <code>ownCloud</code> 母公司破产后，原项目组的骨干出走并以 <code>ownCloud</code> 项目 <code>folk</code> 出新项目 <code>nextcloud</code> 继续开发。需要说明的是，<code>ownCloud</code> 母公司后来被一家德国公司收购了，<code>ownCloud</code> 项目还在继续开发。</p>
+<p>这里主要介绍 <code>ownCloud</code> 的搭建。</p>
 <a id="more"></a>
-<h2 id="安装-jdk1-8-0-（197-主机、198-主机）"><a href="#安装-jdk1-8-0-（197-主机、198-主机）" class="headerlink" title="安装 jdk1.8.0 （197 主机、198 主机）"></a>安装 jdk1.8.0 （197 主机、198 主机）</h2><p>验证服务器已经安装的java版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -qa | grep java</div></pre></td></tr></table></figure>
-<p>如果有老旧的java版本，可选择删掉</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -e --nodeps [相关软件名]</div></pre></td></tr></table></figure>
-<p>下载并安装 jdk1.8.0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget --no-cookies --no-check-certificate --header &quot;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&quot; &quot;https://edelivery.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm&quot;</div><div class="line"># rpm -ivh jdk-8u121-linux-x64.rpm</div></pre></td></tr></table></figure>
-<p>验证版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># java -version</div></pre></td></tr></table></figure>
-<p>设置环境变量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># vim ~/.bash_profile  # 添加以下内容</div><div class="line">#set java environment</div><div class="line">JAVA_HOME=/usr/java/jdk1.8.0_121/</div><div class="line">JAVA_BIN=/usr/java/jdk1.8.0_121//bin</div><div class="line">CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</div><div class="line">PATH=$JAVA_BIN:$PATH</div><div class="line">export PATH JAVA_HOME CLASSPATH</div></pre></td></tr></table></figure>
-<p>手动加载生效：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># source ~/.bash_profile</div></pre></td></tr></table></figure>
-<h2 id="安装-redis（198-主机）"><a href="#安装-redis（198-主机）" class="headerlink" title="安装 redis（198 主机）"></a>安装 redis（198 主机）</h2><p>下载并安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/src</div><div class="line"># wget http://download.redis.io/releases/redis-3.2.8.tar.gz</div><div class="line"># tar zxvf redis-3.2.8.tar.gz</div><div class="line"># cd redis-3.2.8</div><div class="line"># make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<p>另外创建redis的配置、日志、数据等目录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/redis/&#123;bin,etc,logs,db&#125; -p</div><div class="line"># cp redis-3.2.8/redis.conf /usr/local/redis/etc/</div><div class="line"># cp redis-3.2.8/src/&#123;redis-benchmark,redis-check-aof,redis-cli,redis-server,mkreleasehdr.sh&#125; /usr/local/redis/bin/</div></pre></td></tr></table></figure>
-<p>修改redis配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># vim /usr/local/redis/etc/redis.conf</div><div class="line">pidfile /usr/local/redis/logs/redis_6379.pid</div><div class="line">logfile /usr/local/redis/logs/redis.log</div><div class="line">dir /usr/local/redis/db/</div><div class="line">#bind 127.0.0.1  #注释这行</div></pre></td></tr></table></figure>
-<p>启动redis服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf &amp;</div></pre></td></tr></table></figure>
-<p>开启防火墙</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># iptables -A INPUT -s 192.168.10.0/24 -m tcp -p tcp --dport 6379 -j ACCEPT</div><div class="line"># iptables-save &gt; /etc/sysconfig/iptables</div></pre></td></tr></table></figure>
-<h2 id="安装-Logstash-（197-主机，logstash-agent-采集日志）"><a href="#安装-Logstash-（197-主机，logstash-agent-采集日志）" class="headerlink" title="安装 Logstash （197 主机，logstash agent 采集日志）"></a>安装 Logstash （197 主机，logstash agent 采集日志）</h2><p>下载并安装：(只要将安装包解压到指定目录就行)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/logstash/logstash-5.2.2.tar.gz</div><div class="line"># tar zxvf logstash-5.2.2.tar.gz -C /usr/local</div></pre></td></tr></table></figure>
-<p>创建配置目录conf，并编辑配置文件：(将采集的日志传送到198主机上的redis队列上)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/logstash-5.2.2/conf</div><div class="line"># cat /usr/local/logstash-5.2.2/conf/logstash_agent.conf</div><div class="line">input&#123;</div><div class="line">	file&#123;</div><div class="line">		type=&gt;&quot;msg&quot;</div><div class="line">		path=&gt;[&quot;/var/log/messages&quot;]</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">output&#123;</div><div class="line">	redis&#123;</div><div class="line">		host=&gt;[&quot;192.168.10.198&quot;]</div><div class="line">		port=&gt;&quot;6379&quot;</div><div class="line">		data_type=&gt;&quot;list&quot;</div><div class="line">		key=&gt;&quot;logstash&quot;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>创建logstash日志目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/ogstash-5.2.2/logs</div></pre></td></tr></table></figure>
-<p>启动服务，将日志写到指定的日志文件中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/logstash-5.2.2</div><div class="line"># ./bin/logstash -f conf/logstash_agent.conf  -l logs &amp;</div></pre></td></tr></table></figure>
-<h2 id="安装-Logstash-（198-主机，logstash-indexer）"><a href="#安装-Logstash-（198-主机，logstash-indexer）" class="headerlink" title="安装 Logstash （198 主机，logstash indexer）"></a>安装 Logstash （198 主机，logstash indexer）</h2><p>下载并安装：(只要将安装包解压到指定目录就行)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/logstash/logstash-5.2.2.tar.gz</div><div class="line"># tar zxvf logstash-5.2.2.tar.gz -C /usr/local</div></pre></td></tr></table></figure>
-<p>创建配置目录conf，并编辑配置文件：(将采集的日志传送到198主机上的redis队列上)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/logstash-5.2.2/conf</div><div class="line"># cat /usr/local/logstash-5.2.2/conf/logstash_indexer.conf</div><div class="line">input &#123;</div><div class="line">  redis &#123;</div><div class="line">    host =&gt;[&quot;192.168.10.198&quot;]</div><div class="line">    port =&gt; &quot;6379&quot;</div><div class="line">    data_type =&gt; &quot;list&quot;</div><div class="line">    key =&gt; &quot;logstash&quot;</div><div class="line">    type =&gt;&quot;msg&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; &quot;192.168.10.198:9200&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>创建logstash日志目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/ogstash-5.2.2/logs</div></pre></td></tr></table></figure>
-<p>启动服务，将日志写到指定的日志文件中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/logstash-5.2.2</div><div class="line"># ./bin/logstash -f conf/logstash_indexer.conf  -l logs &amp;</div></pre></td></tr></table></figure>
-<h2 id="安装-elasticsearch-（198主机）"><a href="#安装-elasticsearch-（198主机）" class="headerlink" title="安装 elasticsearch （198主机）"></a>安装 elasticsearch （198主机）</h2><p>下载并安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.2.2.tar.gz</div><div class="line"># tar zxvf elasticsearch-5.2.2.tar.gz -C /usr/local/</div></pre></td></tr></table></figure>
-<p>修改配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/elasticsearch-5.2.2/</div><div class="line"># vim config/elasticsearch.yml  </div><div class="line">cluster.name: chw</div><div class="line">node.name: chw_rpc</div><div class="line">node.master: true</div><div class="line">node.data: true</div><div class="line">network.host: 192.168.10.198</div><div class="line">path.data: /home/data/elasticsearch/data</div><div class="line">path.logs: /home/data/elasticsearch/logs</div></pre></td></tr></table></figure>
-<p>创建目录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir /home/data/elasticsearch/&#123;data,logs&#125; -p</div></pre></td></tr></table></figure>
-<p>Elasticsearch不允许以root用户启动，否则会报错：can not run elasticsearch as root。需要创建普通用户，并切换到普通用户启动。<br>注意，elasticsearch-5.2.2目录的属主和属组也要修改，否则会报权限错误。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># groupadd elasticsearch</div><div class="line"># useradd elasticsearch -g elasticsearch</div><div class="line"># chown elasticsearch.elasticsearch /usr/local/elasticsearch-5.2.2/ -R</div><div class="line"># chown elasticsearch.elasticsearch /home/data/elasticsearch/ -R</div></pre></td></tr></table></figure>
-<p>打开tcp端口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># iptables -A INPUT -s 192.168.10.0/24 -m tcp -p tcp --dport 9300-j ACCEPT</div><div class="line"># iptables-save &gt; /etc/sysconfig/iptables</div></pre></td></tr></table></figure>
-<p>启动服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># su elasticsearch</div><div class="line">$ ./bin/elasticsearch -d</div></pre></td></tr></table></figure>
-<p>验证是否成功：(返回的状态码为200，则表示成功了)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># curl -X GET http://192.168.10.198:9200</div></pre></td></tr></table></figure>
-<h3 id="相关报错及其解决方法"><a href="#相关报错及其解决方法" class="headerlink" title="相关报错及其解决方法"></a>相关报错及其解决方法</h3><p>（1）、报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ERROR: bootstrap checks failed</div><div class="line">system call filters failed to install; check the logs and fix your configuration or disable system call filters at your own risk</div></pre></td></tr></table></figure>
-<p>原因和解决：<br>   这是在因为Centos6不支持SecComp，而ES5.2.0默认bootstrap.system_call_filter为true进行检测，所以导致检测失败，失败后直接导致ES不能启动。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 修改 elasticsearch.yml </div><div class="line">bootstrap.memory_lock: false</div><div class="line">bootstrap.system_call_filter: false</div></pre></td></tr></table></figure>
-<p>（2）、报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node settings must not contain any index level settings</div></pre></td></tr></table></figure>
-<p>原因和解决：<br>   在5.0+的版本中，所有index配置（例如 index.mapper.dynamic）都不能再配置文件中写定，需要在ES启动之后通过接口来改。<br>   删除elasticsearch.yml 中，index.* 开头的所有配置项。</p>
-<p>（3）、报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max virtual memory areas  vm.max_map_count [65530] is too low, increase to at least [262144]</div></pre></td></tr></table></figure>
-<p>解决：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># vim /etc/sysctl.conf # 修改系统配置</div><div class="line">vm.max_map_count=262144</div><div class="line"># sysctl -p  # 使其生效</div></pre></td></tr></table></figure>
-<p>（4）、报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max number of threads [1024] for user [elsearch] likely too low, increase to at least [2048]</div></pre></td></tr></table></figure>
-<p>解决：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># vim /etc/security/limits.conf  #修改为以下配置</div><div class="line">* soft nproc 2048</div><div class="line">* hard nproc 4096</div><div class="line"># vim  /etc/security/limits.d/90-nproc.conf   #修改为以下配置</div><div class="line">* soft nproc 2048</div></pre></td></tr></table></figure>
-<h2 id="为-Elasticsearch5-2-2-安装head插件-（198-主机）"><a href="#为-Elasticsearch5-2-2-安装head插件-（198-主机）" class="headerlink" title="为 Elasticsearch5.2.2 安装head插件 （198 主机）"></a>为 Elasticsearch5.2.2 安装head插件 （198 主机）</h2><p>下载地址：<a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="external">https://github.com/mobz/elasticsearch-head</a><br>自从Elasticsearch5.0开始就不再支持site plugins，需要将Elasticsearch-head以独立服务的形式安装使用。</p>
-<p>首先安装nodejs和npm：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># yum install nodejs npm -y</div><div class="line"># yum install git -y</div></pre></td></tr></table></figure>
-<p>注意：5.0+版本，elasticsearch-head 不能放在elasticsearch的 plugins、modules 目录下，否则启动会报错： Property [elasticsearch.version] is missing for plugin [head]</p>
-<p>将elasticsearch-head放到 /usr/local/src 目录并安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/src/ </div><div class="line"># git clone git://github.com/mobz/elasticsearch-head.git</div><div class="line"># cd elasticsearch-head/</div><div class="line"># npm install</div></pre></td></tr></table></figure>
-<p>elasticsearch配置允许跨域访问，这样head插件可以访问es：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># vim elasticsearch-5.2.2/config/elasticsearch.yml  # 添加如下两行代码（&quot;:&quot; 后边要有个空格）</div><div class="line">http.cors.enabled: true</div><div class="line">http.cors.allow-origin: &quot;*&quot;</div><div class="line"># 重启elasticsearch服务，使其配置生效。</div></pre></td></tr></table></figure>
-<h3 id="修改head源码"><a href="#修改head源码" class="headerlink" title="修改head源码"></a>修改head源码</h3><p>   由于head的代码还是老版本的，直接执行有很多限制，比如无法跨机器访问。因此需要用户修改两个地方：<br>1）修改服务器监听地址:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># vim elasticsearch-head/Gruntfile.js  # 增加hostname属性，设置为*</div><div class="line">connect: &#123;</div><div class="line">    server: &#123;</div><div class="line">        options: &#123;</div><div class="line">            port: 9100,</div><div class="line">            hostname: &apos;*&apos;,   </div><div class="line">            base: &apos;.&apos;,</div><div class="line">            keepalive: true</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2）修改连接es服务的地址：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># vim elasticsearch-head/_site/app.js  # 修改为es的服务器IP</div><div class="line">this.base_uri = this.config.base_uri || this.prefs.get(&quot;app-base_uri&quot;) || &quot;http://192.168.10.198:9200&quot;;</div></pre></td></tr></table></figure>
-<p>启动head服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd /usr/local/src/elasticsearch-head </div><div class="line">$ ./node_modules/grunt/bin/grunt server &amp;</div></pre></td></tr></table></figure>
-<p>验证：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># curl -I http://localhost:9100</div></pre></td></tr></table></figure>
-<h2 id="安装-kibana-（198主机）"><a href="#安装-kibana-（198主机）" class="headerlink" title="安装 kibana （198主机）"></a>安装 kibana （198主机）</h2><p>下载并安装：(kibana安装很简单，解压到对应目录就行了)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/kibana/kibana-5.2.2-linux-x86_64.tar.gz</div><div class="line"># tar zxvf kibana-5.2.2-linux-x86_64.tar.gz  -C /usr/local/</div><div class="line"># mv /usr/local/kibana-5.2.2-linux-x86_64/ /usr/local/kibana-5.2.2</div></pre></td></tr></table></figure>
-<p>修改默认配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/kibana-5.2.2/config/</div><div class="line"># vim kibana.yml  # 改为以下配置</div><div class="line">elasticsearch_url: &quot;http://192.168.10.198:9200&quot;</div><div class="line">server.host: &quot;192.168.10.198&quot;</div></pre></td></tr></table></figure>
-<p>启动服务：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/kibana-5.2.2/</div><div class="line"># ./bin/kibana &amp;</div></pre></td></tr></table></figure>
-<p>验证：（返回200响应码，则成功）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># curl -I http://192.168.10.198:5601</div></pre></td></tr></table></figure>
-<p>为了提供外网访问，利用Nginx做反向代理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">upstream kibana&#123;</div><div class="line">    server 192.168.10.198:5601 fail_timeout=0;</div><div class="line">&#125;</div><div class="line">server &#123;</div><div class="line">    listen 80;</div><div class="line">    server_name elk.xxx.com;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">        proxy_pass http://kibana;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="ownCloud介绍"><a href="#ownCloud介绍" class="headerlink" title="ownCloud介绍"></a>ownCloud介绍</h1><p><a href="https://owncloud.org/" target="_blank" rel="external"><strong>ownCloud</strong></a> 是开源的、免费的、专业的私有云存储解决方案，以 <code>AGPL</code> 许可发布，它能帮你快速地在服务器上架设一套专属的私有云文件同步网盘，可以像 <code>Dropbox</code> 那样实现文件跨平台同步、共享与团队协作等。</p>
+<h1 id="docker下安装ownCloud"><a href="#docker下安装ownCloud" class="headerlink" title="docker下安装ownCloud"></a>docker下安装ownCloud</h1><p>ownCloud项目的内核是使用PHP5编写的，环境基于LAMP，支持SQLite、MySQL、Oracle、PostgreSQL等数据库。<br>要是在服务器中，先搭建LAMP环境，再去安装ownCloud，调试环境会很麻烦，耗时也长。可以通过Docker来快速部署ownCloud。</p>
+<h3 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h3><p>服务器系统是：CentOS6.5，在此系统中安装docker，请参考前面的文章：<a href="http://www.hjqjk.com/2017/CentOS-6-5-install-docker.html" target="_blank" rel="external"><strong>CentOS 6.x 上搭建docker</strong></a></p>
+<h3 id="两种方式"><a href="#两种方式" class="headerlink" title="两种方式"></a>两种方式</h3><h3 id="拉取ownCloud官方镜像"><a href="#拉取ownCloud官方镜像" class="headerlink" title="拉取ownCloud官方镜像"></a>拉取ownCloud官方镜像</h3><p><a href="https://hub.docker.com/_/owncloud/" target="_blank" rel="external"><strong>ownCloud的官方docker镜像页面</strong></a><br>这个镜像，已经集成了 <code>Apache + PHP</code> 的环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># docker pull owncloud</div></pre></td></tr></table></figure>
+<p>需要用root用户拉取，否则会有警告：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Warning: failed to get default registry endpoint from daemon (Cannot connect to the Docker daemon. Is the docker daemon running on this host?). Using system default: https://index.docker.io/v1/</div><div class="line">Cannot connect to the Docker daemon. Is the docker daemon running on this host?</div></pre></td></tr></table></figure>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-09-25-15063104057578.jpg" alt=""></p>
+<h3 id="docker-compose-方式安装"><a href="#docker-compose-方式安装" class="headerlink" title="docker-compose 方式安装"></a>docker-compose 方式安装</h3><h4 id="docker版本要求"><a href="#docker版本要求" class="headerlink" title="docker版本要求"></a>docker版本要求</h4><p>想要用 <code>docker-compose</code>，docker版本必须大于等于 <code>1.10.0</code>，否则会报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR: The Docker Engine version is less than the minimum required by Compose. Your current project requires a Docker Engine of version 1.10.0 or greater.</div></pre></td></tr></table></figure>
+<h4 id="docker-compose-安装"><a href="#docker-compose-安装" class="headerlink" title="docker-compose 安装"></a>docker-compose 安装</h4><p>compose 可以通过 Python 的 pip 工具进行安装，可以直接下载编辑好的二进制文件使用，甚至直接运行在 Docker 容器中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># pip install -U docker-compose</div></pre></td></tr></table></figure>
+<h4 id="docker-compose-yml-文件编写"><a href="#docker-compose-yml-文件编写" class="headerlink" title="docker-compose.yml 文件编写"></a>docker-compose.yml 文件编写</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="attr">version:</span> <span class="string">'2'</span></div><div class="line"><span class="attr">services:</span></div><div class="line"><span class="attr">  owncloud:</span></div><div class="line"><span class="attr">    image:</span> <span class="string">owncloud</span></div><div class="line"><span class="attr">    volumes:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">"/home/data/db/owncloud:/var/www/html/data"</span></div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="number">5679</span><span class="string">:80</span></div><div class="line"><span class="attr">  mysql:</span></div><div class="line"><span class="attr">    image:</span> <span class="string">mysql</span></div><div class="line"><span class="attr">    volumes:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">"/home/data/db/mysql:/var/lib/mysql"</span></div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="number">3306</span><span class="string">:3306</span></div><div class="line"><span class="attr">    environment:</span></div><div class="line"><span class="attr">      MYSQL_ROOT_PASSWORD:</span> <span class="string">"DEefwwe+Ven"</span></div><div class="line"><span class="attr">      MYSQL_DATABASE:</span> <span class="string">ownCloud</span></div><div class="line"><span class="attr">      MYSQL_USER:</span> <span class="string">owncloud</span></div><div class="line"><span class="attr">      MYSQL_PASSWORD:</span> <span class="string">"Gw3uEjfw+fe"</span></div></pre></td></tr></table></figure>
+<h4 id="docker-compose-运行和停止"><a href="#docker-compose-运行和停止" class="headerlink" title="docker-compose 运行和停止"></a>docker-compose 运行和停止</h4><p>注意：<code>docker-compose</code> 必须在 <code>docker-compose.yml</code> 文件所在目录中执行，否则会报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ERROR:</div><div class="line">    Can&apos;t find a suitable configuration file in this directory or any</div><div class="line">    parent. Are you in the right directory?</div><div class="line"></div><div class="line">    Supported filenames: docker-compose.yml, docker-compose.yaml</div></pre></td></tr></table></figure>
+<p>docker-compose 后台启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># docker-compose up -d</div></pre></td></tr></table></figure>
+<p>docker-compose 查看状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># docker-compose ps</div></pre></td></tr></table></figure>
+<p>docker-compose 停止和删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># docker-compose stop</div><div class="line"># dcoker-compose rm</div><div class="line"></div><div class="line">相当上面两条命令</div><div class="line"># dcoker-compose down</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -528,13 +459,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/elk/" rel="tag"><i class="fa fa-tag"></i>  elk</a>
+            <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i>  docker</a>
           
-            <a href="/tags/elasticsearch/" rel="tag"><i class="fa fa-tag"></i>  elasticsearch</a>
-          
-            <a href="/tags/logstash/" rel="tag"><i class="fa fa-tag"></i>  logstash</a>
-          
-            <a href="/tags/kibana/" rel="tag"><i class="fa fa-tag"></i>  kibana</a>
+            <a href="/tags/ownCloud/" rel="tag"><i class="fa fa-tag"></i>  ownCloud</a>
           
         </div>
       
@@ -547,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/CentOS-6-5-install-NodeJS.html" rel="next" title="CentOS 6.5安装NodeJS">
-                <i class="fa fa-chevron-left"></i> CentOS 6.5安装NodeJS
+              <a href="/2017/ELK-install.html" rel="next" title="ELK搭建过程">
+                <i class="fa fa-chevron-left"></i> ELK搭建过程
               </a>
             
           </div>
@@ -652,7 +579,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -674,7 +601,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -745,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前提条件"><span class="nav-number">1.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-jdk1-8-0-（197-主机、198-主机）"><span class="nav-number">2.</span> <span class="nav-text">安装 jdk1.8.0 （197 主机、198 主机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-redis（198-主机）"><span class="nav-number">3.</span> <span class="nav-text">安装 redis（198 主机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Logstash-（197-主机，logstash-agent-采集日志）"><span class="nav-number">4.</span> <span class="nav-text">安装 Logstash （197 主机，logstash agent 采集日志）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Logstash-（198-主机，logstash-indexer）"><span class="nav-number">5.</span> <span class="nav-text">安装 Logstash （198 主机，logstash indexer）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-elasticsearch-（198主机）"><span class="nav-number">6.</span> <span class="nav-text">安装 elasticsearch （198主机）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关报错及其解决方法"><span class="nav-number">6.1.</span> <span class="nav-text">相关报错及其解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为-Elasticsearch5-2-2-安装head插件-（198-主机）"><span class="nav-number">7.</span> <span class="nav-text">为 Elasticsearch5.2.2 安装head插件 （198 主机）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改head源码"><span class="nav-number">7.1.</span> <span class="nav-text">修改head源码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-kibana-（198主机）"><span class="nav-number">8.</span> <span class="nav-text">安装 kibana （198主机）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ownCloud介绍"><span class="nav-number">2.</span> <span class="nav-text">ownCloud介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker下安装ownCloud"><span class="nav-number">3.</span> <span class="nav-text">docker下安装ownCloud</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装docker"><span class="nav-number">3.0.1.</span> <span class="nav-text">安装docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种方式"><span class="nav-number">3.0.2.</span> <span class="nav-text">两种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉取ownCloud官方镜像"><span class="nav-number">3.0.3.</span> <span class="nav-text">拉取ownCloud官方镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose-方式安装"><span class="nav-number">3.0.4.</span> <span class="nav-text">docker-compose 方式安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker版本要求"><span class="nav-number">3.0.4.1.</span> <span class="nav-text">docker版本要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-compose-安装"><span class="nav-number">3.0.4.2.</span> <span class="nav-text">docker-compose 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-compose-yml-文件编写"><span class="nav-number">3.0.4.3.</span> <span class="nav-text">docker-compose.yml 文件编写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-compose-运行和停止"><span class="nav-number">3.0.4.4.</span> <span class="nav-text">docker-compose 运行和停止</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
