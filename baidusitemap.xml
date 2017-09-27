@@ -4,28 +4,8 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT.html</loc>
-    <lastmod>2017-09-26T09:44:46.000Z</lastmod>
-    <data>
-        <display>
-        <title>Mac上基于GitHub-Pages+Hexo+NexT 搭建个人博客</title>
-        <pubTime>2017-06-16T10:05:12.000Z</pubTime>
-        
-        <tag>hexo</tag>
-         
-         
-           
-             
-              <breadCrumb title="博客搭建" url="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2017/Docker-deploy-ownCloud.html</loc>
-    <lastmod>2017-09-26T07:12:17.000Z</lastmod>
+    <lastmod>2017-09-27T09:38:05.892Z</lastmod>
     <data>
         <display>
         <title>Docker下快速部署ownCloud</title>
@@ -39,6 +19,26 @@
            
              
               <breadCrumb title="docker" url="http://yoursite.com/categories/docker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/Build-a-blog-on-Mac-whith-GithubPages-Hexo-NexT.html</loc>
+    <lastmod>2017-09-26T14:01:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Mac上基于GitHub-Pages+Hexo+NexT 搭建个人博客</title>
+        <pubTime>2017-06-16T10:05:12.000Z</pubTime>
+        
+        <tag>hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="博客搭建" url="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
           
         </display>
     </data>
