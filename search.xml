@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[日常记错]]></title>
     <url>%2F2017%2FRecord-the-error-daily.html</url>
-    <content type="text"><![CDATA[SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。 deny 115.64.43.115;deny 124.169.103.194;deny 122.148.198.8;deny 120.18.216.254;]]></content>
+    <content type="text"><![CDATA[SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。]]></content>
       <categories>
         <category>技术杂项</category>
       </categories>
