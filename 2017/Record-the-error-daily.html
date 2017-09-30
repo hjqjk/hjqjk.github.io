@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="elk,elasticsearch,logstash,kibana," />
+  <meta name="keywords" content="ssh," />
 
 
 
@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
-<meta name="keywords" content="elk,elasticsearch,logstash,kibana">
+<meta name="description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。 deny 115.64.4">
+<meta name="keywords" content="ssh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ELK搭建过程">
-<meta property="og:url" content="http://yoursite.com/2017/ELK-install.html">
+<meta property="og:title" content="日常记错">
+<meta property="og:url" content="http://yoursite.com/2017/Record-the-error-daily.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
-<meta property="og:description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
-<meta property="og:updated_time" content="2017-09-14T07:20:59.000Z">
+<meta property="og:description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。 deny 115.64.4">
+<meta property="og:updated_time" content="2017-09-30T02:27:36.714Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ELK搭建过程">
-<meta name="twitter:description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
+<meta name="twitter:title" content="日常记错">
+<meta name="twitter:description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。 deny 115.64.4">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/ELK-install.html"/>
+  <link rel="canonical" href="http://yoursite.com/2017/Record-the-error-daily.html"/>
 
 
 
 
 
-  <title>ELK搭建过程 | Hjqjk's Blog</title>
+  <title>日常记错 | Hjqjk's Blog</title>
   
 
 
@@ -302,7 +302,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/ELK-install.html">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/Record-the-error-daily.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hjqjk">
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ELK搭建过程</h1>
+          <h1 class="post-title" itemprop="name headline">日常记错</h1>
         
 
         <div class="post-meta">
@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T18:27:10+08:00">
-                2017-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T11:21:36+08:00">
+                2017-09-29
               </time>
             
 
@@ -371,7 +371,7 @@
 
           
           
-             <span id="/2017/ELK-install.html" class="leancloud_visitors" data-flag-title="ELK搭建过程">
+             <span id="/2017/Record-the-error-daily.html" class="leancloud_visitors" data-flag-title="日常记错">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -399,106 +399,10 @@
       
 
       
-        <h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>系统版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">centos-6.5</div></pre></td></tr></table></figure>
-<p>软件版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">elasticsearch-5.2.2</div><div class="line">logstash-5.2.2</div><div class="line">kibana-5.2.2</div><div class="line">jdk : 1.8.0</div></pre></td></tr></table></figure>
-<p>主机环境：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">主机1（192.168.10.197）：安装 jdk、logstash agent </div><div class="line">主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticsearch、kibana</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="安装-jdk1-8-0-（197-主机、198-主机）"><a href="#安装-jdk1-8-0-（197-主机、198-主机）" class="headerlink" title="安装 jdk1.8.0 （197 主机、198 主机）"></a>安装 jdk1.8.0 （197 主机、198 主机）</h2><p>验证服务器已经安装的java版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -qa | grep java</div></pre></td></tr></table></figure>
-<p>如果有老旧的java版本，可选择删掉</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -e --nodeps [相关软件名]</div></pre></td></tr></table></figure>
-<p>下载并安装 jdk1.8.0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget --no-cookies --no-check-certificate --header &quot;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&quot; &quot;https://edelivery.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm&quot;</div><div class="line"># rpm -ivh jdk-8u121-linux-x64.rpm</div></pre></td></tr></table></figure>
-<p>验证版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># java -version</div></pre></td></tr></table></figure>
-<p>设置环境变量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># vim ~/.bash_profile  # 添加以下内容</div><div class="line">#set java environment</div><div class="line">JAVA_HOME=/usr/java/jdk1.8.0_121/</div><div class="line">JAVA_BIN=/usr/java/jdk1.8.0_121//bin</div><div class="line">CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</div><div class="line">PATH=$JAVA_BIN:$PATH</div><div class="line">export PATH JAVA_HOME CLASSPATH</div></pre></td></tr></table></figure>
-<p>手动加载生效：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># source ~/.bash_profile</div></pre></td></tr></table></figure>
-<h2 id="安装-redis（198-主机）"><a href="#安装-redis（198-主机）" class="headerlink" title="安装 redis（198 主机）"></a>安装 redis（198 主机）</h2><p>下载并安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/src</div><div class="line"># wget http://download.redis.io/releases/redis-3.2.8.tar.gz</div><div class="line"># tar zxvf redis-3.2.8.tar.gz</div><div class="line"># cd redis-3.2.8</div><div class="line"># make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<p>另外创建redis的配置、日志、数据等目录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/redis/&#123;bin,etc,logs,db&#125; -p</div><div class="line"># cp redis-3.2.8/redis.conf /usr/local/redis/etc/</div><div class="line"># cp redis-3.2.8/src/&#123;redis-benchmark,redis-check-aof,redis-cli,redis-server,mkreleasehdr.sh&#125; /usr/local/redis/bin/</div></pre></td></tr></table></figure>
-<p>修改redis配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># vim /usr/local/redis/etc/redis.conf</div><div class="line">pidfile /usr/local/redis/logs/redis_6379.pid</div><div class="line">logfile /usr/local/redis/logs/redis.log</div><div class="line">dir /usr/local/redis/db/</div><div class="line">#bind 127.0.0.1  #注释这行</div></pre></td></tr></table></figure>
-<p>启动redis服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf &amp;</div></pre></td></tr></table></figure>
-<p>开启防火墙</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># iptables -A INPUT -s 192.168.10.0/24 -m tcp -p tcp --dport 6379 -j ACCEPT</div><div class="line"># iptables-save &gt; /etc/sysconfig/iptables</div></pre></td></tr></table></figure>
-<h2 id="安装-Logstash-（197-主机，logstash-agent-采集日志）"><a href="#安装-Logstash-（197-主机，logstash-agent-采集日志）" class="headerlink" title="安装 Logstash （197 主机，logstash agent 采集日志）"></a>安装 Logstash （197 主机，logstash agent 采集日志）</h2><p>下载并安装：(只要将安装包解压到指定目录就行)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/logstash/logstash-5.2.2.tar.gz</div><div class="line"># tar zxvf logstash-5.2.2.tar.gz -C /usr/local</div></pre></td></tr></table></figure>
-<p>创建配置目录conf，并编辑配置文件：(将采集的日志传送到198主机上的redis队列上)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/logstash-5.2.2/conf</div><div class="line"># cat /usr/local/logstash-5.2.2/conf/logstash_agent.conf</div><div class="line">input&#123;</div><div class="line">	file&#123;</div><div class="line">		type=&gt;&quot;msg&quot;</div><div class="line">		path=&gt;[&quot;/var/log/messages&quot;]</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">output&#123;</div><div class="line">	redis&#123;</div><div class="line">		host=&gt;[&quot;192.168.10.198&quot;]</div><div class="line">		port=&gt;&quot;6379&quot;</div><div class="line">		data_type=&gt;&quot;list&quot;</div><div class="line">		key=&gt;&quot;logstash&quot;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>创建logstash日志目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/ogstash-5.2.2/logs</div></pre></td></tr></table></figure>
-<p>启动服务，将日志写到指定的日志文件中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/logstash-5.2.2</div><div class="line"># ./bin/logstash -f conf/logstash_agent.conf  -l logs &amp;</div></pre></td></tr></table></figure>
-<h2 id="安装-Logstash-（198-主机，logstash-indexer）"><a href="#安装-Logstash-（198-主机，logstash-indexer）" class="headerlink" title="安装 Logstash （198 主机，logstash indexer）"></a>安装 Logstash （198 主机，logstash indexer）</h2><p>下载并安装：(只要将安装包解压到指定目录就行)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/logstash/logstash-5.2.2.tar.gz</div><div class="line"># tar zxvf logstash-5.2.2.tar.gz -C /usr/local</div></pre></td></tr></table></figure>
-<p>创建配置目录conf，并编辑配置文件：(将采集的日志传送到198主机上的redis队列上)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/logstash-5.2.2/conf</div><div class="line"># cat /usr/local/logstash-5.2.2/conf/logstash_indexer.conf</div><div class="line">input &#123;</div><div class="line">  redis &#123;</div><div class="line">    host =&gt;[&quot;192.168.10.198&quot;]</div><div class="line">    port =&gt; &quot;6379&quot;</div><div class="line">    data_type =&gt; &quot;list&quot;</div><div class="line">    key =&gt; &quot;logstash&quot;</div><div class="line">    type =&gt;&quot;msg&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; &quot;192.168.10.198:9200&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>创建logstash日志目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/ogstash-5.2.2/logs</div></pre></td></tr></table></figure>
-<p>启动服务，将日志写到指定的日志文件中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/logstash-5.2.2</div><div class="line"># ./bin/logstash -f conf/logstash_indexer.conf  -l logs &amp;</div></pre></td></tr></table></figure>
-<h2 id="安装-elasticsearch-（198主机）"><a href="#安装-elasticsearch-（198主机）" class="headerlink" title="安装 elasticsearch （198主机）"></a>安装 elasticsearch （198主机）</h2><p>下载并安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.2.2.tar.gz</div><div class="line"># tar zxvf elasticsearch-5.2.2.tar.gz -C /usr/local/</div></pre></td></tr></table></figure>
-<p>修改配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/elasticsearch-5.2.2/</div><div class="line"># vim config/elasticsearch.yml  </div><div class="line">cluster.name: chw</div><div class="line">node.name: chw_rpc</div><div class="line">node.master: true</div><div class="line">node.data: true</div><div class="line">network.host: 192.168.10.198</div><div class="line">path.data: /home/data/elasticsearch/data</div><div class="line">path.logs: /home/data/elasticsearch/logs</div></pre></td></tr></table></figure>
-<p>创建目录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir /home/data/elasticsearch/&#123;data,logs&#125; -p</div></pre></td></tr></table></figure>
-<p>Elasticsearch不允许以root用户启动，否则会报错：can not run elasticsearch as root。需要创建普通用户，并切换到普通用户启动。<br>注意，elasticsearch-5.2.2目录的属主和属组也要修改，否则会报权限错误。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># groupadd elasticsearch</div><div class="line"># useradd elasticsearch -g elasticsearch</div><div class="line"># chown elasticsearch.elasticsearch /usr/local/elasticsearch-5.2.2/ -R</div><div class="line"># chown elasticsearch.elasticsearch /home/data/elasticsearch/ -R</div></pre></td></tr></table></figure>
-<p>打开tcp端口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># iptables -A INPUT -s 192.168.10.0/24 -m tcp -p tcp --dport 9300-j ACCEPT</div><div class="line"># iptables-save &gt; /etc/sysconfig/iptables</div></pre></td></tr></table></figure>
-<p>启动服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># su elasticsearch</div><div class="line">$ ./bin/elasticsearch -d</div></pre></td></tr></table></figure>
-<p>验证是否成功：(返回的状态码为200，则表示成功了)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># curl -X GET http://192.168.10.198:9200</div></pre></td></tr></table></figure>
-<h3 id="相关报错及其解决方法"><a href="#相关报错及其解决方法" class="headerlink" title="相关报错及其解决方法"></a>相关报错及其解决方法</h3><p>（1）、报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ERROR: bootstrap checks failed</div><div class="line">system call filters failed to install; check the logs and fix your configuration or disable system call filters at your own risk</div></pre></td></tr></table></figure>
-<p>原因和解决：<br>   这是在因为Centos6不支持SecComp，而ES5.2.0默认bootstrap.system_call_filter为true进行检测，所以导致检测失败，失败后直接导致ES不能启动。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 修改 elasticsearch.yml </div><div class="line">bootstrap.memory_lock: false</div><div class="line">bootstrap.system_call_filter: false</div></pre></td></tr></table></figure>
-<p>（2）、报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node settings must not contain any index level settings</div></pre></td></tr></table></figure>
-<p>原因和解决：<br>   在5.0+的版本中，所有index配置（例如 index.mapper.dynamic）都不能再配置文件中写定，需要在ES启动之后通过接口来改。<br>   删除elasticsearch.yml 中，index.* 开头的所有配置项。</p>
-<p>（3）、报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max virtual memory areas  vm.max_map_count [65530] is too low, increase to at least [262144]</div></pre></td></tr></table></figure>
-<p>解决：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># vim /etc/sysctl.conf # 修改系统配置</div><div class="line">vm.max_map_count=262144</div><div class="line"># sysctl -p  # 使其生效</div></pre></td></tr></table></figure>
-<p>（4）、报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">max number of threads [1024] for user [elsearch] likely too low, increase to at least [2048]</div></pre></td></tr></table></figure>
-<p>解决：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># vim /etc/security/limits.conf  #修改为以下配置</div><div class="line">* soft nproc 2048</div><div class="line">* hard nproc 4096</div><div class="line"># vim  /etc/security/limits.d/90-nproc.conf   #修改为以下配置</div><div class="line">* soft nproc 2048</div></pre></td></tr></table></figure>
-<h2 id="为-Elasticsearch5-2-2-安装head插件-（198-主机）"><a href="#为-Elasticsearch5-2-2-安装head插件-（198-主机）" class="headerlink" title="为 Elasticsearch5.2.2 安装head插件 （198 主机）"></a>为 Elasticsearch5.2.2 安装head插件 （198 主机）</h2><p>下载地址：<a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="external">https://github.com/mobz/elasticsearch-head</a><br>自从Elasticsearch5.0开始就不再支持site plugins，需要将Elasticsearch-head以独立服务的形式安装使用。</p>
-<p>首先安装nodejs和npm：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># yum install nodejs npm -y</div><div class="line"># yum install git -y</div></pre></td></tr></table></figure>
-<p>注意：5.0+版本，elasticsearch-head 不能放在elasticsearch的 plugins、modules 目录下，否则启动会报错： Property [elasticsearch.version] is missing for plugin [head]</p>
-<p>将elasticsearch-head放到 /usr/local/src 目录并安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/src/ </div><div class="line"># git clone git://github.com/mobz/elasticsearch-head.git</div><div class="line"># cd elasticsearch-head/</div><div class="line"># npm install</div></pre></td></tr></table></figure>
-<p>elasticsearch配置允许跨域访问，这样head插件可以访问es：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># vim elasticsearch-5.2.2/config/elasticsearch.yml  # 添加如下两行代码（&quot;:&quot; 后边要有个空格）</div><div class="line">http.cors.enabled: true</div><div class="line">http.cors.allow-origin: &quot;*&quot;</div><div class="line"># 重启elasticsearch服务，使其配置生效。</div></pre></td></tr></table></figure>
-<h3 id="修改head源码"><a href="#修改head源码" class="headerlink" title="修改head源码"></a>修改head源码</h3><p>   由于head的代码还是老版本的，直接执行有很多限制，比如无法跨机器访问。因此需要用户修改两个地方：<br>1）修改服务器监听地址:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># vim elasticsearch-head/Gruntfile.js  # 增加hostname属性，设置为*</div><div class="line">connect: &#123;</div><div class="line">    server: &#123;</div><div class="line">        options: &#123;</div><div class="line">            port: 9100,</div><div class="line">            hostname: &apos;*&apos;,   </div><div class="line">            base: &apos;.&apos;,</div><div class="line">            keepalive: true</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2）修改连接es服务的地址：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># vim elasticsearch-head/_site/app.js  # 修改为es的服务器IP</div><div class="line">this.base_uri = this.config.base_uri || this.prefs.get(&quot;app-base_uri&quot;) || &quot;http://192.168.10.198:9200&quot;;</div></pre></td></tr></table></figure>
-<p>启动head服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd /usr/local/src/elasticsearch-head </div><div class="line">$ ./node_modules/grunt/bin/grunt server &amp;</div></pre></td></tr></table></figure>
-<p>验证：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># curl -I http://localhost:9100</div></pre></td></tr></table></figure>
-<h2 id="安装-kibana-（198主机）"><a href="#安装-kibana-（198主机）" class="headerlink" title="安装 kibana （198主机）"></a>安装 kibana （198主机）</h2><p>下载并安装：(kibana安装很简单，解压到对应目录就行了)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/kibana/kibana-5.2.2-linux-x86_64.tar.gz</div><div class="line"># tar zxvf kibana-5.2.2-linux-x86_64.tar.gz  -C /usr/local/</div><div class="line"># mv /usr/local/kibana-5.2.2-linux-x86_64/ /usr/local/kibana-5.2.2</div></pre></td></tr></table></figure>
-<p>修改默认配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/kibana-5.2.2/config/</div><div class="line"># vim kibana.yml  # 改为以下配置</div><div class="line">elasticsearch_url: &quot;http://192.168.10.198:9200&quot;</div><div class="line">server.host: &quot;192.168.10.198&quot;</div></pre></td></tr></table></figure>
-<p>启动服务：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/kibana-5.2.2/</div><div class="line"># ./bin/kibana &amp;</div></pre></td></tr></table></figure>
-<p>验证：（返回200响应码，则成功）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># curl -I http://192.168.10.198:5601</div></pre></td></tr></table></figure>
-<p>为了提供外网访问，利用Nginx做反向代理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">upstream kibana&#123;</div><div class="line">    server 192.168.10.198:5601 fail_timeout=0;</div><div class="line">&#125;</div><div class="line">server &#123;</div><div class="line">    listen 80;</div><div class="line">    server_name elk.xxx.com;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">        proxy_pass http://kibana;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h2 id="SSH连接报错"><a href="#SSH连接报错" class="headerlink" title="SSH连接报错"></a>SSH连接报错</h2><p>SSH连接服务器，出现报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># ssh root@xxx.xxx.xxx.xxx </div><div class="line">setsockopt SO_KEEPALIVE: Invalid argument</div><div class="line">write: Broken pipe</div></pre></td></tr></table></figure>
+<p>经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。</p>
+<p>deny 115.64.43.115;<br>deny 124.169.103.194;<br>deny 122.148.198.8;<br>deny 120.18.216.254;</p>
 
       
     </div>
@@ -528,13 +432,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/elk/" rel="tag"><i class="fa fa-tag"></i>  elk</a>
-          
-            <a href="/tags/elasticsearch/" rel="tag"><i class="fa fa-tag"></i>  elasticsearch</a>
-          
-            <a href="/tags/logstash/" rel="tag"><i class="fa fa-tag"></i>  logstash</a>
-          
-            <a href="/tags/kibana/" rel="tag"><i class="fa fa-tag"></i>  kibana</a>
+            <a href="/tags/ssh/" rel="tag"><i class="fa fa-tag"></i>  ssh</a>
           
         </div>
       
@@ -547,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/CentOS-6-5-install-NodeJS.html" rel="next" title="CentOS 6.5安装NodeJS">
-                <i class="fa fa-chevron-left"></i> CentOS 6.5安装NodeJS
+              <a href="/2017/Docker-deploy-ownCloud.html" rel="next" title="Docker下快速部署ownCloud">
+                <i class="fa fa-chevron-left"></i> Docker下快速部署ownCloud
               </a>
             
           </div>
@@ -556,10 +454,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/Docker-deploy-ownCloud.html" rel="prev" title="Docker下快速部署ownCloud">
-                Docker下快速部署ownCloud <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -749,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前提条件"><span class="nav-number">1.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-jdk1-8-0-（197-主机、198-主机）"><span class="nav-number">2.</span> <span class="nav-text">安装 jdk1.8.0 （197 主机、198 主机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-redis（198-主机）"><span class="nav-number">3.</span> <span class="nav-text">安装 redis（198 主机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Logstash-（197-主机，logstash-agent-采集日志）"><span class="nav-number">4.</span> <span class="nav-text">安装 Logstash （197 主机，logstash agent 采集日志）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Logstash-（198-主机，logstash-indexer）"><span class="nav-number">5.</span> <span class="nav-text">安装 Logstash （198 主机，logstash indexer）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-elasticsearch-（198主机）"><span class="nav-number">6.</span> <span class="nav-text">安装 elasticsearch （198主机）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关报错及其解决方法"><span class="nav-number">6.1.</span> <span class="nav-text">相关报错及其解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为-Elasticsearch5-2-2-安装head插件-（198-主机）"><span class="nav-number">7.</span> <span class="nav-text">为 Elasticsearch5.2.2 安装head插件 （198 主机）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改head源码"><span class="nav-number">7.1.</span> <span class="nav-text">修改head源码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-kibana-（198主机）"><span class="nav-number">8.</span> <span class="nav-text">安装 kibana （198主机）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH连接报错"><span class="nav-number">1.</span> <span class="nav-text">SSH连接报错</span></a></li></ol></div>
             
 
           </div>
