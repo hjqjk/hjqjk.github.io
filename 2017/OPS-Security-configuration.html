@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/OPS-Security-configuration.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
 <meta property="og:description" content="Nginx安全1、隐藏Nginx版本号在 nginx.conf 的 http 段中加入： 1server_tokens off; 修改 fastcgi.conf: 1234找到：fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;改为：fastcgi_param  SERVER_SOFTWARE    nginx; 2、禁用目录列出在 ht">
-<meta property="og:updated_time" content="2017-06-16T08:57:00.000Z">
+<meta property="og:updated_time" content="2017-10-20T08:13:09.560Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="运维安全配置">
 <meta name="twitter:description" content="Nginx安全1、隐藏Nginx版本号在 nginx.conf 的 http 段中加入： 1server_tokens off; 修改 fastcgi.conf: 1234找到：fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;改为：fastcgi_param  SERVER_SOFTWARE    nginx; 2、禁用目录列出在 ht">
@@ -409,11 +409,13 @@
 <h3 id="3、禁止不安全的HTTP方法（如DELETE、HEAD、TRACE、OPTIONS）"><a href="#3、禁止不安全的HTTP方法（如DELETE、HEAD、TRACE、OPTIONS）" class="headerlink" title="3、禁止不安全的HTTP方法（如DELETE、HEAD、TRACE、OPTIONS）"></a>3、禁止不安全的HTTP方法（如DELETE、HEAD、TRACE、OPTIONS）</h3><p>在对应server段修改：( if 不能用于http段)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if ($request_method !~ ^(GET|POST)$) &#123;</div><div class="line">    return 403;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="4、缩减权限"><a href="#4、缩减权限" class="headerlink" title="4、缩减权限"></a>4、缩减权限</h3><p>缩减日志、配置文件的权限，不能让无关用户访问到<br>指定普通用户作为Nginx服务的启动用户</p>
-<h3 id="5、禁止特定IP访问"><a href="#5、禁止特定IP访问" class="headerlink" title="5、禁止特定IP访问"></a>5、禁止特定IP访问</h3><h4 id="5-1、没有挂CDN"><a href="#5-1、没有挂CDN" class="headerlink" title="5.1、没有挂CDN"></a>5.1、没有挂CDN</h4><p>在 conf 目录新建 blockips.conf：</p>
+<h3 id="5、禁止特定IP访问"><a href="#5、禁止特定IP访问" class="headerlink" title="5、禁止特定IP访问"></a>5、禁止特定IP访问</h3><h4 id="5-1、没有挂CDN"><a href="#5-1、没有挂CDN" class="headerlink" title="5.1、没有挂CDN"></a>5.1、没有挂CDN</h4><p>在 conf 目录新建 <code>blockips.conf</code> ：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">deny xxx.xxx.xxx.xxx;</div><div class="line">deny xxx.xxx.0.0/16;</div></pre></td></tr></table></figure>
-<p>在 http 段添加：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">include blockips.conf;</div></pre></td></tr></table></figure>
-<p>集中在 blockips.conf 禁止IP</p>
+<ul>
+<li>全站屏蔽：把 <code>include blockips.conf;</code> 放到 <code>http{ ... }</code> 语句块中。</li>
+<li>单独站点屏蔽：把 <code>include blockips.conf;</code> 放到网站对应的 <code>server{ ... }</code> 语句块中。</li>
+</ul>
+<p>集中在 <code>blockips.conf</code> 文件中写禁止IP的规则。</p>
 <h4 id="5-2、挂上CDN"><a href="#5-2、挂上CDN" class="headerlink" title="5.2、挂上CDN"></a>5.2、挂上CDN</h4><p>http 段中添加：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 获取用户真实IP(x_forwarded_for的第一个IP)，并赋值给变量$clientRealIP</div><div class="line">map $http_x_forwarded_for  $clientRealIp &#123;</div><div class="line">        &quot;&quot;      $remote_addr;</div><div class="line">        ~^(?P&lt;firstAddr&gt;[0-9\.]+),?.*$  $firstAddr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>对应的 server 段中添加：</p>
@@ -445,6 +447,32 @@
 </ul>
 <p>在生产环境中，应该关闭在网页上显示错误信息，改为用错误日志记录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">display_errors = Off</div></pre></td></tr></table></figure>
+<h3 id="3、php相关日志开启"><a href="#3、php相关日志开启" class="headerlink" title="3、php相关日志开启"></a>3、php相关日志开启</h3><p>PHP版本：<code>5.3.3+</code><br>安装目录：<code>/usr/local/php56/</code><br>配置目录：<code>/usr/local/php56/etc/</code></p>
+<p>PHP 本身可以配置的log有三个：</p>
+<ul>
+<li>php-fpm 的 slow log：php-fpm.conf 中配置，记录慢执行</li>
+<li>php-fpm 的 error log：php-fpm.conf 中配置，记录php-fpm 进程的启动和终止等信息</li>
+<li>php 的 error log：php.ini 中配置，记录php应用程序的错误日志</li>
+</ul>
+<h4 id="php-慢查询日志-slowlog"><a href="#php-慢查询日志-slowlog" class="headerlink" title="php 慢查询日志(slowlog)"></a>php 慢查询日志(slowlog)</h4><p>通过开启php-fpm的慢执行日志 slowlog，可以分析php的性能问题。</p>
+<p>编辑php-fpm的配置文件 <code>/usr/local/php56/etc/php-fpm.conf</code> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">request_slowlog_timeout = 10s</div><div class="line">slowlog = /usr/local/php56/var/log/php-fpm_slowlog.log</div></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">request_slowlog_timeout: php脚本运行超过多长时间，就可以记录到日志文件</div><div class="line">slowlog: 日志文件的存储路径</div></pre></td></tr></table></figure>
+<p>重启php-fpm，使配置生效。</p>
+<h4 id="php-fpm-错误日志"><a href="#php-fpm-错误日志" class="headerlink" title="php-fpm 错误日志"></a>php-fpm 错误日志</h4><p>修改 php-fpm.conf 配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[global]</div><div class="line">error_log = /usr/local/php56/var/log/php-fpm_error.log</div></pre></td></tr></table></figure>
+<p>确保 php.ini 上 <code>log_errors = On</code> 。<br>重启php-fpm，使配置生效。</p>
+<h4 id="php-错误日志"><a href="#php-错误日志" class="headerlink" title="php 错误日志"></a>php 错误日志</h4><p>php-fpm.conf 中默认是关闭 worker 进程的错误输出，直接把他们重定向到 /dev/null，所以无法在nginx的 error log 和 php-fpm 的 error log 中看到php 的 error log，即默认 php 的 error 是没开启的。</p>
+<p>修改 php-fpm.conf 中的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[www]</div><div class="line">; Redirect worker stdout and stderr into main error log. If not set, stdout and</div><div class="line">; stderr will be redirected to /dev/null according to FastCGI specs.</div><div class="line">; Note: on highloaded environement, this can cause some delay in the page</div><div class="line">; process time (several ms).</div><div class="line">; Default Value: no</div><div class="line">catch_workers_output = yes</div></pre></td></tr></table></figure>
+<p>修改 php.ini 中的配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">log_errors = On</div><div class="line">display_errors = Off</div><div class="line">error_log = /usr/local/php56/var/log/php_error.log</div><div class="line">error_reporting = E_ALL &amp; ~E_DEPRECATED &amp; ~E_STRICT</div></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">log_errors = On : 开启错误日志</div><div class="line">display_errors = Off : 不在网页上显示错误信息</div><div class="line">error_reporting : 将指定的错误级别写入错误日志</div></pre></td></tr></table></figure>
+<p>php-fpm 的 worker 进程还需要有日志文件的写权限，当下 php-fpm 的 worker 进程的用户是 www。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># chown www.root /usr/local/php56/var/log/</div></pre></td></tr></table></figure>
+<p>重启php-fpm，使配置生效。</p>
 
       
     </div>
@@ -596,7 +624,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -689,7 +717,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx安全"><span class="nav-number">1.</span> <span class="nav-text">Nginx安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、隐藏Nginx版本号"><span class="nav-number">1.1.</span> <span class="nav-text">1、隐藏Nginx版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、禁用目录列出"><span class="nav-number">1.2.</span> <span class="nav-text">2、禁用目录列出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、禁止不安全的HTTP方法（如DELETE、HEAD、TRACE、OPTIONS）"><span class="nav-number">1.3.</span> <span class="nav-text">3、禁止不安全的HTTP方法（如DELETE、HEAD、TRACE、OPTIONS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、缩减权限"><span class="nav-number">1.4.</span> <span class="nav-text">4、缩减权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、禁止特定IP访问"><span class="nav-number">1.5.</span> <span class="nav-text">5、禁止特定IP访问</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1、没有挂CDN"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1、没有挂CDN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2、挂上CDN"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2、挂上CDN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、限制蜘蛛抓取频率"><span class="nav-number">1.6.</span> <span class="nav-text">6、限制蜘蛛抓取频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、禁止特定UA访问"><span class="nav-number">1.7.</span> <span class="nav-text">7、禁止特定UA访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、既禁止UA为空的访问，又要放行内网ip不做禁止"><span class="nav-number">1.8.</span> <span class="nav-text">8、既禁止UA为空的访问，又要放行内网ip不做禁止</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php-fpm安全"><span class="nav-number">2.</span> <span class="nav-text">php-fpm安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、隐藏php-fpm版本"><span class="nav-number">2.1.</span> <span class="nav-text">1、隐藏php-fpm版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、php-安全设置"><span class="nav-number">2.2.</span> <span class="nav-text">2、php 安全设置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx安全"><span class="nav-number">1.</span> <span class="nav-text">Nginx安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、隐藏Nginx版本号"><span class="nav-number">1.1.</span> <span class="nav-text">1、隐藏Nginx版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、禁用目录列出"><span class="nav-number">1.2.</span> <span class="nav-text">2、禁用目录列出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、禁止不安全的HTTP方法（如DELETE、HEAD、TRACE、OPTIONS）"><span class="nav-number">1.3.</span> <span class="nav-text">3、禁止不安全的HTTP方法（如DELETE、HEAD、TRACE、OPTIONS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、缩减权限"><span class="nav-number">1.4.</span> <span class="nav-text">4、缩减权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、禁止特定IP访问"><span class="nav-number">1.5.</span> <span class="nav-text">5、禁止特定IP访问</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1、没有挂CDN"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1、没有挂CDN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2、挂上CDN"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2、挂上CDN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、限制蜘蛛抓取频率"><span class="nav-number">1.6.</span> <span class="nav-text">6、限制蜘蛛抓取频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、禁止特定UA访问"><span class="nav-number">1.7.</span> <span class="nav-text">7、禁止特定UA访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、既禁止UA为空的访问，又要放行内网ip不做禁止"><span class="nav-number">1.8.</span> <span class="nav-text">8、既禁止UA为空的访问，又要放行内网ip不做禁止</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php-fpm安全"><span class="nav-number">2.</span> <span class="nav-text">php-fpm安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、隐藏php-fpm版本"><span class="nav-number">2.1.</span> <span class="nav-text">1、隐藏php-fpm版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、php-安全设置"><span class="nav-number">2.2.</span> <span class="nav-text">2、php 安全设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、php相关日志开启"><span class="nav-number">2.3.</span> <span class="nav-text">3、php相关日志开启</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#php-慢查询日志-slowlog"><span class="nav-number">2.3.1.</span> <span class="nav-text">php 慢查询日志(slowlog)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-fpm-错误日志"><span class="nav-number">2.3.2.</span> <span class="nav-text">php-fpm 错误日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-错误日志"><span class="nav-number">2.3.3.</span> <span class="nav-text">php 错误日志</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -728,13 +756,10 @@
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
-
   </a>
 </div>
 
-<div>
-   <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
-</div>
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
 
 

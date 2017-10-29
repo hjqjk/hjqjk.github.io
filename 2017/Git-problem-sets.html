@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
 <meta property="og:description" content="记录Git使用过程中出现的问题">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/17-6-27/86605188.jpg">
-<meta property="og:updated_time" content="2017-09-14T08:16:37.000Z">
+<meta property="og:updated_time" content="2017-10-26T14:43:26.832Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git问题集锦">
 <meta name="twitter:description" content="记录Git使用过程中出现的问题">
@@ -416,7 +416,7 @@
 <li>用git rm –cached 删除已经被提交到暂存区的特定文件，重新添加提交</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># cd test</span></div><div class="line"><span class="comment"># git rm -rf --cached web/passport_v3/vendor/monolog/monolog/</span></div><div class="line"><span class="comment"># git add web/passport_v3/vendor/monolog/monolog/</span></div><div class="line"><span class="comment"># git commit -m "子模块问题解决"</span></div></pre></td></tr></table></figure>
-<h2 id="Git回滚远程版本"><a href="#Git回滚远程版本" class="headerlink" title="Git回滚远程版本"></a>Git回滚远程版本</h2><h2 id="提取仓库根目录下的某目录文件，配置为另外一个Git仓库"><a href="#提取仓库根目录下的某目录文件，配置为另外一个Git仓库" class="headerlink" title="提取仓库根目录下的某目录文件，配置为另外一个Git仓库"></a>提取仓库根目录下的某目录文件，配置为另外一个Git仓库</h2><p>线上服务器中，<code>dev</code> 仓库下有个 <code>test</code> 目录，这是一个项目目录，现想将该目录内容提取出来，另外配置一个git仓库。</p>
+<h2 id="提取仓库根目录下的某目录文件，配置为另外一个Git仓库"><a href="#提取仓库根目录下的某目录文件，配置为另外一个Git仓库" class="headerlink" title="提取仓库根目录下的某目录文件，配置为另外一个Git仓库"></a>提取仓库根目录下的某目录文件，配置为另外一个Git仓库</h2><p>线上服务器中，<code>dev</code> 仓库下有个 <code>test</code> 目录，这是一个项目目录，现想将该目录内容提取出来，另外配置一个git仓库。</p>
 <p>在Git服务器上创建一个裸仓库，裸仓库没有工作区，因服务器上的Git仓库纯粹为了共享，不让用户直接登录Git服务器改工作区，并且Git服务器上的仓库通常都以 <code>.git</code> 结尾。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># cd /git</div><div class="line"># git init --bare test.git</div><div class="line"># chown -R git.git test.git</div></pre></td></tr></table></figure>
 <p>克隆空仓库 <code>test</code> 到线上服务器，拷贝 <code>test</code> 目录下的所有文件到空仓库 <code>test</code> 目录。</p>
@@ -425,8 +425,16 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># git add .</div><div class="line"># git commit -m &quot;初始化提交&quot;</div></pre></td></tr></table></figure>
 <p>配置好 <code>.gitignore</code>，推送到Git服务器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># git push</div></pre></td></tr></table></figure>
-<p>在版本库中删除 <code>dev</code> 仓库下的 <code>test</code> 目录，本地工作区保留目录文件</p>
+<p>在版本库中删除 <code>dev</code> 仓库下的 <code>test</code> 目录，但本地工作区还会保留目录文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd /home/www/dev</div><div class="line"># git rm -r --cached test</div></pre></td></tr></table></figure>
+<h2 id="清空所有-commit-log"><a href="#清空所有-commit-log" class="headerlink" title="清空所有 commit log"></a>清空所有 commit log</h2><p>情景：你在某分支上累积了无数次commit log，你又懒得去打理，你想删除之前所有的commit log，将工作区当前状态的代码作第一次提交。<br>注意：不能直接删 <code>.git</code> 目录，这回删除git仓库的配置，可能会直接导致git仓库出现问题的。如果有子模块，这种方法会使得子模块失效。</p>
+<blockquote>
+<p>git checkout –orphan [branch]<br>这命令会基于当前分支新建一个空白分支，没有任何commit log，工作区文件不发生变化。</p>
+</blockquote>
+<p>备份（必须确定已经备份好）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">切换到指定的分支</div><div class="line"># git checkout dev</div><div class="line"></div><div class="line">利用分支来备份</div><div class="line"># git branch backup</div></pre></td></tr></table></figure>
+<p>清空 commit-log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">新建分支new</div><div class="line"># git checkout --orphan new</div><div class="line"></div><div class="line">添加所有文件</div><div class="line"># git add .</div><div class="line"></div><div class="line">提交</div><div class="line"># git commit -m &quot;init commit&quot;</div><div class="line"></div><div class="line">删除分支</div><div class="line"># git branch -D dev</div><div class="line"></div><div class="line">将当前分支重命名</div><div class="line"># git branch -m dev</div><div class="line"></div><div class="line">强制更新远程git仓库</div><div class="line"># git push -f origin dev</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -578,7 +586,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -671,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git子模块问题"><span class="nav-number">1.</span> <span class="nav-text">git子模块问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git回滚远程版本"><span class="nav-number">2.</span> <span class="nav-text">Git回滚远程版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取仓库根目录下的某目录文件，配置为另外一个Git仓库"><span class="nav-number">3.</span> <span class="nav-text">提取仓库根目录下的某目录文件，配置为另外一个Git仓库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git子模块问题"><span class="nav-number">1.</span> <span class="nav-text">git子模块问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取仓库根目录下的某目录文件，配置为另外一个Git仓库"><span class="nav-number">2.</span> <span class="nav-text">提取仓库根目录下的某目录文件，配置为另外一个Git仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清空所有-commit-log"><span class="nav-number">3.</span> <span class="nav-text">清空所有 commit log</span></a></li></ol></div>
             
 
           </div>
@@ -710,13 +718,10 @@
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
-
   </a>
 </div>
 
-<div>
-   <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
-</div>
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
 
 

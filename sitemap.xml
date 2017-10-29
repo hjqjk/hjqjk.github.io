@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/Update-phpLibxml-to-2-9-0-on-centos6-5.html</loc>
+    
+    <lastmod>2017-10-29T15:43:30.400Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/Git-problem-sets.html</loc>
+    
+    <lastmod>2017-10-26T14:43:26.832Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/Python-install.html</loc>
+    
+    <lastmod>2017-10-24T07:39:39.666Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/OPS-Security-configuration.html</loc>
+    
+    <lastmod>2017-10-20T08:13:09.560Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/Record-the-error-daily.html</loc>
     
-    <lastmod>2017-09-30T02:45:35.234Z</lastmod>
+    <lastmod>2017-10-12T10:00:48.446Z</lastmod>
     
   </url>
   
@@ -47,13 +75,6 @@
     <loc>http://yoursite.com/2017/iF-svnadmin-bug-when-config.html</loc>
     
     <lastmod>2017-09-14T08:47:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/Git-problem-sets.html</loc>
-    
-    <lastmod>2017-09-14T08:16:37.000Z</lastmod>
     
   </url>
   
@@ -184,23 +205,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2017/OPS-Security-configuration.html</loc>
-    
-    <lastmod>2017-06-16T08:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2017/Deploy-Read-and-write-separation-of-mycat-with-docker.html</loc>
     
     <lastmod>2017-06-16T08:14:48.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/Update-phpLibxml-to-2-9-0-on-centos6-5.html</loc>
-    
-    <lastmod>2017-06-16T08:14:00.000Z</lastmod>
     
   </url>
   
