@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-24T07:39:39.666Z</updated>
+  <updated>2017-10-30T03:38:05.704Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python 之禅</title>
+    <link href="http://yoursite.com/2017/The-Zen-of-Python.html"/>
+    <id>http://yoursite.com/2017/The-Zen-of-Python.html</id>
+    <published>2017-10-30T02:53:06.000Z</published>
+    <updated>2017-10-30T03:38:05.704Z</updated>
+    
+    <content type="html"><![CDATA[<p>在vim的命令模式下输入：</p><blockquote><p>:read !echo import this | python</p></blockquote><p>会得到 <code>The Zen of Python</code> 的原文。</p><a id="more"></a><h2 id="英文原版"><a href="#英文原版" class="headerlink" title="英文原版"></a>英文原版</h2><blockquote><p>The Zen of Python, by Tim Peters</p><p>Beautiful is better than ugly.<br>Explicit is better than implicit.<br>Simple is better than complex.<br>Complex is better than complicated.<br>Flat is better than nested.<br>Sparse is better than dense.<br>Readability counts.<br>Special cases aren’t special enough to break the rules.<br>Although practicality beats purity.<br>Errors should never pass silently.<br>Unless explicitly silenced.<br>In the face of ambiguity, refuse the temptation to guess.<br>There should be one– and preferably only one –obvious way to do it.<br>Although that way may not be obvious at first unless you’re Dutch.<br>Now is better than never.<br>Although never is often better than <em>right</em> now.<br>If the implementation is hard to explain, it’s a bad idea.<br>If the implementation is easy to explain, it may be a good idea.<br>Namespaces are one honking great idea – let’s do more of those!</p></blockquote><h2 id="中文版一"><a href="#中文版一" class="headerlink" title="中文版一"></a>中文版一</h2><blockquote><p>Python之禅</p><p>美丽胜过丑陋<br>明确胜过含混<br>简洁胜过复杂<br>复杂好过混乱<br>平坦强于嵌套<br>留白好过抱团<br>通俗易懂有伟大的价值<br>没有什么能特殊到值得牺牲这些原则<br>尽管现实经常玷污这些纯净<br>错误永不可轻易原谅<br>除非坦诚相对<br>面对模棱两可，拒绝猜测的诱惑<br>那儿应该有一条，也只有一条明确的道路通向彼岸<br>尽管一开始那条路可能不是那样明显，除非你是Dutch<br>现在行动好过从不行动<br>尽管不行动经常比鲁莽行动要好<br>如果实现难以解释，那是一个坏主意<br>如果实现容易解释，那可能是个好主意<br>命名空间是一个伟大的注意－－我们应该好好利用</p></blockquote><ul><li>Python之父是荷兰人Guido van Rossum，被誉为历史上最伟大的12名程序员之一。</li><li>Dutch意指python作者Guido。</li></ul><h2 id="中文版二"><a href="#中文版二" class="headerlink" title="中文版二"></a>中文版二</h2><blockquote><p>Python之禅–python核心开发者Tim Peters</p><p>优美胜于丑陋（Python 以编写优美的代码为目标）<br>明了胜于晦涩（优美的代码应当是明了的，命名规范，风格相似）<br>简洁胜于复杂（优美的代码应当是简洁的，不要有复杂的内部实现）<br>复杂胜于凌乱（如果复杂不可避免，那代码间也不能有难懂的关系，要保持接口简洁）<br>扁平胜于嵌套（优美的代码应当是扁平的，不能有太多的嵌套）<br>间隔胜于紧凑（优美的代码有适当的间隔，不要奢望一行代码解决问题）<br>可读性很重要（优美的代码是可读的）<br>即便假借特例的实用性之名，也不可违背这些规则（这些规则至高无上）<br>不要包容所有错误，除非你确定需要这样做（精准地捕获异常，不写 except:pass 风格的代码）<br>当存在多种可能，不要尝试去猜测<br>而是尽量找一种，最好是唯一一种明显的解决方案（如果不确定，就用穷举法）<br>虽然这并不容易，因为你不是 Python 之父（这里的 Dutch 是指 Guido ）<br>做也许好过不做，但不假思索就动手还不如不做（动手之前要细思量）<br>如果你无法向人描述你的方案，那肯定不是一个好方案；反之亦然（方案测评标准）<br>命名空间是一种绝妙的理念，我们应当多加利用（倡导与号召）</p></blockquote><h2 id="中文版三"><a href="#中文版三" class="headerlink" title="中文版三"></a>中文版三</h2><blockquote><p>美麗優於醜陋，明講好過暗諭。<br>簡潔者為上，複雜者次之，繁澀者為下。<br>平舖善於層疊，勻散勝過稠密；以致輕鬆易讀。<br>特例難免但不可打破原則，務求純淨卻不可不切實際。<br>斷勿使錯誤靜靜流逝，除非有意如此。<br>在模擬兩可之間，拒絕猜測的誘惑。<br>總會有一種明確的寫法，最好也只有一種，<br>但或須細想方可得。<br>凡事雖應三思後行，但坐而言不如起而行。<br>難以解釋的實作方式，必定是壞方法。<br>容易解釋的實作方式，可能是好主意。<br>命名空間讚，吾人多實用。</p></blockquote><h2 id="图解版"><a href="#图解版" class="headerlink" title="图解版"></a>图解版</h2><p><img src="http://orku2pa7o.bkt.clouddn.com/2017-10-30-006faQNTgw1f39d4phtn8j30jg1uogxv.jpg" alt="006faQNTgw1f39d4phtn8j30jg1uogxv"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在vim的命令模式下输入：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;:read !echo import this | python&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;会得到 &lt;code&gt;The Zen of Python&lt;/code&gt; 的原文。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="python" scheme="http://yoursite.com/categories/python/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>Python安装</title>
@@ -498,31 +524,6 @@
     
     
       <category term="git" scheme="http://yoursite.com/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL 查询缓存</title>
-    <link href="http://yoursite.com/2017/MySQL-query-cache.html"/>
-    <id>http://yoursite.com/2017/MySQL-query-cache.html</id>
-    <published>2017-06-20T06:55:56.000Z</published>
-    <updated>2017-06-20T07:56:49.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>开启查询缓存后，查询语句的解析过程：</p><blockquote><p>在解析一个查询语句之前，如果查询缓存是打开的，那么MySQL会优先检查这个查询是否命中查询缓存中的数据。如果当前的查询恰好命中了查询缓存，那么在返回查询结果之前MySQL会检查一次用户权限。若权限没有问题，MySQL会跳过所有其他阶段（解析、优化、执行等），直接从缓存中拿到结果并返回给客户端。这种情况下，查询不会被解析，不用生成执行计划，不会被执行。</p></blockquote><a id="more"></a><h2 id="开启查询缓存"><a href="#开启查询缓存" class="headerlink" title="开启查询缓存"></a>开启查询缓存</h2><h3 id="设置使用查询缓存的方式"><a href="#设置使用查询缓存的方式" class="headerlink" title="设置使用查询缓存的方式"></a>设置使用查询缓存的方式</h3><p>使用 <strong>query_cache_type</strong> 变量来开启查询缓存，开启方式有三种：</p><ul><li><strong>ON</strong> : 正常缓存。表示在使用 SELECT 语句查询时，若没指定 SQL_NO_CACHE 或其他非确定性函数，则一般都会将查询结果缓存下来。</li><li><p><strong>DEMAND</strong> ：指定SQL_CACHE才缓存。表示在使用 SELECT 语句查询时，必须在该 SELECT 语句中指定 SQL_CACHE 才会将该SELECT语句的查询结果缓存下来。</p><blockquote><p>例如：select SQL_CACHE name from user where id = 15;    #只有明确指定  SQL_CACHE 的SELECT语句，才会将查询结果缓存。</p></blockquote></li><li><strong>OFF</strong>： 关闭查询缓存。</li></ul><h4 id="立刻生效，重启服务失效"><a href="#立刻生效，重启服务失效" class="headerlink" title="立刻生效，重启服务失效"></a>立刻生效，重启服务失效</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set global query_cache_type=1;</div></pre></td></tr></table></figure><p><font color="red"><strong>注意:</strong></font><br>　　当my.cnf 中，<strong>query_cache_type = OFF</strong> ，启动mysql服务后，在mysql命令行中使用上面语句开启查询缓存，会报错：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR 1651 (HY000): Query cache is disabled; restart the server with query_cache_type=1 to enable it</div></pre></td></tr></table></figure><p>　  遇到这种情况，是无法在mysql命令行中开启查询缓存的，必须修改my.cnf的query_cache_type = ON，然后重启mysql服务。 </p><h4 id="永久生效"><a href="#永久生效" class="headerlink" title="永久生效"></a>永久生效</h4><p>修改 my.cnf : </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">query_cache_type = ON</div></pre></td></tr></table></figure><p>重启 mysql 服务</p><h3 id="设置查询缓存的大小"><a href="#设置查询缓存的大小" class="headerlink" title="设置查询缓存的大小"></a>设置查询缓存的大小</h3><blockquote><p>query_cache_size ：查询缓存的总体可用空间。</p></blockquote><p><font color="red"><strong>注意:</strong></font> 如果 query_cache_size=0 ，那即便你设置了 query_cache_type = ON，查询缓存仍然是无法工作的。</p><h4 id="立刻生效，重启服务失效-1"><a href="#立刻生效，重启服务失效-1" class="headerlink" title="立刻生效，重启服务失效"></a>立刻生效，重启服务失效</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set global query_cache_size=536870912;   #单位为字节，必须为1024的倍数。</div></pre></td></tr></table></figure><h4 id="永久生效-1"><a href="#永久生效-1" class="headerlink" title="永久生效"></a>永久生效</h4><p>修改 my.cnf :</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">query_cache_size = 500M   #支持单位：K,M,G</div></pre></td></tr></table></figure><p>重启 mysql 服务</p><h3 id="查询缓存相关参数"><a href="#查询缓存相关参数" class="headerlink" title="查询缓存相关参数"></a>查询缓存相关参数</h3><p>与缓存功能相关的服务器变量：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SHOW GLOBAL VARIABLES LIKE &apos;query_cache%&apos;;</div><div class="line">+------------------------------+----------+</div><div class="line">| Variable_name                | Value    |</div><div class="line">+------------------------------+----------+</div><div class="line">| query_cache_limit            | 1048576  |</div><div class="line">| query_cache_min_res_unit     | 4096     |</div><div class="line">| query_cache_size             | 16777216 |</div><div class="line">| query_cache_strip_comments   | OFF      |</div><div class="line">| query_cache_type             | ON       |</div><div class="line">| query_cache_wlock_invalidate | OFF      |</div><div class="line">+------------------------------+----------+</div></pre></td></tr></table></figure><p>变量说明：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">query_cache_limit :  MySQL能够缓存的最大查询结果；如果某查询的结果大小大于此值，则不会被缓存；</div><div class="line">query_cache_min_res_unit : 查询缓存中分配内存的最小单位；(注意：此值通常是需要调整的，此值被调整为接近所有查询结果的平均值是最好的)</div><div class="line">                           计算单个查询的平均缓存大小：（query_cache_size-Qcache_free_memory）/Qcache_queries_in_cache</div><div class="line">query_cache_size : 查询缓存的总体可用空间，单位为字节；其必须为1024的倍数；</div><div class="line">query_cache_type: 查询缓存类型；是否开启缓存功能，开启方式有三种&#123;ON|OFF|DEMAND&#125;；</div><div class="line">query_cache_wlock_invalidate : 当其它会话锁定此次查询用到的资源时，是否不能再从缓存中返回数据；（OFF表示可以从缓存中返回数据）</div></pre></td></tr></table></figure><h2 id="关闭查询缓存"><a href="#关闭查询缓存" class="headerlink" title="关闭查询缓存"></a>关闭查询缓存</h2><p>关闭查询缓存，需要以下两步：</p><blockquote><ol><li>将query_cache_type设置为OFF。</li><li>将查询缓存的大小设置为0，这样才会真正不缓存数据。</li></ol></blockquote><p><font color="red"><strong>注意:</strong></font> 即便query_cache_size = 0，但 query_cache_type 非 0 的话，在实际环境中，可能会频繁发生报错：Waiting for query cache lock 。</p><h2 id="查询缓存状态"><a href="#查询缓存状态" class="headerlink" title="查询缓存状态"></a>查询缓存状态</h2><h3 id="1、与缓存相关的状态变量"><a href="#1、与缓存相关的状态变量" class="headerlink" title="1、与缓存相关的状态变量"></a>1、与缓存相关的状态变量</h3><p>不能也无需修改这些状态数据。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SHOW  GLOBAL STATUS  LIKE  &apos;Qcache%&apos;;</div><div class="line">+-------------------------+----------+</div><div class="line">| Variable_name            | Value   |</div><div class="line">+-------------------------+----------+</div><div class="line">| Qcache_free_blocks       | 1       | #查询缓存中的空闲块</div><div class="line">| Qcache_free_memory       | 16759656| #查询缓存中尚未使用的空闲内存空间</div><div class="line">| Qcache_hits              | 16      | #缓存命中次数</div><div class="line">| Qcache_inserts           | 71      | #向查询缓存中添加缓存记录的条数</div><div class="line">| Qcache_lowmem_prunes     | 0       | #表示因缓存满了而不得不清理部分缓存以存储新的缓存，这样操作的次数。若此数值过大，则表示缓存空间太小了。</div><div class="line">| Qcache_not_cached        | 57      | #没能被缓存的次数</div><div class="line">| Qcache_queries_in_cache  | 0       | #此时仍留在查询缓存的缓存个数</div><div class="line">| Qcache_total_blocks      | 1       | #共分配出去的块数</div><div class="line">+-------------------------+----------+</div></pre></td></tr></table></figure><h3 id="2、衡量缓存是否有效"><a href="#2、衡量缓存是否有效" class="headerlink" title="2、衡量缓存是否有效"></a>2、衡量缓存是否有效</h3><h4 id="缓存命中率的计算（次数）"><a href="#缓存命中率的计算（次数）" class="headerlink" title="缓存命中率的计算（次数）"></a>缓存命中率的计算（次数）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">mysql&gt; SHOW GLOBAL STATUS WHERE Variable_name=&apos;Qcache_hits&apos; OR Variable_name=&apos;Com_select&apos;;</div><div class="line">+---------------+-----------+</div><div class="line">| Variable_name | Value |</div><div class="line">+---------------+-----------+</div><div class="line">| Com_select    | 279292490 | #非缓存查询次数</div><div class="line">| Qcache_hits   | 307366973 | # 缓存命中次数</div><div class="line">+---------------+-----------</div></pre></td></tr></table></figure><blockquote><p>缓存命中率：Qcache_hits/(Qcache_hits+Com_select)</p></blockquote><h4 id="“命中和写入”的比率"><a href="#“命中和写入”的比率" class="headerlink" title="“命中和写入”的比率"></a>“命中和写入”的比率</h4><p>这是另外一种衡量缓存是否有效的指标。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SHOW GLOBAL STATUS WHERE Variable_name=&apos;Qcache_hits&apos; OR Variable_name=&apos;Qcache_inserts&apos;;</div><div class="line">+----------------+-----------+</div><div class="line">| Variable_name  | Value     |</div><div class="line">+----------------+-----------+</div><div class="line">| Qcache_hits | 307416113    | #缓存命中次数</div><div class="line">| Qcache_inserts | 108873957 | #向查询缓存中添加缓存记录的条数</div><div class="line">+----------------+-----------+</div></pre></td></tr></table></figure><blockquote><p>“命中和写入”的比率: Qcache_hits/Qcache_inserts # 如果此比值大于3:1, 说明缓存也是有效的；如果高于10:1，相当理想；</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;开启查询缓存后，查询语句的解析过程：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在解析一个查询语句之前，如果查询缓存是打开的，那么MySQL会优先检查这个查询是否命中查询缓存中的数据。如果当前的查询恰好命中了查询缓存，那么在返回查询结果之前MySQL会检查一次用户权限。若权限没有问题，MySQL会跳过所有其他阶段（解析、优化、执行等），直接从缓存中拿到结果并返回给客户端。这种情况下，查询不会被解析，不用生成执行计划，不会被执行。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="mysql" scheme="http://yoursite.com/tags/mysql/"/>
     
   </entry>
   

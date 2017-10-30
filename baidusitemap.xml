@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/The-Zen-of-Python.html</loc>
+    <lastmod>2017-10-30T03:38:05.704Z</lastmod>
+    <data>
+        <display>
+        <title>Python 之禅</title>
+        <pubTime>2017-10-30T02:53:06.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://yoursite.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/Update-phpLibxml-to-2-9-0-on-centos6-5.html</loc>
     <lastmod>2017-10-29T15:43:30.400Z</lastmod>
     <data>

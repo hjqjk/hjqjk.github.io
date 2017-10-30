@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/The-Zen-of-Python.html</loc>
+    
+    <lastmod>2017-10-30T03:38:05.704Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/Update-phpLibxml-to-2-9-0-on-centos6-5.html</loc>
     
     <lastmod>2017-10-29T15:43:30.400Z</lastmod>
