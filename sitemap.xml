@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/Python-moudle-Faker.html</loc>
+    
+    <lastmod>2017-11-02T07:38:32.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/Python-resource-collection.html</loc>
+    
+    <lastmod>2017-10-31T07:25:40.302Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/The-Zen-of-Python.html</loc>
     
     <lastmod>2017-10-30T03:38:05.704Z</lastmod>

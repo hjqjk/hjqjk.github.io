@@ -4,6 +4,46 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/Python-moudle-Faker.html</loc>
+    <lastmod>2017-11-02T07:38:32.689Z</lastmod>
+    <data>
+        <display>
+        <title>Python的伪造数据生成器:Faker</title>
+        <pubTime>2017-11-01T07:31:19.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://yoursite.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/Python-resource-collection.html</loc>
+    <lastmod>2017-10-31T07:25:40.302Z</lastmod>
+    <data>
+        <display>
+        <title>python资源收集</title>
+        <pubTime>2017-10-31T06:49:49.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://yoursite.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/The-Zen-of-Python.html</loc>
     <lastmod>2017-10-30T03:38:05.704Z</lastmod>
     <data>

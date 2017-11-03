@@ -1,0 +1,1368 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hjqjk's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="我们在开发中常常需要利用一些假数据来做测试,这种时候就可以使用 Faker 来伪造数据从而用来测试. Faker 是一个可以让你生成伪造数据的Python包。当你需要初始化数据库，创建美观的XML文档，不断产生数据来进行压力测试或者想从生产服务器上拉取匿名数据的时候，Faker将是你最棒的选择。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python的伪造数据生成器:Faker">
+<meta property="og:url" content="http://yoursite.com/2017/Python-moudle-Faker.html">
+<meta property="og:site_name" content="Hjqjk&#39;s Blog">
+<meta property="og:description" content="我们在开发中常常需要利用一些假数据来做测试,这种时候就可以使用 Faker 来伪造数据从而用来测试. Faker 是一个可以让你生成伪造数据的Python包。当你需要初始化数据库，创建美观的XML文档，不断产生数据来进行压力测试或者想从生产服务器上拉取匿名数据的时候，Faker将是你最棒的选择。">
+<meta property="og:updated_time" content="2017-11-02T07:38:32.689Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python的伪造数据生成器:Faker">
+<meta name="twitter:description" content="我们在开发中常常需要利用一些假数据来做测试,这种时候就可以使用 Faker 来伪造数据从而用来测试. Faker 是一个可以让你生成伪造数据的Python包。当你需要初始化数据库，创建美观的XML文档，不断产生数据来进行压力测试或者想从生产服务器上拉取匿名数据的时候，Faker将是你最棒的选择。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/Python-moudle-Faker.html"/>
+
+
+
+
+
+  <title>Python的伪造数据生成器:Faker | Hjqjk's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hjqjk's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/Python-moudle-Faker.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjqjk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hjqjk's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python的伪造数据生成器:Faker</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T15:31:19+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/Python-moudle-Faker.html" class="leancloud_visitors" data-flag-title="Python的伪造数据生成器:Faker">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们在开发中常常需要利用一些假数据来做测试,这种时候就可以使用 <code>Faker</code> 来伪造数据从而用来测试.</p>
+<p><a href="https://github.com/joke2k/faker" target="_blank" rel="external"><strong>Faker</strong></a> 是一个可以让你生成伪造数据的Python包。当你需要初始化数据库，创建美观的XML文档，不断产生数据来进行压力测试或者想从生产服务器上拉取匿名数据的时候，Faker将是你最棒的选择。</p>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Faker库已经被提交到 <a href="https://pypi.python.org/pypi/Faker" target="_blank" rel="external"><strong>pip</strong></a>，可以通过 pip 工具直接安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># pip install Faker</div></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><a href="http://faker.readthedocs.io/en/master/" target="_blank" rel="external"><strong>官方文档</strong></a></p>
+<p>faker 提供了一个工厂函数，用来创建数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> faker <span class="keyword">import</span> Factory</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake1 = Factory.create()</div></pre></td></tr></table></figure>
+<p>当然，也提供一个Faker类来创建实例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> faker <span class="keyword">import</span> Faker</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake2 = Faker()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake2.name()</div><div class="line"><span class="string">'Audrey Robinson'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake2.address()</div><div class="line"><span class="string">'4266 Fritz Shore\nLewischester, AL 24594-7593'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake2.text()</div><div class="line"><span class="string">'Odio porro unde sint aliquid beatae. Ex officiis porro nostrum laboriosam deleniti nisi. A aut molestiae ratione ipsam perspiciatis facere.\nDicta incidunt at deleniti recusandae accusamus quisquam.'</span></div></pre></td></tr></table></figure>
+<p>每次调用方法 <code>fake.name()</code> 都会产生不同的（随机）结果。这是因为 faker 向 <code>faker.Generator.method_name()</code> 调用了 <code>faker.Generator.format(method_name)</code>。</p>
+<h2 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h2><p>在用 <code>Faker()</code> 创建 faker 实例时，可以为实例指定本地化区域参数，默认为 ‘en_US`，因此生成的姓名、地址等都是美国的。<br>要生成中文伪造数据，只需：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; fake = Faker(&quot;zh_CN&quot;)</div></pre></td></tr></table></figure>
+<h2 id="方法介绍"><a href="#方法介绍" class="headerlink" title="方法介绍"></a>方法介绍</h2><p>如上面例子，每次调用 fake 实例的 <code>name()</code>方法时，都会产生不同随机姓名。fake 实例还有很多方法可用，这些方法分为以下几类：</p>
+<ul>
+<li>address 地址</li>
+<li>person 人物类：性别、姓名等</li>
+<li>barcode 条码类</li>
+<li>color 颜色类</li>
+<li>company 公司类：公司名、公司email、公司名前缀等</li>
+<li>credit_card 银行卡类：卡号、有效期、类型等</li>
+<li>currency  货币</li>
+<li>date_time 时间日期类：日期、年、月等</li>
+<li>file 文件类：文件名、文件类型、文件扩展名等</li>
+<li>internet 互联网类</li>
+<li>job 工作</li>
+<li>lorem 乱数假文</li>
+<li>misc 杂项类</li>
+<li>phone_number 手机号码类：手机号、运营商号段</li>
+<li>python python数据</li>
+<li>profile 人物描述信息：姓名、性别、地址、公司等</li>
+<li>ssn 社会安全码(身份证号码)</li>
+<li>user_agent 用户代理</li>
+</ul>
+<h3 id="address-地址"><a href="#address-地址" class="headerlink" title="address 地址"></a>address 地址</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.country()  <span class="comment"># 国家</span></div><div class="line"><span class="string">'奥地利'</span> </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.city()  <span class="comment"># 城市</span></div><div class="line"><span class="string">'郑州市'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.city_suffix()  <span class="comment"># 城市的后缀,中文是：市或县</span></div><div class="line"><span class="string">'市'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.address()  <span class="comment"># 地址</span></div><div class="line"><span class="string">'河北省巢湖县怀柔南宁路f座 169812'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.street_address()  <span class="comment"># 街道</span></div><div class="line"><span class="string">'邯郸路W座'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.street_name()  <span class="comment"># 街道名</span></div><div class="line"><span class="string">'合肥路'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.postcode()  <span class="comment"># 邮编</span></div><div class="line"><span class="string">'314548'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.latitude()  <span class="comment"># 维度</span></div><div class="line">Decimal(<span class="string">'68.0228435'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.longitude()  <span class="comment"># 经度</span></div><div class="line">Decimal(<span class="string">'155.964341'</span>)</div></pre></td></tr></table></figure>
+<h3 id="person-人物"><a href="#person-人物" class="headerlink" title="person 人物"></a>person 人物</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.name() <span class="comment"># 姓名</span></div><div class="line"><span class="string">'单玉珍'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.last_name() <span class="comment"># 姓</span></div><div class="line"><span class="string">'潘'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.first_name() <span class="comment"># 名</span></div><div class="line"><span class="string">'琴'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.name_male() <span class="comment"># 男性姓名</span></div><div class="line"><span class="string">'官平'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.last_name_male() <span class="comment"># 男性姓</span></div><div class="line"><span class="string">'安'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.first_name_male() <span class="comment"># 男性名</span></div><div class="line"><span class="string">'文'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.name_female() <span class="comment"># 女性姓名</span></div><div class="line"><span class="string">'许颖'</span></div></pre></td></tr></table></figure>
+<h3 id="barcode-条码"><a href="#barcode-条码" class="headerlink" title="barcode 条码"></a>barcode 条码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.ean8()  <span class="comment"># 8位条码</span></div><div class="line"><span class="string">'12771363'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.ean13()  <span class="comment"># 13位条码</span></div><div class="line"><span class="string">'9133134950963'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.ean(length=<span class="number">8</span>)  <span class="comment"># 自定义位数条码,只能选8或者13</span></div><div class="line"><span class="string">'20417161'</span></div></pre></td></tr></table></figure>
+<h3 id="color-颜色"><a href="#color-颜色" class="headerlink" title="color 颜色"></a>color 颜色</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.hex_color() <span class="comment"># 16进制表示的颜色</span></div><div class="line"><span class="string">'#671f6d'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.rgb_css_color() <span class="comment"># css用的rgb色</span></div><div class="line"><span class="string">'rgb(237,74,237)'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.rgb_color()  <span class="comment"># 表示rgb色的字符串</span></div><div class="line"><span class="string">'208,102,218'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.color_name() <span class="comment"># 颜色名字</span></div><div class="line"><span class="string">'Brown'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.safe_hex_color()  <span class="comment">#安全16进制色</span></div><div class="line"><span class="string">'#ee4400'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.safe_color_name() <span class="comment"># 安全颜色名字</span></div><div class="line"><span class="string">'maroon'</span></div></pre></td></tr></table></figure>
+<h3 id="company-公司"><a href="#company-公司" class="headerlink" title="company 公司"></a>company 公司</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.company() <span class="comment"># 公司名</span></div><div class="line"><span class="string">'时空盒数字科技有限公司'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.company_suffix() <span class="comment"># 公司名后缀</span></div><div class="line"><span class="string">'科技有限公司'</span></div></pre></td></tr></table></figure>
+<h3 id="credit-card-银行信用卡"><a href="#credit-card-银行信用卡" class="headerlink" title="credit_card 银行信用卡"></a>credit_card 银行信用卡</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.credit_card_number(card_type=<span class="keyword">None</span>) <span class="comment"># 卡号</span></div><div class="line"><span class="string">'375325478746231'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.credit_card_provider(card_type=<span class="keyword">None</span>) <span class="comment"># 卡的提供者</span></div><div class="line"><span class="string">'VISA 13 digit'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.credit_card_security_code(card_type=<span class="keyword">None</span>)<span class="comment"># 卡的安全密码</span></div><div class="line"><span class="string">'450'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.credit_card_expire() <span class="comment"># 卡的有效期</span></div><div class="line"><span class="string">'04/22'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.credit_card_full(card_type=<span class="keyword">None</span>) <span class="comment"># 完整卡信息</span></div><div class="line"><span class="string">'Maestro\n秀芳 商\n502001016117 04/27\nCVV: 144\n'</span></div></pre></td></tr></table></figure>
+<h3 id="currency-货币"><a href="#currency-货币" class="headerlink" title="currency 货币"></a>currency 货币</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.currency_code()  <span class="comment"># 货币代码</span></div><div class="line"><span class="string">'HNL'</span></div></pre></td></tr></table></figure>
+<h3 id="date-time-时间日期"><a href="#date-time-时间日期" class="headerlink" title="date_time 时间日期"></a>date_time 时间日期</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date_time(tzinfo=<span class="keyword">None</span>) <span class="comment"># 随机日期时间</span></div><div class="line">datetime.datetime(<span class="number">2001</span>, <span class="number">3</span>, <span class="number">18</span>, <span class="number">17</span>, <span class="number">57</span>, <span class="number">44</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.iso8601(tzinfo=<span class="keyword">None</span>) <span class="comment"># 以iso8601标准输出的日期</span></div><div class="line"><span class="string">'1973-11-16T22:58:37'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date_time_this_month(before_now=<span class="keyword">True</span>, after_now=<span class="keyword">False</span>, tzinfo=<span class="keyword">None</span>) <span class="comment"># 本月的某个日期</span></div><div class="line">datetime.datetime(<span class="number">2017</span>, <span class="number">11</span>, <span class="number">1</span>, <span class="number">14</span>, <span class="number">33</span>, <span class="number">48</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date_time_this_year(before_now=<span class="keyword">True</span>, after_now=<span class="keyword">False</span>, tzinfo=<span class="keyword">None</span>) <span class="comment"># 本年的某个日期</span></div><div class="line">datetime.datetime(<span class="number">2017</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">13</span>, <span class="number">55</span>, <span class="number">31</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date_time_this_decade(before_now=<span class="keyword">True</span>, after_now=<span class="keyword">False</span>, tzinfo=<span class="keyword">None</span>)  <span class="comment"># 本年代内的一个日期</span></div><div class="line">datetime.datetime(<span class="number">2010</span>, <span class="number">3</span>, <span class="number">26</span>, <span class="number">6</span>, <span class="number">33</span>, <span class="number">23</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date_time_this_century(before_now=<span class="keyword">True</span>, after_now=<span class="keyword">False</span>, tzinfo=<span class="keyword">None</span>)  <span class="comment"># 本世纪一个日期</span></div><div class="line">datetime.datetime(<span class="number">2015</span>, <span class="number">7</span>, <span class="number">21</span>, <span class="number">19</span>, <span class="number">27</span>, <span class="number">53</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date_time_between(start_date=<span class="string">"-30y"</span>, end_date=<span class="string">"now"</span>, tzinfo=<span class="keyword">None</span>)  <span class="comment"># 两个时间间的一个随机时间</span></div><div class="line">datetime.datetime(<span class="number">2005</span>, <span class="number">12</span>, <span class="number">3</span>, <span class="number">17</span>, <span class="number">17</span>, <span class="number">15</span>)</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.timezone() <span class="comment"># 时区</span></div><div class="line"><span class="string">'America/Guatemala'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.time(pattern=<span class="string">"%H:%M:%S"</span>) <span class="comment"># 时间（可自定义格式）</span></div><div class="line"><span class="string">'11:21:52'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.am_pm() <span class="comment"># 随机上午下午</span></div><div class="line"><span class="string">'PM'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.month() <span class="comment"># 随机月份</span></div><div class="line"><span class="string">'02'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.month_name() <span class="comment"># 随机月份名字</span></div><div class="line"><span class="string">'August'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.year() <span class="comment"># 随机年</span></div><div class="line"><span class="string">'1974'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.day_of_week() <span class="comment"># 随机星期几</span></div><div class="line"><span class="string">'Sunday'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.day_of_month() <span class="comment"># 随机月中某一天</span></div><div class="line"><span class="string">'02'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.time_delta() <span class="comment"># 随机时间延迟</span></div><div class="line">datetime.timedelta(<span class="number">13371</span>, <span class="number">27637</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date_object()  <span class="comment"># 随机日期对象</span></div><div class="line">datetime.date(<span class="number">1983</span>, <span class="number">1</span>, <span class="number">26</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.time_object() <span class="comment"># 随机时间对象</span></div><div class="line">datetime.time(<span class="number">17</span>, <span class="number">8</span>, <span class="number">56</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.unix_time() <span class="comment"># 随机unix时间（时间戳）</span></div><div class="line"><span class="number">1223246848</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date(pattern=<span class="string">"%Y-%m-%d"</span>) <span class="comment"># 随机日期（可自定义格式）</span></div><div class="line"><span class="string">'1984-04-20'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.date_time_ad(tzinfo=<span class="keyword">None</span>)  <span class="comment"># 公元后随机日期</span></div><div class="line">datetime.datetime(<span class="number">341</span>, <span class="number">9</span>, <span class="number">11</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">9</span>)</div></pre></td></tr></table></figure>
+<h3 id="file-文件"><a href="#file-文件" class="headerlink" title="file 文件"></a>file 文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.file_name(category=<span class="string">"image"</span>, extension=<span class="string">"png"</span>) <span class="comment"># 文件名（指定文件类型和后缀名）</span></div><div class="line"><span class="string">'增加.png'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.file_name() <span class="comment"># 随机生成各类型文件</span></div><div class="line"><span class="string">'提供.pdf'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.file_extension(category=<span class="keyword">None</span>) <span class="comment"># 文件后缀</span></div><div class="line"><span class="string">'txt'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.mime_type(category=<span class="keyword">None</span>) <span class="comment"># mime-type</span></div><div class="line"><span class="string">'image/png'</span></div></pre></td></tr></table></figure>
+<h3 id="internet-互联网"><a href="#internet-互联网" class="headerlink" title="internet 互联网"></a>internet 互联网</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.ipv4(network=<span class="keyword">False</span>)  <span class="comment"># ipv4地址</span></div><div class="line"><span class="string">'104.225.105.10'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.ipv6(network=<span class="keyword">False</span>)  <span class="comment"># ipv6地址</span></div><div class="line"><span class="string">'dea6:ca11:39d0:b49f:fff1:82f1:bf88:698b'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.uri_path(deep=<span class="keyword">None</span>) <span class="comment"># uri路径</span></div><div class="line"><span class="string">'search/categories'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.uri_extension() <span class="comment"># uri扩展名</span></div><div class="line"><span class="string">'.htm'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.uri() <span class="comment"># uri</span></div><div class="line"><span class="string">'https://www.wei.com/terms/'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.url() <span class="comment"># url</span></div><div class="line"><span class="string">'http://zheng.org/'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.image_url(width=<span class="keyword">None</span>, height=<span class="keyword">None</span>)  <span class="comment"># 图片url</span></div><div class="line"><span class="string">'https://www.lorempixel.com/700/990'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.domain_word() <span class="comment"># 域名主体</span></div><div class="line"><span class="string">'hu'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.domain_name() <span class="comment"># 域名</span></div><div class="line"><span class="string">'hu.cn'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.tld() <span class="comment"># 域名后缀</span></div><div class="line"><span class="string">'com'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.user_name() <span class="comment"># 用户名</span></div><div class="line"><span class="string">'xia13'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.user_agent() <span class="comment"># UA</span></div><div class="line"><span class="string">'Opera/8.33.(Windows NT 5.1; an-ES) Presto/2.9.171 Version/10.00'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.mac_address() <span class="comment"># MAC地址</span></div><div class="line"><span class="string">'d6:38:cc:2a:76:b2'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.safe_email() <span class="comment"># 安全邮箱</span></div><div class="line"><span class="string">'mingli@example.net'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.free_email() <span class="comment"># 免费邮箱</span></div><div class="line"><span class="string">'tao44@gmail.com'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.company_email()  <span class="comment"># 公司邮箱</span></div><div class="line"><span class="string">'jingzhong@wang.cn'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.email() <span class="comment"># 邮箱</span></div><div class="line"><span class="string">'changjun@hao.com'</span></div></pre></td></tr></table></figure>
+<h3 id="job-工作"><a href="#job-工作" class="headerlink" title="job 工作"></a>job 工作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.job()<span class="comment">#工作职位</span></div><div class="line"><span class="string">'Dealer'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.job() </div><div class="line"><span class="string">'Musician'</span></div></pre></td></tr></table></figure>
+<h3 id="lorem-乱数假文"><a href="#lorem-乱数假文" class="headerlink" title="lorem 乱数假文"></a>lorem 乱数假文</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.text(max_nb_chars=<span class="number">200</span>) <span class="comment"># 随机生成一篇文章</span></div><div class="line"><span class="string">'语言无法应用为什一点国内.要求完成如何世界电脑发布作品.经济不同教育个人科技全国.\n在线学生发布信息上海状态.\n联系一次通过其实介绍世界.增加也是使用成功那个.\n商品免费管理公司.留言自己这种内容.\n次数内容知道这样女人感觉.操作他的生产出现如何报告文章只有.\n个人文化中心不能发布最新.质量一下提高.感觉最大工具表示最后计划.这是还有次数结果其实特别.'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.word() <span class="comment"># 随机单词</span></div><div class="line"><span class="string">'能力'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.words(nb=<span class="number">3</span>)  <span class="comment"># 随机生成几个字</span></div><div class="line">[<span class="string">'国家'</span>, <span class="string">'经营'</span>, <span class="string">'结果'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.sentence(nb_words=<span class="number">6</span>, variable_nb_words=<span class="keyword">True</span>)  <span class="comment"># 随机生成一个句子</span></div><div class="line"><span class="string">'重要更多我们作品地方增加.'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.sentences(nb=<span class="number">3</span>) <span class="comment"># 随机生成几个句子</span></div><div class="line">[<span class="string">'制作上海学生.'</span>, <span class="string">'方式汽车一样技术帮助欢迎.'</span>, <span class="string">'说明一种深圳经营电话帖子.'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.paragraph(nb_sentences=<span class="number">3</span>, variable_nb_sentences=<span class="keyword">True</span>)  <span class="comment"># 随机生成一段文字(字符串)</span></div><div class="line"><span class="string">'非常环境位置有限发展首页行业.情况对于出现部门这种觉得.产品以后因为虽然由于日本不同.'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.paragraphs(nb=<span class="number">3</span>)  <span class="comment"># 随机生成成几段文字(列表)</span></div><div class="line">[<span class="string">'就是发布要求有关这里国际.美国设备深圳经营.首页也是支持报告.'</span>, <span class="string">'决定可是只有发现开始一直.最后有些项目正在深圳关系决定.下载注册图片更多进行他的那些.'</span>, <span class="string">'必须他们发生数据准备联系.同时这样内容学校精华.'</span>]</div></pre></td></tr></table></figure>
+<h3 id="misc-杂项"><a href="#misc-杂项" class="headerlink" title="misc 杂项"></a>misc 杂项</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.binary(length=<span class="number">10</span>)  <span class="comment"># 随机二进制字符串(可指定长度)</span></div><div class="line"><span class="string">b'U\xa9@\x1e\x96\xe7\xca\x82\x14f'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.language_code()   <span class="comment"># 随机语言代码</span></div><div class="line"><span class="string">'tg'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.md5(raw_output=<span class="keyword">False</span>)  <span class="comment"># 随机md5，16进制字符串</span></div><div class="line"><span class="string">'cc4feebe419791332bbcff5e0fdf084a'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.sha1(raw_output=<span class="keyword">False</span>) <span class="comment"># 随机sha1，16进制字符串</span></div><div class="line"><span class="string">'8ac0e9980f880860b6e45ae6fd257cc847b7ae8d'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.sha256(raw_output=<span class="keyword">False</span>)   <span class="comment"># 随机sha256，16进制字符串</span></div><div class="line"><span class="string">'033151f173f4a389e38e7df2363d89741f752c474e7bdfa2ee0a794bf0b505b5'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.boolean(chance_of_getting_true=<span class="number">50</span>) <span class="comment"># 随机真假值(得到True的几率是50%)</span></div><div class="line"><span class="keyword">False</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.null_boolean() <span class="comment"># 随机真假值和null</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.null_boolean()</div><div class="line"><span class="keyword">True</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.password(length=<span class="number">10</span>, special_chars=<span class="keyword">True</span>, digits=<span class="keyword">True</span>, upper_case=<span class="keyword">True</span>, lower_case=<span class="keyword">True</span>) <span class="comment"># 随机密码（可指定密码策略）</span></div><div class="line"><span class="string">'F%722TJg_U'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.locale() <span class="comment"># 随机本地代码</span></div><div class="line"><span class="string">'hy_AM'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.uuid4() <span class="comment"># 随机uuid</span></div><div class="line"><span class="string">'a50d17e7-bc4f-37a3-27b3-04a24fdd0055'</span></div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h3 id="phone-number-电话号码"><a href="#phone-number-电话号码" class="headerlink" title="phone_number 电话号码"></a>phone_number 电话号码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.phone_number() <span class="comment"># 手机号码</span></div><div class="line"><span class="string">'13334603608'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.phonenumber_prefix() <span class="comment"># 运营商号段，手机号码前三位</span></div><div class="line"><span class="number">158</span></div></pre></td></tr></table></figure>
+<h3 id="python-python数据"><a href="#python-python数据" class="headerlink" title="python python数据"></a>python python数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pyint()  <span class="comment"># 随机int</span></div><div class="line"><span class="number">7775</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pyfloat(left_digits=<span class="keyword">None</span>, right_digits=<span class="keyword">None</span>, positive=<span class="keyword">False</span>)  <span class="comment"># 浮点数</span></div><div class="line"><span class="number">-84901.5586333</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pydecimal(left_digits=<span class="keyword">None</span>, right_digits=<span class="keyword">None</span>, positive=<span class="keyword">False</span>)  <span class="comment"># 随机高精度数</span></div><div class="line">Decimal(<span class="string">'-12273687068527.0'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pystr(min_chars=<span class="keyword">None</span>, max_chars=<span class="number">20</span>)  <span class="comment"># 随机字符串（可指定长度）</span></div><div class="line"><span class="string">'cblutNKFIyegfcHPrjzx'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pybool()  <span class="comment"># 随机bool值</span></div><div class="line"><span class="keyword">True</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pyiterable(nb_elements=<span class="number">10</span>, variable_nb_elements=<span class="keyword">True</span>)  <span class="comment"># 随机iterable</span></div><div class="line">[<span class="string">'ODfeVvcbAjPDBGwzljQw'</span>, <span class="string">'https://www.tan.cn/list/category/homepage.php'</span>, <span class="string">'YQlrsFkBieyKYaXlCljJ'</span>, Decimal(<span class="string">'42778240911787.2'</span>), Decimal(<span class="string">'957411812.6383'</span>), <span class="string">'TGbqZufoiUXLQTZDrVcP'</span>, <span class="string">'http://yan.com/posts/tags/search/terms.php'</span>, <span class="number">3.680492634254</span>, <span class="string">'min57@hotmail.com'</span>, datetime.datetime(<span class="number">2001</span>, <span class="number">8</span>, <span class="number">16</span>, <span class="number">6</span>, <span class="number">10</span>, <span class="number">49</span>), <span class="string">'xMMOjlETIgKGqVGTrChG'</span>, <span class="string">'yong83@xu.cn'</span>]</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pylist(nb_elements=<span class="number">10</span>, variable_nb_elements=<span class="keyword">True</span> )  <span class="comment"># 随机生成一个list</span></div><div class="line">[<span class="string">'KXQMXAkcEMSLfnIZkgJb'</span>, <span class="string">'BtowiRsuIqyyULnSYYdr'</span>, datetime.datetime(<span class="number">2011</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">14</span>, <span class="number">44</span>, <span class="number">2</span>), datetime.datetime(<span class="number">2008</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">38</span>, <span class="number">38</span>), <span class="string">'juan47@hotmail.com'</span>, <span class="string">'QEsdUpEqHLpThyWCjkNx'</span>, Decimal(<span class="string">'-801375867.9'</span>), <span class="string">'ucDyeZnHAXfZtkwdVUbR'</span>, <span class="number">4707</span>, datetime.datetime(<span class="number">1974</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">54</span>, <span class="number">29</span>)]</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pydict(nb_elements=<span class="number">10</span>, variable_nb_elements=<span class="keyword">True</span>)   <span class="comment"># 随机字典</span></div><div class="line">&#123;<span class="string">'其中'</span>: <span class="number">9047</span>, <span class="string">'一直'</span>: <span class="string">'AUiUjuqccIdVAWSqzDbW'</span>, <span class="string">'选择'</span>: <span class="string">'ddong@hotmail.com'</span>, <span class="string">'开发'</span>: datetime.datetime(<span class="number">1972</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">14</span>, <span class="number">14</span>, <span class="number">9</span>), <span class="string">'电影'</span>: <span class="string">'KYmolBhkjSRxloXXFUUT'</span>, <span class="string">'文化'</span>: <span class="number">2681</span>, <span class="string">'这里'</span>: <span class="string">'uyang@yahoo.com'</span>, <span class="string">'不会'</span>: <span class="string">'ZPkwuxWsrJSHMNuFiWEx'</span>, <span class="string">'社会'</span>: <span class="string">'CiujeaZMZSuyYwuKzEdN'</span>&#125;</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pyset(nb_elements=<span class="number">10</span>, variable_nb_elements=<span class="keyword">True</span>)  <span class="comment"># 随机set</span></div><div class="line">&#123;<span class="string">'bhe@hotmail.com'</span>, <span class="string">'http://fu.cn/list/home.htm'</span>, <span class="string">'MlJluVirRkofBnKNtphM'</span>, <span class="number">296</span>, <span class="string">'ghoUSHkuEGmCzlJFKyHZ'</span>, datetime.datetime(<span class="number">2008</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">55</span>, <span class="number">4</span>), <span class="string">'AgbynHjdvwYpUkbMsfqr'</span>, <span class="number">8751</span>, <span class="number">9649</span>, <span class="string">'tangguiying@hotmail.com'</span>, Decimal(<span class="string">'5727570036.91'</span>), <span class="string">'HmDkExndcQIOaTtsSpsc'</span>, <span class="string">'hjQlLLXuHVVzENEwoHJK'</span>&#125;</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pytuple(nb_elements=<span class="number">10</span>, variable_nb_elements=<span class="keyword">True</span>)   <span class="comment"># 随机tuple</span></div><div class="line">(<span class="string">'http://www.cai.com/index/'</span>, datetime.datetime(<span class="number">1973</span>, <span class="number">7</span>, <span class="number">28</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">23</span>), <span class="string">'khltJQMYJvIDRMYodviZ'</span>, <span class="string">'uJezUsEqiHaiFxwOPWvl'</span>, <span class="string">'qojwZHyytBSQQavkDaTu'</span>, <span class="string">'AHUCHYuVJTHnoSEuQDSY'</span>, <span class="number">1012</span>, <span class="string">'uEYVuzeTlgVhrnCATfKw'</span>, <span class="string">'https://www.zhou.com/categories/tags/main/'</span>, <span class="string">'LbLSFZPeATtzHvbmYhGr'</span>)</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.pystruct()  <span class="comment"># 随机生成3个有10个元素的python数据结构</span></div><div class="line">([datetime.datetime(<span class="number">1996</span>, <span class="number">10</span>, <span class="number">26</span>, <span class="number">7</span>, <span class="number">35</span>, <span class="number">26</span>), datetime.datetime(<span class="number">1998</span>, <span class="number">2</span>, <span class="number">28</span>, <span class="number">17</span>, <span class="number">20</span>, <span class="number">8</span>), <span class="string">'qianming@hotmail.com'</span>, <span class="string">'yEWMrpTqtAHfbxqldGrb'</span>, <span class="string">'YgKYOnrjuthOrOXhlYIl'</span>, datetime.datetime(<span class="number">1994</span>, <span class="number">12</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">55</span>, <span class="number">30</span>), Decimal(<span class="string">'-6865068.3'</span>), <span class="string">'SYHFHiFvJlRVPcCKumUM'</span>, <span class="number">-8619.4354</span>, <span class="string">'kwGipwcASeALLeKdaWBi'</span>], &#123;<span class="string">'同时'</span>: <span class="string">'BvtYdkNTHwZNMiIIRwKd'</span>, <span class="string">'空间'</span>: <span class="number">310959668662.457</span>, <span class="string">'特别'</span>: <span class="string">'PZQDBuuQWkcdryMloyKS'</span>, <span class="string">'音乐'</span>: Decimal(<span class="string">'-7219015925.0'</span>), <span class="string">'项目'</span>: <span class="string">'https://www.zhou.cn/main.php'</span>, <span class="string">'回复'</span>: <span class="number">30.408750841</span>, <span class="string">'显示'</span>: <span class="string">'etZMrsjXJgZpDfZWhpoS'</span>, <span class="string">'大小'</span>: <span class="number">7472</span>, <span class="string">'类型'</span>: <span class="string">'OsjpxgLqnTcdVOlHoMoP'</span>, <span class="string">'什么'</span>: <span class="string">'http://www.xia.com/posts/app/index/'</span>&#125;, &#123;<span class="string">'朋友'</span>: &#123;<span class="number">0</span>: <span class="number">-415025.243093017</span>, <span class="number">1</span>: [<span class="number">1799</span>, <span class="number">585</span>, <span class="string">'shu@hotmail.com'</span>], <span class="number">2</span>: &#123;<span class="number">0</span>: <span class="number">9980</span>, <span class="number">1</span>: <span class="string">'qnOnFTzGnsjvXGybBnMF'</span>, <span class="number">2</span>: [<span class="string">'http://zheng.cn/list/search/tag/faq.html'</span>, Decimal(<span class="string">'964285276661463.0'</span>)]&#125;&#125;, <span class="string">'发生'</span>: &#123;<span class="number">1</span>: <span class="number">-5339010.6134</span>, <span class="number">2</span>: [datetime.datetime(<span class="number">1987</span>, <span class="number">6</span>, <span class="number">23</span>, <span class="number">15</span>, <span class="number">21</span>, <span class="number">45</span>), <span class="string">'SvSpvKqTXlJvdQhHScwM'</span>, <span class="string">'PZjKOYzZzoNVsHLRcARQ'</span>], <span class="number">3</span>: &#123;<span class="number">1</span>: <span class="string">'https://www.yan.cn/register/'</span>, <span class="number">2</span>: <span class="number">2191</span>, <span class="number">3</span>: [<span class="string">'HMHKQuLRBQaaAypRbtHU'</span>, datetime.datetime(<span class="number">2014</span>, <span class="number">5</span>, <span class="number">24</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">36</span>)]&#125;&#125;, <span class="string">'我的'</span>: &#123;<span class="number">2</span>: <span class="string">'linxia@yahoo.com'</span>, <span class="number">3</span>: [<span class="string">'http://gu.com/about.php'</span>, <span class="string">'DhzpWYkgLCobGSHDLXzI'</span>, <span class="number">1420</span>], <span class="number">4</span>: &#123;<span class="number">2</span>: datetime.datetime(<span class="number">1986</span>, <span class="number">2</span>, <span class="number">22</span>, <span class="number">4</span>, <span class="number">50</span>, <span class="number">12</span>), <span class="number">3</span>: <span class="string">'rRHwQQzkpAMBQxwVITBa'</span>, <span class="number">4</span>: [datetime.datetime(<span class="number">1984</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">11</span>, <span class="number">52</span>, <span class="number">18</span>), <span class="number">-73821572962388.7</span>]&#125;&#125;, <span class="string">'全部'</span>: &#123;<span class="number">3</span>: <span class="string">'uMQeeBXYNGhrHnAerdjp'</span>, <span class="number">4</span>: [<span class="number">323329.56403</span>, <span class="string">'kFvqXFhhtQPNtrOjKtxa'</span>, <span class="string">'http://peng.cn/'</span>], <span class="number">5</span>: &#123;<span class="number">3</span>: <span class="string">'lcaoeisYIAOsuRjbOXia'</span>, <span class="number">4</span>: Decimal(<span class="string">'-902407032449085.0'</span>), <span class="number">5</span>: [<span class="number">2296</span>, <span class="string">'uyuWgnsONzLluXqXdASM'</span>]&#125;&#125;, <span class="string">'大小'</span>: &#123;<span class="number">4</span>: <span class="string">'min63@hotmail.com'</span>, <span class="number">5</span>: [datetime.datetime(<span class="number">1991</span>, <span class="number">10</span>, <span class="number">22</span>, <span class="number">19</span>, <span class="number">21</span>, <span class="number">48</span>), <span class="string">'cDYEScdIokWuvGhRkWqs'</span>, <span class="string">'XeDJojWyywFvzmWYaokO'</span>], <span class="number">6</span>: &#123;<span class="number">4</span>: Decimal(<span class="string">'-4167029.2915827'</span>), <span class="number">5</span>: <span class="number">4030</span>, <span class="number">6</span>: [<span class="number">6372</span>, <span class="string">'xfRXXEFGsNQpeIGmbaHU'</span>]&#125;&#125;, <span class="string">'语言'</span>: &#123;<span class="number">5</span>: <span class="string">'https://www.guo.cn/'</span>, <span class="number">6</span>: [<span class="number">6498</span>, datetime.datetime(<span class="number">1981</span>, <span class="number">12</span>, <span class="number">3</span>, <span class="number">18</span>, <span class="number">4</span>, <span class="number">29</span>), <span class="number">42598100345.61</span>], <span class="number">7</span>: &#123;<span class="number">5</span>: <span class="string">'http://zheng.cn/'</span>, <span class="number">6</span>: <span class="number">-229316.268238</span>, <span class="number">7</span>: [<span class="string">'https://www.qiao.cn/home/'</span>, <span class="string">'GtaEXeVxjRnnkggjEguv'</span>]&#125;&#125;, <span class="string">'表示'</span>: &#123;<span class="number">6</span>: <span class="string">'xcBvcGUWxdMhDqgzmhSd'</span>, <span class="number">7</span>: [<span class="string">'kwDaFhyTKqHajGSaNOMf'</span>, <span class="number">8561</span>, <span class="number">5456</span>], <span class="number">8</span>: &#123;<span class="number">6</span>: <span class="string">'https://zhou.cn/tags/tag/faq.html'</span>, <span class="number">7</span>: <span class="string">'IGayAZtTQVlSOasQwgug'</span>, <span class="number">8</span>: [<span class="string">'iCjwBzHfmPSLqAgmIOle'</span>, <span class="number">70511766106574.5</span>]&#125;&#125;, <span class="string">'电子'</span>: &#123;<span class="number">7</span>: <span class="string">'http://www.lu.org/tags/posts/terms/'</span>, <span class="number">8</span>: [datetime.datetime(<span class="number">1978</span>, <span class="number">8</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">16</span>, <span class="number">35</span>), <span class="string">'https://song.cn/main/categories/homepage.html'</span>, <span class="string">'https://long.com/register.html'</span>], <span class="number">9</span>: &#123;<span class="number">7</span>: <span class="string">'nFJNhyMYBvfTxrYwYPUQ'</span>, <span class="number">8</span>: <span class="number">-2252757903.0</span>, <span class="number">9</span>: [<span class="string">'GuJnhMEgXoMAivrgGZie'</span>, datetime.datetime(<span class="number">2014</span>, <span class="number">5</span>, <span class="number">29</span>, <span class="number">1</span>, <span class="number">17</span>, <span class="number">50</span>)]&#125;&#125;, <span class="string">'的人'</span>: &#123;<span class="number">8</span>: <span class="string">'WgHePwYSPgSiPllXpLlJ'</span>, <span class="number">9</span>: [<span class="number">1782</span>, <span class="string">'fSepbXwpvhiBphzDTDNC'</span>, <span class="number">-9117731.63459416</span>], <span class="number">10</span>: &#123;<span class="number">8</span>: <span class="number">5602</span>, <span class="number">9</span>: <span class="number">3664</span>, <span class="number">10</span>: [<span class="string">'http://www.mao.com/search/tag/main/'</span>, Decimal(<span class="string">'5579.7377'</span>)]&#125;&#125;, <span class="string">'不过'</span>: &#123;<span class="number">9</span>: <span class="string">'rOfkDPTHvzKbfvQHbPNm'</span>, <span class="number">10</span>: [<span class="number">314.397</span>, <span class="string">'StqeLyXkIDKHfExSjggk'</span>, <span class="string">'xiuyingkang@gao.cn'</span>], <span class="number">11</span>: &#123;<span class="number">9</span>: <span class="string">'BLKNdcccamYzBwRcMxlx'</span>, <span class="number">10</span>: <span class="string">'yongduan@gong.org'</span>, <span class="number">11</span>: [<span class="string">'ZocoQHdbhaNloWALnzwt'</span>, <span class="string">'eWVvvHurAlZZRxlYHZXi'</span>]&#125;&#125;&#125;)</div></pre></td></tr></table></figure>
+<h3 id="profile-人物描述信息"><a href="#profile-人物描述信息" class="headerlink" title="profile 人物描述信息"></a>profile 人物描述信息</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.profile(fields=<span class="keyword">None</span>, sex=<span class="keyword">None</span>)  <span class="comment"># 人物描述信息：姓名、性别、地址、公司等</span></div><div class="line">&#123;<span class="string">'job'</span>: <span class="string">'Licensed conveyancer'</span>, <span class="string">'company'</span>: <span class="string">'万迅电脑信息有限公司'</span>, <span class="string">'ssn'</span>: <span class="string">'370684199902182726'</span>, <span class="string">'residence'</span>: <span class="string">'福建省小红市南长广州街K座 406448'</span>, <span class="string">'current_location'</span>: (Decimal(<span class="string">'18.050895'</span>), Decimal(<span class="string">'-0.877117'</span>)), <span class="string">'blood_group'</span>: <span class="string">'0-'</span>, <span class="string">'website'</span>: [<span class="string">'https://www.yi.org/'</span>, <span class="string">'https://www.hu.com/'</span>, <span class="string">'https://www.yin.cn/'</span>], <span class="string">'username'</span>: <span class="string">'minghuang'</span>, <span class="string">'name'</span>: <span class="string">'后英'</span>, <span class="string">'sex'</span>: <span class="string">'F'</span>, <span class="string">'address'</span>: <span class="string">'安徽省秀荣市璧山嘉禾路T座 954960'</span>, <span class="string">'mail'</span>: <span class="string">'czhong@hotmail.com'</span>, <span class="string">'birthdate'</span>: <span class="string">'1975-03-09'</span>&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s = fake.simple_profile(sex=<span class="string">"m"</span>) <span class="comment"># 人物精简信息</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i,v <span class="keyword">in</span> s.items():</div><div class="line"><span class="meta">... </span>    print(i,v)</div><div class="line">...</div><div class="line">username chao85</div><div class="line">name 邴宇</div><div class="line">sex M</div><div class="line">address 陕西省东市朝阳廖街Y座 <span class="number">757661</span></div><div class="line">mail xiazhang@gmail.com</div><div class="line">birthdate <span class="number">1996</span><span class="number">-09</span><span class="number">-20</span></div></pre></td></tr></table></figure>
+<h3 id="ssn-社会安全码-身份证"><a href="#ssn-社会安全码-身份证" class="headerlink" title="ssn 社会安全码(身份证)"></a>ssn 社会安全码(身份证)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.ssn() <span class="comment"># 随机生成身份证号(18位)</span></div><div class="line"><span class="string">'140100196612297997'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>len(fake.ssn())</div><div class="line"><span class="number">18</span></div></pre></td></tr></table></figure>
+<h3 id="user-agent-用户代理"><a href="#user-agent-用户代理" class="headerlink" title="user_agent 用户代理"></a>user_agent 用户代理</h3><p>常用在伪造浏览器信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.user_agent() <span class="comment"># 伪造UA</span></div><div class="line"><span class="string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/5361 (KHTML, like Gecko) Chrome/15.0.812.0 Safari/5361'</span></div></pre></td></tr></table></figure>
+<p>平台信息伪造</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.linux_platform_token()</div><div class="line"><span class="string">'X11; Linux i686'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.linux_processor()</div><div class="line"><span class="string">'i686'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.windows_platform_token()</div><div class="line"><span class="string">'Windows CE'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.mac_platform_token()</div><div class="line"><span class="string">'Macintosh; Intel Mac OS X 10_7_4'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.mac_processor()</div><div class="line"><span class="string">'PPC'</span></div></pre></td></tr></table></figure>
+<p>浏览器伪造</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.internet_explorer() <span class="comment"># IE浏览器</span></div><div class="line"><span class="string">'Mozilla/5.0 (compatible; MSIE 5.0; Windows NT 6.1; Trident/4.0)'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.opera() <span class="comment"># opera浏览器</span></div><div class="line"><span class="string">'Opera/9.37.(Windows 95; doi-IN) Presto/2.9.178 Version/10.00'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.firefox() <span class="comment"># firefox浏览器</span></div><div class="line"><span class="string">'Mozilla/5.0 (Windows NT 5.0; te-IN; rv:1.9.2.20) Gecko/2015-09-28 13:29:05 Firefox/12.0'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.safari() <span class="comment"># safari浏览器</span></div><div class="line"><span class="string">'Mozilla/5.0 (Windows; U; Windows NT 4.0) AppleWebKit/533.37.4 (KHTML, like Gecko) Version/5.0 Safari/533.37.4'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.chrome() <span class="comment"># chrome浏览器</span></div><div class="line"><span class="string">'Mozilla/5.0 (Windows 98; Win 9x 4.90) AppleWebKit/5361 (KHTML, like Gecko) Chrome/14.0.866.0 Safari/5361'</span></div></pre></td></tr></table></figure>
+<h2 id="自定义扩展"><a href="#自定义扩展" class="headerlink" title="自定义扩展"></a>自定义扩展</h2><p>Faker 已经提供了足够丰富的信息生成，包括名字、手机号、邮箱地址、邮编等等。尽管如此，可能还是没有办法满足你的需求。这时，可以利用自定义扩展，引用外部的 provider，自定义你要的功能。</p>
+<p>Faker 对象可以通过 <code>add_provider</code> 方法将自定义的 Provider 添加到对象中,自定义的 Provider 需要继承自 BaseProvider。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> faker <span class="keyword">import</span> Faker</div><div class="line">fake = Faker()</div><div class="line"></div><div class="line"><span class="comment"># first, import a similar Provider or use the default one</span></div><div class="line"><span class="keyword">from</span> faker.providers <span class="keyword">import</span> BaseProvider</div><div class="line"></div><div class="line"><span class="comment"># create new provider class</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyProvider</span><span class="params">(BaseProvider)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> <span class="string">'bar'</span></div><div class="line"></div><div class="line"><span class="comment"># then add new provider to faker instance</span></div><div class="line">fake.add_provider(MyProvider)</div><div class="line"></div><div class="line"><span class="comment"># now you can use:</span></div><div class="line">print(fake.foo())</div></pre></td></tr></table></figure>
+<p>结果显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bar</div></pre></td></tr></table></figure>
+<h2 id="随机控制"><a href="#随机控制" class="headerlink" title="随机控制"></a>随机控制</h2><p><code>Faker</code> 随机生成由 <code>random.Random</code> 驱动。其中，<code>.random</code> 属性返回 <code>random.Random</code> 对象。通过对该对象的操作，可以实现自定义的行为。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> faker <span class="keyword">import</span> Faker</div><div class="line">fake = Faker()</div><div class="line">fake.random</div><div class="line">fake.random.getstate()</div></pre></td></tr></table></figure>
+<p>那么，可以实现什么自定义呢？举个例子，我们可以设置 <code>seed</code>，通过给定的 <code>seed</code> 可以控制每次生成的内容都是一样的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> faker <span class="keyword">import</span> Faker</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake = Faker()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.random.seed(<span class="number">4321</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.name()</div><div class="line"><span class="string">'Ryan Gallagher'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.address()</div><div class="line"><span class="string">'7631 Johnson Village Suite 690\nAdamsbury, NC 50008'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.random.seed(<span class="number">4321</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.name()</div><div class="line"><span class="string">'Ryan Gallagher'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fake.address()</div><div class="line"><span class="string">'7631 Johnson Village Suite 690\nAdamsbury, NC 50008'</span></div></pre></td></tr></table></figure>
+<p>不同的两次运行，只要seed一样，生成出来的信息就是一样的。</p>
+<p>注意：<code>fake.random.seed(4321)</code> 可以写成 <code>fake.seed(4321)</code> 。</p>
+<h2 id="命令行生成"><a href="#命令行生成" class="headerlink" title="命令行生成"></a>命令行生成</h2><p>有时想在shell或者其他程序中生成一些伪数据，是不是一定要写一个Python脚本呢？别急——Faker提供了一个命令行工具，估计可以应对大部分场景了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$ faker address</div><div class="line">968 Bahringer Garden Apt. 722Kristinaland, NJ 09890</div><div class="line"></div><div class="line">$ python3 -m faker address</div><div class="line">432 Marvin Wells Apt. 593\nWest Eric, DC 45650-8420</div><div class="line"></div><div class="line">$ faker -l de_DE address</div><div class="line">Samira-Niemeier-Allee 5694812 Biedenkopf</div><div class="line"></div><div class="line">$ faker profile</div><div class="line">&#123;<span class="string">'job'</span>: <span class="string">'Designer, blown glass/stained glass'</span>, <span class="string">'company'</span>: <span class="string">'Dennis-Bowers'</span>, <span class="string">'ssn'</span>: <span class="string">'034-28-9965'</span>, <span class="string">'residence'</span>: <span class="string">'34796 Jeremiah Station Apt. 782\nWest Timothy, TX 24139-6974'</span>, <span class="string">'current_location'</span>: (Decimal(<span class="string">'-47.425017'</span>), Decimal(<span class="string">'-42.743615'</span>)), <span class="string">'blood_group'</span>: <span class="string">'0+'</span>, <span class="string">'website'</span>: [<span class="string">'https://www.gardner.biz/'</span>, <span class="string">'http://glover-ellison.info/'</span>, <span class="string">'http://www.harrison.biz/'</span>], <span class="string">'username'</span>: <span class="string">'patrick33'</span>, <span class="string">'name'</span>: <span class="string">'Alexandra Montgomery'</span>, <span class="string">'sex'</span>: <span class="string">'F'</span>, <span class="string">'address'</span>: <span class="string">'2314 Collier Stream Suite 093\nMcintyreside, UT 19553'</span>, <span class="string">'mail'</span>: <span class="string">'gomezterri@hotmail.com'</span>, <span class="string">'birthdate'</span>: <span class="string">'2005-01-30'</span>&#125;</div><div class="line"></div><div class="line">$ faker profile ssn,name</div><div class="line">&#123;<span class="string">'ssn'</span>: <span class="string">'344-68-7420'</span>, <span class="string">'name'</span>: <span class="string">'Veronica Brennan'</span>&#125;</div><div class="line"></div><div class="line">$ faker -r=3 -s=<span class="string">";"</span> name</div><div class="line">Willam Kertzmann;</div><div class="line">Josiah Maggio;</div><div class="line">Gayla Schmitt;</div></pre></td></tr></table></figure>
+<p>faker 命令帮助：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">faker [-h] [--version] [-o output]</div><div class="line">      [-l &#123;bg_BG,cs_CZ,...,zh_CN,zh_TW&#125;]</div><div class="line">      [-r REPEAT] [-s SEP]</div><div class="line">      [-i &#123;module.containing.custom_provider othermodule.containing.custom_provider&#125;]</div><div class="line">      [fake] [fake argument [fake argument ...]]</div></pre></td></tr></table></figure>
+<p>选项说明：</p>
+<ul>
+<li><code>faker</code> ： 在shell中，<code>faker</code> 命令也可以用 <code>python -m faker</code> 来代替</li>
+<li><code>-h</code>，<code>--help</code> ： 帮助信息</li>
+<li><code>--version</code> ：显示版本</li>
+<li><code>-o FILENAM</code> ：输出结果到文件中</li>
+<li><code>-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}</code> ：指定本地化，<code>zh_CN</code> 表示中文</li>
+<li><code>-r REPEAT</code> ：指定生成多少条相同类型的数据</li>
+<li><code>-s SEP</code> ：在每个输出后边添加指定的分隔符</li>
+<li><code>-i {my.custom_provider other.custom_provider}</code> ：自定义扩展，<code>prividers</code>列表。注意，这里要指定包含你 <code>provider</code> 类的模块的路径，而不是程序本身。</li>
+<li><code>fake</code> ：指定方法名称，如：<code>name</code> , <code>address</code> , <code>text</code> 等</li>
+<li><code>[fake argument ...]</code> ：为方法指定参数。如上例，为 <code>profile</code> 方法指定 <code>ssn</code> 和 <code>name</code> 参数，只输出这两个类型的内容。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i>  python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/Python-resource-collection.html" rel="next" title="python资源收集">
+                <i class="fa fa-chevron-left"></i> python资源收集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDcxOS83Mjcz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="hjqjk" />
+          <p class="site-author-name" itemprop="name">hjqjk</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录着过程，记录着变化，记录着希望~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjqjk" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/2aa5ddbc0c3b" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/hjqjk" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地化"><span class="nav-number">3.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法介绍"><span class="nav-number">4.</span> <span class="nav-text">方法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#address-地址"><span class="nav-number">4.1.</span> <span class="nav-text">address 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#person-人物"><span class="nav-number">4.2.</span> <span class="nav-text">person 人物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#barcode-条码"><span class="nav-number">4.3.</span> <span class="nav-text">barcode 条码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#color-颜色"><span class="nav-number">4.4.</span> <span class="nav-text">color 颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#company-公司"><span class="nav-number">4.5.</span> <span class="nav-text">company 公司</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#credit-card-银行信用卡"><span class="nav-number">4.6.</span> <span class="nav-text">credit_card 银行信用卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#currency-货币"><span class="nav-number">4.7.</span> <span class="nav-text">currency 货币</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#date-time-时间日期"><span class="nav-number">4.8.</span> <span class="nav-text">date_time 时间日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file-文件"><span class="nav-number">4.9.</span> <span class="nav-text">file 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#internet-互联网"><span class="nav-number">4.10.</span> <span class="nav-text">internet 互联网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#job-工作"><span class="nav-number">4.11.</span> <span class="nav-text">job 工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lorem-乱数假文"><span class="nav-number">4.12.</span> <span class="nav-text">lorem 乱数假文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#misc-杂项"><span class="nav-number">4.13.</span> <span class="nav-text">misc 杂项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phone-number-电话号码"><span class="nav-number">4.14.</span> <span class="nav-text">phone_number 电话号码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-python数据"><span class="nav-number">4.15.</span> <span class="nav-text">python python数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#profile-人物描述信息"><span class="nav-number">4.16.</span> <span class="nav-text">profile 人物描述信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssn-社会安全码-身份证"><span class="nav-number">4.17.</span> <span class="nav-text">ssn 社会安全码(身份证)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user-agent-用户代理"><span class="nav-number">4.18.</span> <span class="nav-text">user_agent 用户代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义扩展"><span class="nav-number">5.</span> <span class="nav-text">自定义扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机控制"><span class="nav-number">6.</span> <span class="nav-text">随机控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行生成"><span class="nav-number">7.</span> <span class="nav-text">命令行生成</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hjqjk</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动 
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("64dehJaGSldsveSgDVUfDB4w-gzGzoHsz", "VdnYAHuVuy3LNpudNUq5r8yP");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
