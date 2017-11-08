@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-02T07:38:32.689Z</updated>
+  <updated>2017-11-08T03:42:14.330Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mysql导表</title>
+    <link href="http://yoursite.com/2017/Mysql-import-table.html"/>
+    <id>http://yoursite.com/2017/Mysql-import-table.html</id>
+    <published>2017-11-07T09:16:54.000Z</published>
+    <updated>2017-11-08T03:42:14.330Z</updated>
+    
+    <content type="html"><![CDATA[<p>根据业务的需求，整合数据，想把 <code>test</code> 库所有的表（表结构 + 表数据）导入到主库 <code>master</code> 中，并且这些表的前缀都为 <code>dev_</code>。</p><a id="more"></a><h2 id="导表"><a href="#导表" class="headerlink" title="导表"></a>导表</h2><h3 id="备份-test-库数据"><a href="#备份-test-库数据" class="headerlink" title="备份 test 库数据"></a>备份 test 库数据</h3><p>利用 <code>mysqldump</code> 工具，备份 <code>test</code> 库的数据。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mysqldump -uroot -p test &gt; test_lastest.sql</div></pre></td></tr></table></figure><h3 id="修改备份文件中的表名"><a href="#修改备份文件中的表名" class="headerlink" title="修改备份文件中的表名"></a>修改备份文件中的表名</h3><p>利用 <code>sed</code> 工具，在命令行修改备份文件里的表名，加上前缀 <code>dev_</code>，以下几项都必须修改，否则导入表时会出错。( <code>test</code> 库的表是没有表前缀的。)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># sed -i &apos;s@^DROP TABLE IF EXISTS `@DROP TABLE IF EXISTS `dev_@g&apos; test_lastest.sql</div><div class="line"># sed -i &apos;s@^CREATE TABLE `@CREATE TABLE `dev_@g&apos; test_lastest.sql</div><div class="line"># sed -i &apos;s@^LOCK TABLES `@LOCK TABLES `dev_@g&apos; test_lastest.sql</div><div class="line"># sed -i &apos;s@^INSERT INTO `@INSERT INTO `dev_@g&apos; test_lastest.sql</div><div class="line"># sed -i &apos;s@40000 ALTER TABLE `@40000 ALTER TABLE `dev_@g&apos; test_lastest.sql</div></pre></td></tr></table></figure><p>还要加上以下这行，在第6行（只要在第一条建表语句之前，无论哪一行可以）加入 <code>USE master;</code>，方便导入数据。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># sed -i &apos;N;6iUSE master;&apos; test_lastest.sql</div></pre></td></tr></table></figure><p>查看给表加入前缀是否成功：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># grep &apos;DROP TABLE&apos; $sql_name</div><div class="line"># grep &apos;CREATE&apos; $sql_name</div><div class="line"># grep &apos;LOCK TABLES `&apos; $sql_name</div></pre></td></tr></table></figure><h3 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mysql -uroot -p &lt; test_lastest.sql</div></pre></td></tr></table></figure><p>检查数据。</p><h3 id="shell脚本版"><a href="#shell脚本版" class="headerlink" title="shell脚本版"></a>shell脚本版</h3><p>把以上的操作写成脚本，迁移时方便些。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">sql_name=&quot;test_lastest.sql&quot;</div><div class="line"></div><div class="line">mysqldump -uroot -hlocalhost -pxxx test &gt; $sql_name</div><div class="line"></div><div class="line">sed -i &apos;s@^DROP TABLE IF EXISTS `@DROP TABLE IF EXISTS `dev_@g&apos; $sql_name</div><div class="line">sed -i &apos;s@^CREATE TABLE `@CREATE TABLE `dev_@g&apos; $sql_name</div><div class="line">sed -i &apos;s@^LOCK TABLES `@LOCK TABLES `dev_@g&apos; $sql_name</div><div class="line">sed -i &apos;s@^INSERT INTO `@INSERT INTO `dev_@g&apos; $sql_name</div><div class="line">sed -i &apos;s@40000 ALTER TABLE `@40000 ALTER TABLE `dev_@g&apos; $sql_name</div><div class="line"></div><div class="line">sed -i &apos;N;6iUSE master;&apos; $sql_name</div><div class="line"></div><div class="line">mysql -uroot -hlocalhost -pxxx &lt; $sql_name</div></pre></td></tr></table></figure><h2 id="扩展：MySQL批量修改表前缀"><a href="#扩展：MySQL批量修改表前缀" class="headerlink" title="扩展：MySQL批量修改表前缀"></a>扩展：MySQL批量修改表前缀</h2><p>本方法通过命令的方式实现批量修改表前缀。<br>假设有数据库 <code>test</code> ，原来表前缀是 <code>test_</code> ，现在全部换成 <code>dev_</code>。</p><h3 id="生成替换命令"><a href="#生成替换命令" class="headerlink" title="生成替换命令"></a>生成替换命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT CONCAT( &apos;ALTER TABLE &apos;, table_name, &apos; RENAME TO dev_&apos;, substring(table_name, 6), &apos;;&apos;) </div><div class="line">FROM information_schema.tables </div><div class="line">WHERE table_schema=&apos;test&apos; and table_name LIKE &apos;test_%&apos;;</div></pre></td></tr></table></figure><ul><li><code>substring(table_name, 6)</code> ：从 <code>test_</code>后面字符(第6个字符)开始替换</li><li><code>table_schema</code> ：指定数据库名</li></ul><h3 id="批量替换"><a href="#批量替换" class="headerlink" title="批量替换"></a>批量替换</h3><p>上一步命令执行完，会生成替换表名的sql语句，复制到编辑器中，只保留sql语句(把 <code>|</code> 替换成空格就行了)，如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE test_thread RENAME TO dev_thread;                             </div><div class="line">ALTER TABLE test_announcement RENAME TO dev_announcement;                     </div><div class="line">ALTER TABLE test_article RENAME TO dev_article;</div><div class="line">...</div><div class="line">...</div></pre></td></tr></table></figure><p>将上面结果保存为 <code>test2dev.sql</code> 文件，在到MySQL服务器上导入修改：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mysql -uroot -p test &lt; test2dev.sql</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;根据业务的需求，整合数据，想把 &lt;code&gt;test&lt;/code&gt; 库所有的表（表结构 + 表数据）导入到主库 &lt;code&gt;master&lt;/code&gt; 中，并且这些表的前缀都为 &lt;code&gt;dev_&lt;/code&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>Python的伪造数据生成器:Faker</title>
@@ -492,29 +514,6 @@
     <summary type="html">
     
       &lt;p&gt;记录Git使用过程中出现的问题&lt;br&gt;
-    
-    </summary>
-    
-      <category term="版本控制" scheme="http://yoursite.com/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
-    
-    
-      <category term="git" scheme="http://yoursite.com/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GitLab汉化指南</title>
-    <link href="http://yoursite.com/2017/GitLab-Chinesization-guide.html"/>
-    <id>http://yoursite.com/2017/GitLab-Chinesization-guide.html</id>
-    <published>2017-06-24T14:22:42.000Z</published>
-    <updated>2017-06-24T14:56:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>为了方便，降低新手上手的难度，对GitLab进行汉化。</p><p>以下介绍GitLab汉化的两个方法</p><a id="more"></a><h2 id="1、直接安装中文版"><a href="#1、直接安装中文版" class="headerlink" title="1、直接安装中文版"></a>1、直接安装中文版</h2><p>GitLab中文社区有集成了中文版的rpm安装包，可以直接去下载安装。</p><p><a href="https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/" target="_blank" rel="external">GitLab中文社区的安装源</a>，目前汉化的最新版本是 gitlab-ce-9.3.0</p><p>CentOS 6.x 中，安装GitLab中文版：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># curl -LJO https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el6/gitlab-ce-9.3.0-ce.0.el6.x86_64.rpm</div><div class="line"># rpm -i gitlab-ce-9.3.0-ce.0.el6.x86_64.rpm</div></pre></td></tr></table></figure><p>修改配置/etc/gitlab/gitlab.rb，绑定域名：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">external_url &apos;http://gitlab.xxx.com&apos;</div></pre></td></tr></table></figure><blockquote><p>修改这个配置，会影响GitLab里面显示的仓库链接。</p></blockquote><p>使配置生效：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 重新生成配置，启动服务</div><div class="line">gitlab-ctl reconfigure   </div><div class="line"></div><div class="line"># 清空缓存</div><div class="line">gitlab-rake cache:clear RAILS_ENV=production</div><div class="line">  </div><div class="line"># 重启所有 gitlab 组件</div><div class="line">gitlab-ctl restart</div></pre></td></tr></table></figure><h2 id="2、汉化"><a href="#2、汉化" class="headerlink" title="2、汉化"></a>2、汉化</h2><h3 id="确定GitLab安装版本"><a href="#确定GitLab安装版本" class="headerlink" title="确定GitLab安装版本"></a>确定GitLab安装版本</h3><p>通过官方提供的GitLab-CE Omnibus安装包安装了GitLab CE 9.2.6</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># cat /opt/gitlab/embedded/service/gitlab-rails/VERSION</div></pre></td></tr></table></figure><h3 id="克隆GitLab汉化源代码仓库"><a href="#克隆GitLab汉化源代码仓库" class="headerlink" title="克隆GitLab汉化源代码仓库"></a>克隆GitLab汉化源代码仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 克隆 GitLab.com 仓库</div><div class="line">git clone https://gitlab.com/xhang/gitlab.git</div><div class="line"></div><div class="line"># 如果是8.8之前的版本可以使用这个</div><div class="line">git clone https://gitlab.com/larryli/gitlab.git</div></pre></td></tr></table></figure><ul><li><a href="https://gitlab.com/larryli/gitlab" target="_blank" rel="external"><strong>larryli项目</strong></a> ：只更新到8.8.5版本。</li><li><a href="https://gitlab.com/xhang/gitlab" target="_blank" rel="external"><strong>xhang项目</strong></a> ：延续Larry Li项目的8-8-zh中文版本进行更新，目前最新版本是9.3.0 。</li></ul><p>根据安装的版本到 <strong>LarryLi项目</strong> 或 <strong>xhang项目</strong> 查看汉化是否支持，注意只要前两位版本号一致就好，如：安装GitLab版本是8.8.6，可以使用 v8.8.0 汉化版本。</p><h3 id="打汉化补丁"><a href="#打汉化补丁" class="headerlink" title="打汉化补丁"></a>打汉化补丁</h3><p>以 9.2.6 版本为例（使用xhang的git仓库）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># 进入克隆仓库得到的gitlab目录</div><div class="line">cd gitlab </div><div class="line"></div><div class="line"># 查看tag版本，选择合适的汉化版本</div><div class="line">git tag</div><div class="line"></div><div class="line"># 对比不同，这里比较的是tag，v9.2.6为英文原版，v9.2.6-zh为汉化版本。diff结果是汉化补丁。</div><div class="line">git diff v9.2.6..v9.2.6-zh &gt; /tmp/9.2.6.diff</div><div class="line"></div><div class="line"># 停止gitlab</div><div class="line">gitlab-ctl stop</div><div class="line"></div><div class="line"># 应用汉化补丁</div><div class="line">cd /opt/gitlab/embedded/service/gitlab-rails</div><div class="line">git apply /tmp/9.2.6.diff</div><div class="line"></div><div class="line"># 启动gitlab</div><div class="line">gitlab-ctl start</div></pre></td></tr></table></figure><p>如果汉化中出现问题，请重新安装GitLab，<strong>注意要先备份数据</strong>。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;为了方便，降低新手上手的难度，对GitLab进行汉化。&lt;/p&gt;
-&lt;p&gt;以下介绍GitLab汉化的两个方法&lt;/p&gt;
     
     </summary>
     
