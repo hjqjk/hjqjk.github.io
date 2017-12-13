@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。">
+<meta name="description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。 字体文件跨域问题在 aus">
 <meta name="keywords" content="ssh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="日常记错">
 <meta property="og:url" content="http://yoursite.com/2017/Record-the-error-daily.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
-<meta property="og:description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。">
-<meta property="og:updated_time" content="2017-10-12T10:00:48.446Z">
+<meta property="og:description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。 字体文件跨域问题在 aus">
+<meta property="og:updated_time" content="2017-11-22T07:48:10.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常记错">
-<meta name="twitter:description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。">
+<meta name="twitter:description" content="SSH连接报错SSH连接服务器，出现报错： 123# ssh root@xxx.xxx.xxx.xxx setsockopt SO_KEEPALIVE: Invalid argumentwrite: Broken pipe 经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。 字体文件跨域问题在 aus">
 
 
 
@@ -402,6 +402,14 @@
         <h2 id="SSH连接报错"><a href="#SSH连接报错" class="headerlink" title="SSH连接报错"></a>SSH连接报错</h2><p>SSH连接服务器，出现报错：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># ssh root@xxx.xxx.xxx.xxx </div><div class="line">setsockopt SO_KEEPALIVE: Invalid argument</div><div class="line">write: Broken pipe</div></pre></td></tr></table></figure>
 <p>经过检查，发现是自己的Mac电脑更新系统（MacOS High Sierra），导致电脑中的 SSH 客户端程序坏了，需要重新安装 SSH 客户端。</p>
+<h2 id="字体文件跨域问题"><a href="#字体文件跨域问题" class="headerlink" title="字体文件跨域问题"></a>字体文件跨域问题</h2><p>在 <code>aus.test.com</code> 中调用 <code>www.test.com</code> 的字体文件 <code>muii.ttf</code> ，发现无法加载。</p>
+<p>谷歌调试工具显示：</p>
+<blockquote>
+<p>access to Font at ‘<a href="http://www.test.com/css/muii.ttf" target="_blank" rel="external">http://www.test.com/css/muii.ttf</a>‘ from origin ‘<a href="http://aus.test.com" target="_blank" rel="external">http://aus.test.com</a>‘ has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource. Origin ‘<a href="http://aus.test.com" target="_blank" rel="external">http://aus.test.com</a>‘ is therefore not allowed access.</p>
+</blockquote>
+<p>可通过Nginx模块 <code>Http_Headers_Module</code> 来添加 <code>Access-Control-Allow-Origin</code> 允许目标域名访问。</p>
+<p>在 <code>www.test.com</code>（放置 .ttf 文件的域名） 的配置文件的 <code>server</code> 段中，加入以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># 字体文件跨域</div><div class="line">location ~ .*\.(eot|ttf|woff|svg|otf)$ &#123;</div><div class="line">    # 只允许单域名或者 &apos;*&apos;。不推荐 ‘*’ ，会导致安全问题</div><div class="line">    add_header Access-Control-Allow-Origin *;</div><div class="line">    add_header Access-Control-Allow-Headers X-Requested-With;</div><div class="line">    add_header Access-Control-Allow-Methods GET,POST,OPTIONS;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -553,7 +561,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -646,7 +654,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH连接报错"><span class="nav-number">1.</span> <span class="nav-text">SSH连接报错</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH连接报错"><span class="nav-number">1.</span> <span class="nav-text">SSH连接报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体文件跨域问题"><span class="nav-number">2.</span> <span class="nav-text">字体文件跨域问题</span></a></li></ol></div>
             
 
           </div>

@@ -1,0 +1,1487 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hjqjk's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="The slow query log consists of SQL statements that took more than long_query_time seconds to execute and required at least min_examined_row_limit rows to be examined. The minimum and default values o">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL慢查询日志">
+<meta property="og:url" content="http://yoursite.com/2017/Mysql-slowlog.html">
+<meta property="og:site_name" content="Hjqjk&#39;s Blog">
+<meta property="og:description" content="The slow query log consists of SQL statements that took more than long_query_time seconds to execute and required at least min_examined_row_limit rows to be examined. The minimum and default values o">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114445062395.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114473814469.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114481005166.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114484414443.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114487082277.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114489626016.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114489793568.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114490001505.jpg">
+<meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114490222535.jpg">
+<meta property="og:updated_time" content="2017-11-27T03:49:45.521Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL慢查询日志">
+<meta name="twitter:description" content="The slow query log consists of SQL statements that took more than long_query_time seconds to execute and required at least min_examined_row_limit rows to be examined. The minimum and default values o">
+<meta name="twitter:image" content="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114445062395.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/Mysql-slowlog.html"/>
+
+
+
+
+
+  <title>MySQL慢查询日志 | Hjqjk's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hjqjk's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/Mysql-slowlog.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hjqjk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hjqjk's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL慢查询日志</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T16:59:03+08:00">
+                2017-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/Mysql-slowlog.html" class="leancloud_visitors" data-flag-title="MySQL慢查询日志">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>The slow query log consists of SQL statements that took more than long_query_time seconds to execute and required at least min_examined_row_limit rows to be examined. The minimum and default values of long_query_time are 0 and 10, respectively. The value can be specified to a resolution of microseconds. For logging to a file, times are written including the microseconds part. For logging to tables, only integer times are written; the microseconds part is ignored.</p>
+<p>By default, administrative statements are not logged, nor are queries that do not use indexes for lookups. This behavior can be changed using log_slow_admin_statements and log_queries_not_using_indexes, as described later.</p>
+</blockquote>
+<p>MySQL慢查询日志是MySQL提供的一种日志记录，用来记录执行时长超过指定时长的查询语句，具体指运行时间超过 <code>long_query_time</code> 值的 SQL 语句，则会被记录到慢查询日志中。</p>
+<p><code>long_query_time</code> 默认值是 <code>10</code> ，单位是 <code>s</code>，即默认是 10秒 。默认情况下，MySQL数据库并不会开启慢查询日志，需要手动设置这个参数。</p>
+<p>通过慢查询日志，可以查找出哪些查询语句的执行效率很低，以便进行优化。一般建议开启，它对服务器性能的影响微乎其微，但是可以记录MySQL服务器上执行了很长时间的查询语句。慢查询日志可以帮助我们定位mysql性能问题所在。</p>
+<a id="more"></a>
+<h1 id="MySQL慢查询日志"><a href="#MySQL慢查询日志" class="headerlink" title="MySQL慢查询日志"></a>MySQL慢查询日志</h1><h2 id="慢查询日志相关参数"><a href="#慢查询日志相关参数" class="headerlink" title="慢查询日志相关参数"></a>慢查询日志相关参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">slow_query_log : 是否启用慢查询日志，[1 | 0] 或者 [ON | OFF]</div><div class="line"></div><div class="line">slow_query_log_file : MySQL数据库（5.6及以上版本）慢查询日志存储路径。</div><div class="line">                    可以不设置该参数，系统则会默认给一个缺省的文件 HOST_NAME-slow.log</div><div class="line"></div><div class="line">long_query_time : 慢查询的阈值，当查询时间超过设定的阈值时，记录该SQL语句到慢查询日志。</div><div class="line"></div><div class="line">log_queries_not_using_indexes ：设置为 ON ，可以捕获到所有未使用索引的SQL语句(不建议启用)，默认为 OFF 。</div><div class="line">log_slow_admin_statements : 是否将慢管理语句（例如ANALYZE TABLE和ALTER TABLE等）记录进慢查询日志中，默认为 OFF 。</div><div class="line"></div><div class="line">log_output : 日志存储方式。</div><div class="line">            log_output=&apos;FILE&apos;，表示将日志存入文件，默认值是&apos;FILE&apos;。      </div><div class="line">            log_output=&apos;TABLE&apos;，表示将日志存入数据库，这样日志信息就会被写入到 mysql.slow_log 表中。</div><div class="line">            MySQL数据库支持同时两种日志存储方式，配置的时候以逗号隔开即可，如：log_output=&apos;FILE,TABLE&apos;。</div><div class="line">            日志记录到系统的专用日志表中，要比记录到文件耗费更多的系统资源，因此对于需要启用慢查询日志，又需要能够获得更高的系统性能，那么建议优先记录到文件。</div></pre></td></tr></table></figure>
+<p>5.6之前的版本，有些参数名字不一样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">log-slow-queries : MySQL数据库（5.6以下版本）慢查询日志存储路径。</div></pre></td></tr></table></figure>
+<h2 id="开启日志"><a href="#开启日志" class="headerlink" title="开启日志"></a>开启日志</h2><h3 id="立即生效，重启失效"><a href="#立即生效，重启失效" class="headerlink" title="立即生效，重启失效"></a>立即生效，重启失效</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set global slow_query_log=ON;</div><div class="line">mysql&gt; set global slow_query_log_file=&apos;/xxx/mysql-slow.log&apos;;</div><div class="line">mysql&gt; set global long_query_time=1;</div></pre></td></tr></table></figure>
+<h3 id="永久生效"><a href="#永久生效" class="headerlink" title="永久生效"></a>永久生效</h3><p>修改 <code>my.cnf</code> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">slow_query_log           = 1</div><div class="line">slow_query_log_file      = /xxx/mysql-slow.log</div><div class="line">long_query_time          = 1</div><div class="line"></div><div class="line"># 也可以写成这种形式</div><div class="line">slow-query-log           = 1</div><div class="line">slow-query-log-file      = /xxx/mysql-slow.log</div><div class="line">long-query-time          = 1</div></pre></td></tr></table></figure>
+<p>重启mysql服务。</p>
+<h2 id="关闭日志"><a href="#关闭日志" class="headerlink" title="关闭日志"></a>关闭日志</h2><p>临时关闭，重启失效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set global slow_query_log=OFF;</div></pre></td></tr></table></figure>
+<p>永久关闭，修改 <code>my.cnf</code>，重启mysql服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">slow_query_log           = 0</div></pre></td></tr></table></figure>
+<h1 id="MySQL慢查询日志分析"><a href="#MySQL慢查询日志分析" class="headerlink" title="MySQL慢查询日志分析"></a>MySQL慢查询日志分析</h1><h2 id="慢查询日志格式说明"><a href="#慢查询日志格式说明" class="headerlink" title="慢查询日志格式说明"></a>慢查询日志格式说明</h2><p>打开慢查询日志 <code>mysql-slow.log</code> ，内容都是以下格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Time: 2017-11-22T12:22:32.554299Z</div><div class="line"># User@Host: www[www] @  [192.168.10.2]  Id: 580785559</div><div class="line"># Query_time: 24.354270  Lock_time: 0.000238 Rows_sent: 1  Rows_examined: 511156</div><div class="line">SET timestamp=1511353352;</div><div class="line">SELECT * FROM mo_user WHERE email = &apos;chxxx@hotmail.com&apos; LIMIT 1;</div></pre></td></tr></table></figure>
+<p>其中参数说明如下：</p>
+<ul>
+<li>log 记录的时间：<code># Time: 2017-11-22T12:22:32.554299Z</code></li>
+<li>SQL 的执行主机：<code># User@Host: www[www] @  [192.168.10.2]  Id: 580785559</code></li>
+<li>SQL 的执行信息（执行时间(单位：s)，锁时间，返回结果行数，查询总行数）：<code># Query_time: 24.354270  Lock_time: 0.000238 Rows_sent: 1  Rows_examined: 511156;</code></li>
+<li>SQL 执行发生的时间：<code>SET timestamp=1511353352;</code></li>
+<li>SQL 的执行内容：<code>SELECT * FROM mo_user WHERE email = &#39;chxxx@hotmail.com&#39; LIMIT 1;</code></li>
+</ul>
+<h3 id="新增参数log-timestamps说明"><a href="#新增参数log-timestamps说明" class="headerlink" title="新增参数log_timestamps说明"></a>新增参数log_timestamps说明</h3><p><code># Time: 2017-11-22T12:22:32.554299Z</code>用的是 <code>UTC</code> 时间，国内标准时间是 <code>CST</code> ，<code>UTC</code> 时间比 <code>CST</code> 时间慢8个小时。</p>
+<blockquote>
+<p>This variable was added in MySQL 5.7.2. Before 5.7.2, timestamps in log messages were written using the local system time zone by default, not UTC. If you want the previous log message time zone default, set log_timestamps=SYSTEM.</p>
+</blockquote>
+<p>根据官网介绍，在 <code>MySQL 5.7.2</code> 新增了 <code>log_timestamps</code> 这个参数，该参数主要是控制 <code>error log</code>、<code>genera log</code>、<code>slow log</code>等等记录日志的显示时间参数。<br>在 <code>5.7.2</code>及其以后的版本，新增了该参数，该参数默认为 UTC ，这样会导致日志中记录的时间比中国这边的慢8个小时，使得查看日志不方便。解决方案，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SHOW GLOBAL VARIABLES LIKE &apos;log_timestamps&apos;;</div><div class="line">+----------------+--------+</div><div class="line">| Variable_name  | Value  |</div><div class="line">+----------------+--------+</div><div class="line">| log_timestamps | UTC    |</div><div class="line">+----------------+--------+</div><div class="line">mysql&gt; SET GLOBAL log_timestamps=SYSTEM;</div></pre></td></tr></table></figure>
+<p>要想永久生效，就在 <code>my.cnf</code>的 <code>mysqld</code>段下，加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">log_timestamps  = SYSTEM</div></pre></td></tr></table></figure>
+<h2 id="mysqldumpslow"><a href="#mysqldumpslow" class="headerlink" title="mysqldumpslow"></a>mysqldumpslow</h2><p>mysqldumpslow 是MySQL自带的慢查询日志分析工具(perl脚本)。执行命令 <code>mysqldumpslow --help</code>，显示命令参数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Usage: mysqldumpslow [ OPTS... ] [ LOGS... ]</div><div class="line"></div><div class="line">Parse and summarize the MySQL slow query log. Options are</div><div class="line"></div><div class="line">  --verbose    verbose</div><div class="line">  --debug      debug</div><div class="line">  --help       write this text to standard output</div><div class="line"></div><div class="line">  -v           verbose</div><div class="line">  -d           debug</div><div class="line">  -s ORDER     what to sort by (al, at, ar, c, l, r, t), &apos;at&apos; is default</div><div class="line">                al: average lock time</div><div class="line">                ar: average rows sent</div><div class="line">                at: average query time</div><div class="line">                 c: count</div><div class="line">                 l: lock time</div><div class="line">                 r: rows sent</div><div class="line">                 t: query time</div><div class="line">  -r           reverse the sort order (largest last instead of first)</div><div class="line">  -t NUM       just show the top n queries</div><div class="line">  -a           don&apos;t abstract all numbers to N and strings to &apos;S&apos;</div><div class="line">  -n NUM       abstract numbers with at least n digits within names</div><div class="line">  -g PATTERN   grep: only consider stmts that include this string</div><div class="line">  -h HOSTNAME  hostname of db server for *-slow.log filename (can be wildcard),</div><div class="line">               default is &apos;*&apos;, i.e. match all</div><div class="line">  -i NAME      name of server instance (if using mysql.server startup script)</div><div class="line">  -l           don&apos;t subtract lock time from total time</div></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li>-v、–verbose : 在详细模式下运行，打印有关该程序的更多信息。</li>
+<li>-d、–debug : 在调试模式下运行。</li>
+<li>–help : 显示帮助信息并退出程序</li>
+<li><p>-s [sort_type] : sort_type 是信息排序的依据</p>
+<blockquote>
+<p>al：average lock time，按平均等待锁的时间排序<br>  ar：average rows sent，按平均发给客户端的行总数排序<br>  at：average query time，按平均查询时间排序<br>  c：count，按出现总次数排序<br>  l：lock time，按等待锁的时间排序<br>  r：rows sent，按扫描的行总数排序<br>  t：query time，按累计总耗费时间排序</p>
+</blockquote>
+</li>
+<li>-r : 倒序信息排序</li>
+<li>-t NUM: 只显示前 n 个查询，降序</li>
+<li>-a : 不把数字抽象为’N’，不把字符串抽象为’S’</li>
+<li>-n NUM : 「abstract numbers with at least n digits within names」</li>
+<li>-g PATTERN : 根据字符串筛选慢查询日志，可写正则匹配，大小写不敏感。</li>
+<li>-h HOSTNAME : 根据服务器名称选择慢查询日志</li>
+<li>-i NAME : 根据服务器 MySQL 实例名称选择慢查询日志</li>
+<li>-l : 不要将总时间减去锁定时间</li>
+</ul>
+<p><code>mysqldumpslow</code> 分析的结果如下:</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114445062395.jpg" alt=""></p>
+<ul>
+<li>Count : 出现次数(Count)</li>
+<li>Time : 执行最长时间(Time) 和 累计总耗费时间(Time)</li>
+<li>Lock : 等待锁的时间(Lock)</li>
+<li>Rows : 发送给客户端的行总数(Rows) 和 扫描的行总数(Rows)</li>
+<li>root[root]@localhost : 用户</li>
+<li>SHOW FULL … : SQL语句本身(抽象了格式, 比如 limit 1, 20 用 limit N,N 表示。’N’表示数字，’S’表示字符串)。</li>
+</ul>
+<p>例子:<br>返回出现次数最多的10个SQL</p>
+<blockquote>
+<p>mysqldumpslow -s c -t 10 mysql-slow.log</p>
+</blockquote>
+<p>返回按照总时间排序的前10条里边含有左连接的SQL</p>
+<blockquote>
+<p>mysqldumpslow -s t -t 10 -g “left join” mysql-slow.log</p>
+</blockquote>
+<h2 id="mysqlsla"><a href="#mysqlsla" class="headerlink" title="mysqlsla"></a>mysqlsla</h2><p>mysqlsla是 <a href="http://hackmysql.com" target="_blank" rel="external">hackmysql.com</a> 推出的一款日志分析工具，Perl脚本(该网站还维护了 <code>mysqlreport</code>, <code>mysqlidxchk</code> 等比较实用的mysql工具)。<br>整体来说, 功能非常强大。数据报表,非常有利于分析慢查询的原因, 包括执行频率, 数据量, 查询消耗等。</p>
+<font color="red" size="4" face="黑体">但是，hackmysql.com官方已经在2015年1月份放弃了对 mysqlsla（<a href="https://github.com/daniel-nichter/hackmysql.com" target="_blank" rel="external">项目地址</a>）的维护，官方推荐用 Percona Toolkit。</font>
+
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114473814469.jpg" alt=""></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="解决依赖关系"><a href="#解决依赖关系" class="headerlink" title="解决依赖关系"></a>解决依赖关系</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install  perl-DBI perl-DBD-MySQL</div></pre></td></tr></table></figure>
+<p>可能会遇到的问题：<code>Can&#39;t locate ExtUtils/MakeMaker.pm</code>，解决如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install  perl-ExtUtils-CBuilder  perl-ExtUtils-MakeMaker</div></pre></td></tr></table></figure>
+<p>可能会遇到的问题：<code>Can&#39;t locate Time/HiRes.pm in @INC</code>，解决如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install perl-Time-HiRes</div></pre></td></tr></table></figure>
+<h4 id="下载mysqlsla"><a href="#下载mysqlsla" class="headerlink" title="下载mysqlsla"></a>下载mysqlsla</h4><p>当前 mysqlsla 的最新版本为 <code>2.03</code>，到官网下载（官方链接已经失效），可以去这个 <a href="http://down.51cto.com/data/960754" target="_blank" rel="external"><strong>有效下载地址</strong></a> 下载。</p>
+<h4 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># tar xvfz mysqlsla-2.03.tar.gz </div><div class="line"># cd mysqlsla-2.03</div><div class="line"># perl Makefile.PL</div><div class="line"># make</div><div class="line"># make install</div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># mysqlsla -lt slow mysql-slow.log </div><div class="line"></div><div class="line">或者 </div><div class="line"># mysqlsla -lt slow mysql-slow.log -sf &quot;+SELECT&quot; -db dbName -top 10 -sort t_sum</div></pre></td></tr></table></figure>
+<p>参数意义 ：</p>
+<ul>
+<li>-lt ：表示日志类型，有: slow, general, binary, msl, udl </li>
+<li>-sf ：[+-][TYPE]，包括|不包括，过滤sql语句的类型 [TYPE]有 SELECT, CREATE, DROP, UPDATE, INSERT，例如 “+SELECT,INSERT”，不出现的默认是 - ，即不包括。 </li>
+<li>-db ：要处理哪个库的日志。 </li>
+<li>-top ：表示取按规则排序的前多少条。 </li>
+<li>-sort ：按某种规则排序，t_sum 按总时间排序， c_sum 按总次数排序。c_sum_p : sql语句执行次数占总执行次数的百分比。</li>
+</ul>
+<p>对慢查询日志文件的分析，最简化的调用方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mysqlsla -lt slow [SlowLogFilePath] &gt; [ResultFilePath]</div></pre></td></tr></table></figure>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114481005166.jpg" alt=""></p>
+<p>格式说明如下:</p>
+<ul>
+<li>总查询次数 (queries total), 去重后的sql数量 (unique)</li>
+<li>输出报表的内容排序方式(sorted by)</li>
+<li>最重大的慢sql统计信息, 包括平均执行时间, 等待锁时间, 结果行的总数, 扫描的行总数。</li>
+</ul>
+<hr>
+<ul>
+<li>Count： sql的执行次数及占总的slow log数量的百分比.</li>
+<li>Time：执行时间, 包括总时间, 平均时间, 最小, 最大时间, 时间占总慢sql时间的百分比.</li>
+<li>95% of Time：去除最快和最慢的sql, 覆盖率占95%的sql的执行时间.</li>
+<li>Lock Time：等待锁的时间.</li>
+<li>95% of Lock ：95%的慢sql等待锁时间.</li>
+<li>Rows sent：结果行统计数量, 包括平均, 最小, 最大数量.</li>
+<li>Rows examined： 扫描的行数量.</li>
+<li>Database：属于哪个数据库</li>
+<li>Users：哪个用户,IP, 占到所有用户执行的sql百分比</li>
+</ul>
+<hr>
+<ul>
+<li>Query abstract：抽象后的sql语句</li>
+<li>Query sample：sql语句个例</li>
+</ul>
+<h2 id="pt-query-digest"><a href="#pt-query-digest" class="headerlink" title="pt-query-digest"></a>pt-query-digest</h2><h3 id="percona-toolkit-工具介绍"><a href="#percona-toolkit-工具介绍" class="headerlink" title="percona-toolkit 工具介绍"></a>percona-toolkit 工具介绍</h3><p><code>percona-toolkit</code> 是一组高级命令行工具的集合，用来执行各种通过手工执行非常复杂和麻烦的mysql和系统任务。这些任务包括：</p>
+<ul>
+<li>检查master和slave数据的一致性</li>
+<li>有效地对记录进行归档</li>
+<li>查找重复的索引</li>
+<li>对服务器信息进行汇总</li>
+<li>分析来自日志和tcpdump的查询</li>
+<li>当系统出问题的时候收集重要的系统信息</li>
+</ul>
+<p>Percona Toolkit整个工具箱提供了非常多实用的工具，具体的使用方法可以参看 <a href="https://www.percona.com/doc/percona-toolkit/2.1/index.html#tools" target="_blank" rel="external"><strong>官方文档</strong></a><br><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114484414443.jpg" alt=""></p>
+<h3 id="percona-toolkit安装"><a href="#percona-toolkit安装" class="headerlink" title="percona-toolkit安装"></a>percona-toolkit安装</h3><p>安装  <code>percona-toolkit</code> 非常简单，到 <a href="https://www.percona.com/software/mysql-tools/percona-toolkit" target="_blank" rel="external"><strong>官网</strong></a> 下载 .tar.gz 包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget percona.com/get/percona-toolkit.tar.gz</div><div class="line"># tar -zxvf percona-toolkit-2.2.5.tar.gz</div></pre></td></tr></table></figure>
+<p>然后依次执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># perl Makefile.PL</div><div class="line"># make</div><div class="line"># make install</div></pre></td></tr></table></figure>
+<p>默认的会被安装在 <code>/usr/local/bin</code> 目录下。执行 <code>man percona-toolkit</code> 可以查看安装了哪些工具。</p>
+<p>运行工具可能会遇到下面的错误：</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114487082277.jpg" alt=""><br>这是因为缺少相应包，.pm包实际上是perl的包，运行下面的命令安装即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y perl-Time-HiRes</div></pre></td></tr></table></figure>
+<p>如果安装过程中出现 <code>Error Downloading Packages</code> 错误，尝试 <code>yum clean all</code> 后再安装。使用其Percona Toolkit中其他工具也可能会遇到类似的问题，按照提示安装相应的perl包就可以了。</p>
+<blockquote>
+<p>问题：Can’t locate Digest/MD5.pm in @INC<br>解决：# yum install perl-Digest-MD5</p>
+<p>问题：Can’t locate ExtUtils/MakeMaker.pm in @INC<br>解决：# yum install perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker</p>
+</blockquote>
+<h3 id="pt-query-digest使用"><a href="#pt-query-digest使用" class="headerlink" title="pt-query-digest使用"></a>pt-query-digest使用</h3><p><code>pt-query-digest</code> 可以从普通MySQL日志，慢查询日志以及二进制日志中分析查询，甚至可以从 <code>SHOW PROCESSLIST;</code> 和MySQL协议的tcpdump中进行分析，如果没有指定文件，它从标准输入流（STDIN）中读取数据。</p>
+<h4 id="命令用法"><a href="#命令用法" class="headerlink" title="命令用法"></a>命令用法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest [OPTIONS] [FILES] [DSN]</div></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li>–create-review-table : 当使用–review参数把分析结果输出到表中时，如果没有表就自动创建。</li>
+<li>–create-history-table : 当使用–history参数把分析结果输出到表中时，如果没有表就自动创建。</li>
+<li>–filter  : 对输入的慢查询按指定的字符串进行匹配过滤后再进行分析</li>
+<li>–limit  :  限制输出结果百分比或数量，默认值是20,即将最慢的20条语句输出，如果是50%则按总响应时间占比从大到小排序，输出到总和达到50%位置截止。</li>
+<li>–host  : mysql服务器地址</li>
+<li>–user : mysql用户名</li>
+<li>-password : mysql用户密码</li>
+<li>–history : 将分析结果保存到表中，分析结果比较详细，下次再使用–history时，如果存在相同的语句，且查询所在的时间区间和历史表中的不同，则会记录到数据表中，可以通过查询同一CHECKSUM来比较某类型查询的历史变化。</li>
+<li>–review : 将分析结果保存到表中，这个分析只是对查询条件进行参数化，一个类型的查询一条记录，比较简单。当下次使用–review时，如果存在相同的语句分析，就不会记录到数据表中。</li>
+<li>–output : 分析结果输出类型，值可以是report(标准分析报告)、slowlog(Mysql slow log)、json、json-anon，一般使用report，以便于阅读。</li>
+<li>–since : 从什么时间开始分析，值为字符串，可以是指定的某个 “yyyy-mm-dd [hh:mm:ss]” 格式的时间点，也可以是简单的一个时间值：s(秒)、h(小时)、m(分钟)、d(天)，如12h就表示从12小时前开始统计。</li>
+<li>–until : 截止时间，配合—since可以分析一段时间内的慢查询。</li>
+</ul>
+<h4 id="输出信息详情"><a href="#输出信息详情" class="headerlink" title="输出信息详情"></a>输出信息详情</h4><p>最简单的用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># pt-query-digest mysql-slow.log</div></pre></td></tr></table></figure>
+<p>输出信息大致如下:<br><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114489626016.jpg" alt=""></p>
+<p>整个输出分为三大部分：</p>
+<h5 id="整体概要（Overall）"><a href="#整体概要（Overall）" class="headerlink" title="整体概要（Overall）"></a>整体概要（Overall）</h5><p><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114489793568.jpg" alt=""></p>
+<p>这个部分是一个大致的概要信息(类似loadrunner给出的概要信息)，通过它可以对当前MySQL的查询性能做一个初步的评估，比如各个指标的最大值(max)，平均值(min)，95%分布值，中位数(median)，标准偏差(stddev)。<br>这些指标有查询的执行时间（Exec time），锁占用的时间（Lock time），MySQL执行器需要检查的行数（Rows examine），最后返回给客户端的行数（Rows sent），查询的大小。</p>
+<h5 id="查询的汇总信息（Profile）"><a href="#查询的汇总信息（Profile）" class="headerlink" title="查询的汇总信息（Profile）"></a>查询的汇总信息（Profile）</h5><p>这个部分对所有 “重要” 的查询(通常是比较慢的查询)做了个一览表:</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114490001505.jpg" alt=""><br>每个查询都有一个Query ID，这个ID通过Hash计算出来的。<code>pt-query-digest</code> 是根据这个所谓的Fingerprint来group by的。举例下面两个查询的Fingerprint是一样的都是 <code>select * from table1 where column1 = ?</code>，工具箱中也有一个与之相关的工具 <code>pt-fingerprint</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">select * from table1 where column1 = 2</div><div class="line">select * from table1 where column1 = 3</div></pre></td></tr></table></figure>
+<ul>
+<li>Rank整个分析中该“语句”的排名，一般也就是性能最常的。</li>
+<li>Response time  “语句”的响应时间以及整体占比情况。</li>
+<li>Calls 该“语句”的执行次数。</li>
+<li>R/Call 每次执行的平均响应时间。</li>
+<li>V/M 响应时间的差异平均对比率。</li>
+</ul>
+<p>在尾部有一行输出，显示了其他2个占比较低而不值得单独显示的查询的统计数据。</p>
+<h5 id="详细信息"><a href="#详细信息" class="headerlink" title="详细信息"></a>详细信息</h5><p>这个部分会列出Profile表中每个查询的详细信息：（默认是按照总的Exec time排序，降序）</p>
+<p><img src="http://orku2pa7o.bkt.clouddn.com/2017-11-23-15114490222535.jpg" alt=""></p>
+<p>包括Overall中有的信息、查询响应时间的分布情况以及该查询 “入榜” 的理由，最底下会显示该查询SQL语句（真实显示，非抽象格式）。</p>
+<h4 id="用例示范"><a href="#用例示范" class="headerlink" title="用例示范"></a>用例示范</h4><p>分析最近12小时内的查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># pt-query-digest  --since=12h  mysql-slow.log &gt; slow_report1.log</div></pre></td></tr></table></figure>
+<p>分析指定时间范围内的查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># pt-query-digest mysql-slow.log --since &apos;2014-05-17 09:30:00&apos; --until &apos;2014-06-17 10:00:00&apos; &gt; slow_report2.log</div></pre></td></tr></table></figure>
+<p>分析只含有select语句的慢查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># pt-query-digest --filter &apos;$event-&gt;&#123;fingerprint&#125; =~ m/^select/i&apos; mysql-slow.log&gt; slow_report3.log</div></pre></td></tr></table></figure>
+<p>通过tcpdump抓取mysql的tcp协议数据，然后分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># tcpdump -s 65535 -x -nn -q -tttt -i any -c 1000 port 3306 &gt; mysql.tcp.txt</div><div class="line"># pt-query-digest --type tcpdump mysql.tcp.txt &gt; slow_report4.log</div></pre></td></tr></table></figure>
+<p>还可以跟一些过滤条件。详见 <a href="http://www.percona.com/doc/percona-toolkit/2.2/pt-query-digest.html" target="_blank" rel="external"><strong>官方文档</strong></a></p>
+<p>另外结合一些第三方工具还能生成相应的报表。</p>
+<p><font color="red"> 建议 </font>：当 <code>slow log</code> 很大的时候最好还是将日志文件移到其他机器上进行分析，避免分析时过度消耗该服务器资源。</p>
+<p>参考：<a href="http://blog.csdn.net/hjqjk11/article/details/78626943" target="_blank" rel="external">关于 MySQL 慢日志，你想知道的都在这</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i>  mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/Common-operations-of-OPS.html" rel="next" title="运维常用操作">
+                <i class="fa fa-chevron-left"></i> 运维常用操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDcxOS83Mjcz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="hjqjk" />
+          <p class="site-author-name" itemprop="name">hjqjk</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录着过程，记录着变化，记录着希望~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hjqjk" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/2aa5ddbc0c3b" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/hjqjk" target="_blank" title="博客园">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  博客园
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL慢查询日志"><span class="nav-number">1.</span> <span class="nav-text">MySQL慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#慢查询日志相关参数"><span class="nav-number">1.1.</span> <span class="nav-text">慢查询日志相关参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启日志"><span class="nav-number">1.2.</span> <span class="nav-text">开启日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#立即生效，重启失效"><span class="nav-number">1.2.1.</span> <span class="nav-text">立即生效，重启失效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久生效"><span class="nav-number">1.2.2.</span> <span class="nav-text">永久生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭日志"><span class="nav-number">1.3.</span> <span class="nav-text">关闭日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL慢查询日志分析"><span class="nav-number">2.</span> <span class="nav-text">MySQL慢查询日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#慢查询日志格式说明"><span class="nav-number">2.1.</span> <span class="nav-text">慢查询日志格式说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新增参数log-timestamps说明"><span class="nav-number">2.1.1.</span> <span class="nav-text">新增参数log_timestamps说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqldumpslow"><span class="nav-number">2.2.</span> <span class="nav-text">mysqldumpslow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlsla"><span class="nav-number">2.3.</span> <span class="nav-text">mysqlsla</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决依赖关系"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">解决依赖关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载mysqlsla"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">下载mysqlsla</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译安装"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">编译安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.3.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pt-query-digest"><span class="nav-number">2.4.</span> <span class="nav-text">pt-query-digest</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#percona-toolkit-工具介绍"><span class="nav-number">2.4.1.</span> <span class="nav-text">percona-toolkit 工具介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#percona-toolkit安装"><span class="nav-number">2.4.2.</span> <span class="nav-text">percona-toolkit安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pt-query-digest使用"><span class="nav-number">2.4.3.</span> <span class="nav-text">pt-query-digest使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令用法"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">命令用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出信息详情"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">输出信息详情</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#整体概要（Overall）"><span class="nav-number">2.4.3.2.1.</span> <span class="nav-text">整体概要（Overall）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询的汇总信息（Profile）"><span class="nav-number">2.4.3.2.2.</span> <span class="nav-text">查询的汇总信息（Profile）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#详细信息"><span class="nav-number">2.4.3.2.3.</span> <span class="nav-text">详细信息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用例示范"><span class="nav-number">2.4.3.3.</span> <span class="nav-text">用例示范</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hjqjk</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动 
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("64dehJaGSldsveSgDVUfDB4w-gzGzoHsz", "VdnYAHuVuy3LNpudNUq5r8yP");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
