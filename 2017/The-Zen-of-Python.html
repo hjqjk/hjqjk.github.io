@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="在vim的命令模式下输入：  :read !echo import this | python  会得到 The Zen of Python 的原文。">
+<meta name="description" content="在vim的命令模式下输入：  :read !echo import this | python  会得到 The Zen of Python 的原文。 或者直接在 python 解释器中导入 this 模块（python2.x 和 python3.x 都可以）： 1&amp;gt;&amp;gt;&amp;gt; import this">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python 之禅">
 <meta property="og:url" content="http://yoursite.com/2017/The-Zen-of-Python.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
-<meta property="og:description" content="在vim的命令模式下输入：  :read !echo import this | python  会得到 The Zen of Python 的原文。">
+<meta property="og:description" content="在vim的命令模式下输入：  :read !echo import this | python  会得到 The Zen of Python 的原文。 或者直接在 python 解释器中导入 this 模块（python2.x 和 python3.x 都可以）： 1&amp;gt;&amp;gt;&amp;gt; import this">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2017-10-30-006faQNTgw1f39d4phtn8j30jg1uogxv.jpg">
-<meta property="og:updated_time" content="2017-10-30T03:38:05.704Z">
+<meta property="og:updated_time" content="2018-02-09T06:45:14.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 之禅">
-<meta name="twitter:description" content="在vim的命令模式下输入：  :read !echo import this | python  会得到 The Zen of Python 的原文。">
+<meta name="twitter:description" content="在vim的命令模式下输入：  :read !echo import this | python  会得到 The Zen of Python 的原文。 或者直接在 python 解释器中导入 this 模块（python2.x 和 python3.x 都可以）： 1&amp;gt;&amp;gt;&amp;gt; import this">
 <meta name="twitter:image" content="http://orku2pa7o.bkt.clouddn.com/2017-10-30-006faQNTgw1f39d4phtn8j30jg1uogxv.jpg">
 
 
@@ -406,6 +406,8 @@
 <p>:read !echo import this | python</p>
 </blockquote>
 <p>会得到 <code>The Zen of Python</code> 的原文。</p>
+<p>或者直接在 python 解释器中导入 <code>this</code> 模块（python2.x 和 python3.x 都可以）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import this</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="英文原版"><a href="#英文原版" class="headerlink" title="英文原版"></a>英文原版</h2><blockquote>
 <p>The Zen of Python, by Tim Peters</p>
@@ -427,6 +429,16 @@
 <p>美麗優於醜陋，明講好過暗諭。<br>簡潔者為上，複雜者次之，繁澀者為下。<br>平舖善於層疊，勻散勝過稠密；以致輕鬆易讀。<br>特例難免但不可打破原則，務求純淨卻不可不切實際。<br>斷勿使錯誤靜靜流逝，除非有意如此。<br>在模擬兩可之間，拒絕猜測的誘惑。<br>總會有一種明確的寫法，最好也只有一種，<br>但或須細想方可得。<br>凡事雖應三思後行，但坐而言不如起而行。<br>難以解釋的實作方式，必定是壞方法。<br>容易解釋的實作方式，可能是好主意。<br>命名空間讚，吾人多實用。</p>
 </blockquote>
 <h2 id="图解版"><a href="#图解版" class="headerlink" title="图解版"></a>图解版</h2><p><img src="http://orku2pa7o.bkt.clouddn.com/2017-10-30-006faQNTgw1f39d4phtn8j30jg1uogxv.jpg" alt="006faQNTgw1f39d4phtn8j30jg1uogxv"></p>
+<h2 id="this-模块的实现原理"><a href="#this-模块的实现原理" class="headerlink" title="this 模块的实现原理"></a>this 模块的实现原理</h2><p>翻看模块脚本 <code>this.py</code> 的实现代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">s = &quot;&quot;&quot;Gur Mra bs Clguba, ol Gvz Crgref</div><div class="line"></div><div class="line">Ornhgvshy vf orggre guna htyl.</div><div class="line">Rkcyvpvg vf orggre guna vzcyvpvg.</div><div class="line">Fvzcyr vf orggre guna pbzcyrk.</div><div class="line">Pbzcyrk vf orggre guna pbzcyvpngrq.</div><div class="line">Syng vf orggre guna arfgrq.</div><div class="line">Fcnefr vf orggre guna qrafr.</div><div class="line">Ernqnovyvgl pbhagf.</div><div class="line">Fcrpvny pnfrf nera&apos;g fcrpvny rabhtu gb oernx gur ehyrf.</div><div class="line">Nygubhtu cenpgvpnyvgl orngf chevgl.</div><div class="line">Reebef fubhyq arire cnff fvyragyl.</div><div class="line">Hayrff rkcyvpvgyl fvyraprq.</div><div class="line">Va gur snpr bs nzovthvgl, ershfr gur grzcgngvba gb thrff.</div><div class="line">Gurer fubhyq or bar-- naq cersrenoyl bayl bar --boivbhf jnl gb qb vg.</div><div class="line">Nygubhtu gung jnl znl abg or boivbhf ng svefg hayrff lbh&apos;er Qhgpu.</div><div class="line">Abj vf orggre guna arire.</div><div class="line">Nygubhtu arire vf bsgra orggre guna *evtug* abj.</div><div class="line">Vs gur vzcyrzragngvba vf uneq gb rkcynva, vg&apos;f n onq vqrn.</div><div class="line">Vs gur vzcyrzragngvba vf rnfl gb rkcynva, vg znl or n tbbq vqrn.</div><div class="line">Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg&apos;f qb zber bs gubfr!&quot;&quot;&quot;</div><div class="line"></div><div class="line">d = &#123;&#125;</div><div class="line">for c in (65, 97):</div><div class="line">    for i in range(26):</div><div class="line">        d[chr(i+c)] = chr((i+13) % 26 + c)</div><div class="line"></div><div class="line">print(&quot;&quot;.join([d.get(c, c) for c in s]))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">d = &#123;&#125;</div><div class="line">for c in (65, 97):</div><div class="line">    for i in range(26):</div><div class="line">        d[chr(i+c)] = chr((i+13) % 26 + c)</div></pre></td></tr></table></figure>
+<p>这部分代码，是用来构建转换的对应表，大写（65开始），小写（97开始）。也就是构建字典 <code>d</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&apos;A&apos;: &apos;N&apos;, &apos;B&apos;: &apos;O&apos;, ...,&apos;M&apos;: &apos;Z&apos;, &apos;N&apos;: &apos;A&apos;, ..., &apos;Y&apos;: &apos;L&apos;, &apos;Z&apos;: &apos;M&apos;, &apos;a&apos;: &apos;n&apos;, &apos;b&apos;: &apos;o&apos;, ..., &apos;m&apos;: &apos;z&apos;, &apos;n&apos;: &apos;a&apos;,..., &apos;y&apos;: &apos;l&apos;, &apos;z&apos;: &apos;m&apos;&#125;</div></pre></td></tr></table></figure>
+<p>更直观的对应关系如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">A &lt;-&gt; N</div><div class="line">B &lt;-&gt; O</div><div class="line">C &lt;-&gt; P</div><div class="line">...</div><div class="line">M &lt;-&gt; Z</div><div class="line"></div><div class="line">a &lt;-&gt; n</div><div class="line">b &lt;-&gt; o</div><div class="line">c &lt;-&gt; p</div><div class="line">...</div><div class="line">m &lt;-&gt; z</div></pre></td></tr></table></figure>
+<p>这种被叫做 <a href="https://zh.wikipedia.org/wiki/ROT13" target="_blank" rel="external"><strong>rot13</strong></a> 的编码方式，是一种简易的替换式密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(&quot;&quot;.join([d.get(c, c) for c in s]))</div></pre></td></tr></table></figure>
+<p>这部分代码，通过转换表将 <code>字符串s</code> 中的字母逐一替换，没有找到的key，则不替换。通过get函数设定默认值。</p>
 
       
     </div>
@@ -578,7 +590,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -589,7 +601,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -600,7 +612,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -671,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#英文原版"><span class="nav-number">1.</span> <span class="nav-text">英文原版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文版一"><span class="nav-number">2.</span> <span class="nav-text">中文版一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文版二"><span class="nav-number">3.</span> <span class="nav-text">中文版二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文版三"><span class="nav-number">4.</span> <span class="nav-text">中文版三</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图解版"><span class="nav-number">5.</span> <span class="nav-text">图解版</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#英文原版"><span class="nav-number">1.</span> <span class="nav-text">英文原版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文版一"><span class="nav-number">2.</span> <span class="nav-text">中文版一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文版二"><span class="nav-number">3.</span> <span class="nav-text">中文版二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文版三"><span class="nav-number">4.</span> <span class="nav-text">中文版三</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图解版"><span class="nav-number">5.</span> <span class="nav-text">图解版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this-模块的实现原理"><span class="nav-number">6.</span> <span class="nav-text">this 模块的实现原理</span></a></li></ol></div>
             
 
           </div>
@@ -693,8 +705,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

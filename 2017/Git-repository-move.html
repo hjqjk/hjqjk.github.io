@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/Git-repository-move.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
 <meta property="og:description" content="在运维工作中，常遇到Git仓库迁移的问题，如合并多个Git服务器，更换Git托管商等。这篇文章主要记录Git仓库迁移的几种方案。">
-<meta property="og:updated_time" content="2017-09-04T10:39:48.000Z">
+<meta property="og:updated_time" content="2017-12-28T10:27:00.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git仓库迁移">
 <meta name="twitter:description" content="在运维工作中，常遇到Git仓库迁移的问题，如合并多个Git服务器，更换Git托管商等。这篇文章主要记录Git仓库迁移的几种方案。">
@@ -407,7 +407,11 @@
 <li>在目标Git服务器新建一个同名的空仓库</li>
 <li>使用 <code>--mirror</code> 参数，将代码 <code>push</code> 到目标Git服务器</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">使用mirror参数，克隆裸仓库</div><div class="line"># git clone --mirror git@git.XXX.com/test/test_api.git</div><div class="line"></div><div class="line">进入仓库目录</div><div class="line"># cd test_api.git</div><div class="line"></div><div class="line">使用mirror参数，再次push仓库代码到另外一个Git服务器</div><div class="line"># git push --no-verify --mirror git@git.NNN.com/dev/test_api.git</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">使用mirror参数，克隆裸仓库</div><div class="line"># git clone --mirror git@git.XXX.com:/git/test_api.git</div><div class="line"></div><div class="line">进入仓库目录</div><div class="line"># cd test_api.git</div><div class="line"></div><div class="line">使用mirror参数，再次push仓库代码到另外一个Git服务器</div><div class="line"># git push --no-verify --mirror git@git.NNN.com:/git/test_api.git</div></pre></td></tr></table></figure>
+<p>最后一步，如果有如下报错，则表示，<code>git@git.NNN.com</code>服务器的 <code>/git/</code> 目录下没有 <code>test_api.git</code> 仓库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git@git.NNN.com&apos;s password:</div><div class="line">fatal: &apos;/git/test_api.git&apos; does not appear to be a git repository</div><div class="line">fatal: Could not read from remote repository.</div><div class="line"></div><div class="line">Please make sure you have the correct access rights and the repository exists.</div></pre></td></tr></table></figure>
+<p>需要到 <code>git@git.NNN.com</code> 服务器上手动创建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># cd /git/</div><div class="line"></div><div class="line">使用--bare参数，git就会创建一个裸仓库，裸仓库没有工作区。</div><div class="line">因为服务器上的Git仓库纯粹是为了共享，所以不能让用户直接登录到服务器改工作区，并且服务器上的Git仓库通常都以.git结尾</div><div class="line"># git init --bare test_api.git</div><div class="line"></div><div class="line">修改权限</div><div class="line"># chown -R git:git /git/test_api.git</div></pre></td></tr></table></figure>
 <p>有三种clone的方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># git clone &lt;repository&gt; &lt;directory&gt;</div><div class="line"># git clone --bare &lt;repository&gt; &lt;directory.git&gt;</div><div class="line"># git clone --mirror &lt;repository&gt; &lt;directory.git&gt;</div></pre></td></tr></table></figure>
 <ul>
@@ -576,7 +580,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -587,7 +591,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -598,7 +602,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -691,8 +695,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

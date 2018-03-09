@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
+<meta name="description" content="软件介绍ELK不是一款软件，而是 Elasticsearch + Logstash + kibana 三款开源软件组合而成的日志收集处理套件，堪称神器。其中 Logstash 负责日志收集，elasticsearch 负责日志的搜索、统计，而 kibana 则是ES的展示神器，前端炫丽，点几下鼠标简单配置，就可以完成搜索、聚合功能，生成华丽的报表。">
 <meta name="keywords" content="elk,elasticsearch,logstash,kibana">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ELK搭建过程">
 <meta property="og:url" content="http://yoursite.com/2017/ELK-install.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
-<meta property="og:description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
-<meta property="og:updated_time" content="2017-09-14T07:20:59.000Z">
+<meta property="og:description" content="软件介绍ELK不是一款软件，而是 Elasticsearch + Logstash + kibana 三款开源软件组合而成的日志收集处理套件，堪称神器。其中 Logstash 负责日志收集，elasticsearch 负责日志的搜索、统计，而 kibana 则是ES的展示神器，前端炫丽，点几下鼠标简单配置，就可以完成搜索、聚合功能，生成华丽的报表。">
+<meta property="og:updated_time" content="2018-03-01T07:52:02.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ELK搭建过程">
-<meta name="twitter:description" content="前提条件系统版本： 1centos-6.5 软件版本： 1234elasticsearch-5.2.2logstash-5.2.2kibana-5.2.2jdk : 1.8.0 主机环境： 12主机1（192.168.10.197）：安装 jdk、logstash agent 主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticse">
+<meta name="twitter:description" content="软件介绍ELK不是一款软件，而是 Elasticsearch + Logstash + kibana 三款开源软件组合而成的日志收集处理套件，堪称神器。其中 Logstash 负责日志收集，elasticsearch 负责日志的搜索、统计，而 kibana 则是ES的展示神器，前端炫丽，点几下鼠标简单配置，就可以完成搜索、聚合功能，生成华丽的报表。">
 
 
 
@@ -399,13 +399,27 @@
       
 
       
-        <h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>系统版本：</p>
+        <h2 id="软件介绍"><a href="#软件介绍" class="headerlink" title="软件介绍"></a>软件介绍</h2><p>ELK不是一款软件，而是 <code>Elasticsearch + Logstash + kibana</code> 三款开源软件组合而成的日志收集处理套件，堪称神器。其中 <code>Logstash</code> 负责日志收集，<code>elasticsearch</code> 负责日志的搜索、统计，而 <code>kibana</code> 则是ES的展示神器，前端炫丽，点几下鼠标简单配置，就可以完成搜索、聚合功能，生成华丽的报表。</p>
+<a id="more"></a>
+<h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><p>开源地址：<a href="https://github.com/elastic/elasticsearch" target="_blank" rel="external">https://github.com/elastic/elasticsearch</a></p>
+<p>Elasticsearch 是一个分布式的搜索和分析引擎，可以用于全文检索、结构化检索和分析，并能将这三者结合起来。Elasticsearch 基于 Lucene 开发，现在是使用最广的开源搜索引擎之一，Wikipedia、Stack Overflow、GitHub 等都基于 Elasticsearch 来构建他们的搜索引擎。</p>
+<h3 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h3><p>现在收集处理框架非常多，像 FaceBook 出品的 scribe ，Apache 基金会的 flume，Logstash 也是一个非常出名的日志框架，使用jruby开发，可以运行在jvm之上实现跨平台。</p>
+<p>Logstash可以方便的把分散的、多样化的日志搜集起来，并进行内容、格式处理，然后传输到指定的存储介质。</p>
+<p>Logstash使用管道方式进行日志的搜集处理和输出。在Logstash中，包括了三个阶段: <code>输入input –&gt; 处理filter（非必须）–&gt; 输出output</code> ，其中每个阶段都提供了丰富的插件供使用，非常方便。</p>
+<ul>
+<li>输入阶段支持多种数据获取机制，通过TCP、UDP、HTTP协议、文件、syslog、UNIX socket、rabbitmq、kafka、redis、github、STDIN等。</li>
+<li>处理阶段可对数据进行聚合、统计、复制、排序、修改、删除等操作，提供特征数据处理插件（日期格式化、dns反向查找、根据ip获取详细信息、urldecode等）,以及对csv、xml、kv、json等数据格式解析处理插件。</li>
+<li>输出阶段能对接多种存储介质，如 mysql、mongodb、redis、kakfa、rabbitmq、HDFS、s3、lucene、solr、ElasticSearch、csv、email、file、http、tcp、udp、websocket、syslog、stdout等。​​​​</li>
+</ul>
+<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>Kibana 是一个开源的分析与可视化平台，设计出来用于和 Elasticsearch 一起使用的。你可以用 kibana 搜索、查看、交互存放在 Elasticsearch 索引里的数据，使用各种不同的图表、表格、地图等，Kibana 能够很轻易地展示高级数据分析与可视化。</p>
+<p>Kibana 让我们理解大量数据变得很容易。它简单、基于浏览器的接口使你能快速创建和分享实时展现 Elasticsearch 查询变化的动态仪表盘。安装Kibana非常快，你可以在几分钟之内安装和开始探索你的 Elasticsearch 索引数据，不需要写任何代码，没有其他基础软件依赖。</p>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>系统版本：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">centos-6.5</div></pre></td></tr></table></figure>
 <p>软件版本：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">elasticsearch-5.2.2</div><div class="line">logstash-5.2.2</div><div class="line">kibana-5.2.2</div><div class="line">jdk : 1.8.0</div></pre></td></tr></table></figure>
 <p>主机环境：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">主机1（192.168.10.197）：安装 jdk、logstash agent </div><div class="line">主机2（192.168.10.198）:  安装 jdk、redis 、logstash  index、elasticsearch、kibana</div></pre></td></tr></table></figure>
-<a id="more"></a>
+<!--more-->
 <h2 id="安装-jdk1-8-0-（197-主机、198-主机）"><a href="#安装-jdk1-8-0-（197-主机、198-主机）" class="headerlink" title="安装 jdk1.8.0 （197 主机、198 主机）"></a>安装 jdk1.8.0 （197 主机、198 主机）</h2><p>验证服务器已经安装的java版本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -qa | grep java</div></pre></td></tr></table></figure>
 <p>如果有老旧的java版本，可选择删掉</p>
@@ -438,7 +452,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd /usr/local/logstash-5.2.2</div><div class="line"># ./bin/logstash -f conf/logstash_agent.conf  -l logs &amp;</div></pre></td></tr></table></figure>
 <h2 id="安装-Logstash-（198-主机，logstash-indexer）"><a href="#安装-Logstash-（198-主机，logstash-indexer）" class="headerlink" title="安装 Logstash （198 主机，logstash indexer）"></a>安装 Logstash （198 主机，logstash indexer）</h2><p>下载并安装：(只要将安装包解压到指定目录就行)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># wget https://artifacts.elastic.co/downloads/logstash/logstash-5.2.2.tar.gz</div><div class="line"># tar zxvf logstash-5.2.2.tar.gz -C /usr/local</div></pre></td></tr></table></figure>
-<p>创建配置目录conf，并编辑配置文件：(将采集的日志传送到198主机上的redis队列上)</p>
+<p>创建配置目录conf，并编辑配置文件：( 从redis提取日志队列传到elasticsearch )</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/logstash-5.2.2/conf</div><div class="line"># cat /usr/local/logstash-5.2.2/conf/logstash_indexer.conf</div><div class="line">input &#123;</div><div class="line">  redis &#123;</div><div class="line">    host =&gt;[&quot;192.168.10.198&quot;]</div><div class="line">    port =&gt; &quot;6379&quot;</div><div class="line">    data_type =&gt; &quot;list&quot;</div><div class="line">    key =&gt; &quot;logstash&quot;</div><div class="line">    type =&gt;&quot;msg&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; &quot;192.168.10.198:9200&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>创建logstash日志目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/ogstash-5.2.2/logs</div></pre></td></tr></table></figure>
@@ -453,7 +467,7 @@
 <p>Elasticsearch不允许以root用户启动，否则会报错：can not run elasticsearch as root。需要创建普通用户，并切换到普通用户启动。<br>注意，elasticsearch-5.2.2目录的属主和属组也要修改，否则会报权限错误。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># groupadd elasticsearch</div><div class="line"># useradd elasticsearch -g elasticsearch</div><div class="line"># chown elasticsearch.elasticsearch /usr/local/elasticsearch-5.2.2/ -R</div><div class="line"># chown elasticsearch.elasticsearch /home/data/elasticsearch/ -R</div></pre></td></tr></table></figure>
 <p>打开tcp端口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># iptables -A INPUT -s 192.168.10.0/24 -m tcp -p tcp --dport 9300-j ACCEPT</div><div class="line"># iptables-save &gt; /etc/sysconfig/iptables</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># iptables -A INPUT -s 192.168.10.0/24 -m tcp -p tcp --dport 9200-j ACCEPT</div><div class="line"># iptables-save &gt; /etc/sysconfig/iptables</div></pre></td></tr></table></figure>
 <p>启动服务</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># su elasticsearch</div><div class="line">$ ./bin/elasticsearch -d</div></pre></td></tr></table></figure>
 <p>验证是否成功：(返回的状态码为200，则表示成功了)</p>
@@ -656,7 +670,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -667,7 +681,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -678,7 +692,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -749,7 +763,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前提条件"><span class="nav-number">1.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-jdk1-8-0-（197-主机、198-主机）"><span class="nav-number">2.</span> <span class="nav-text">安装 jdk1.8.0 （197 主机、198 主机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-redis（198-主机）"><span class="nav-number">3.</span> <span class="nav-text">安装 redis（198 主机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Logstash-（197-主机，logstash-agent-采集日志）"><span class="nav-number">4.</span> <span class="nav-text">安装 Logstash （197 主机，logstash agent 采集日志）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Logstash-（198-主机，logstash-indexer）"><span class="nav-number">5.</span> <span class="nav-text">安装 Logstash （198 主机，logstash indexer）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-elasticsearch-（198主机）"><span class="nav-number">6.</span> <span class="nav-text">安装 elasticsearch （198主机）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关报错及其解决方法"><span class="nav-number">6.1.</span> <span class="nav-text">相关报错及其解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为-Elasticsearch5-2-2-安装head插件-（198-主机）"><span class="nav-number">7.</span> <span class="nav-text">为 Elasticsearch5.2.2 安装head插件 （198 主机）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改head源码"><span class="nav-number">7.1.</span> <span class="nav-text">修改head源码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-kibana-（198主机）"><span class="nav-number">8.</span> <span class="nav-text">安装 kibana （198主机）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#软件介绍"><span class="nav-number">1.</span> <span class="nav-text">软件介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Elasticsearch"><span class="nav-number">1.1.</span> <span class="nav-text">Elasticsearch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logstash"><span class="nav-number">1.2.</span> <span class="nav-text">Logstash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kibana"><span class="nav-number">1.3.</span> <span class="nav-text">kibana</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前提条件"><span class="nav-number">2.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-jdk1-8-0-（197-主机、198-主机）"><span class="nav-number">3.</span> <span class="nav-text">安装 jdk1.8.0 （197 主机、198 主机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-redis（198-主机）"><span class="nav-number">4.</span> <span class="nav-text">安装 redis（198 主机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Logstash-（197-主机，logstash-agent-采集日志）"><span class="nav-number">5.</span> <span class="nav-text">安装 Logstash （197 主机，logstash agent 采集日志）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Logstash-（198-主机，logstash-indexer）"><span class="nav-number">6.</span> <span class="nav-text">安装 Logstash （198 主机，logstash indexer）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-elasticsearch-（198主机）"><span class="nav-number">7.</span> <span class="nav-text">安装 elasticsearch （198主机）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关报错及其解决方法"><span class="nav-number">7.1.</span> <span class="nav-text">相关报错及其解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为-Elasticsearch5-2-2-安装head插件-（198-主机）"><span class="nav-number">8.</span> <span class="nav-text">为 Elasticsearch5.2.2 安装head插件 （198 主机）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改head源码"><span class="nav-number">8.1.</span> <span class="nav-text">修改head源码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-kibana-（198主机）"><span class="nav-number">9.</span> <span class="nav-text">安装 kibana （198主机）</span></a></li></ol></div>
             
 
           </div>
@@ -771,8 +785,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
