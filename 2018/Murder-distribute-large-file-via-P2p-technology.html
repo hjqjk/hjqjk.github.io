@@ -95,19 +95,19 @@
 
 
 
-<meta name="description" content="引言当服务器超过20+时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。  场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分发过程变得非常缓慢">
+<meta name="description" content="引言当服务器多时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。  场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy或者synchronize 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分">
 <meta name="keywords" content="P2P,DevOps">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用P2P软件(Murder)大规模分发大文件">
 <meta property="og:url" content="http://yoursite.com/2018/Murder-distribute-large-file-via-P2p-technology.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
-<meta property="og:description" content="引言当服务器超过20+时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。  场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分发过程变得非常缓慢">
+<meta property="og:description" content="引言当服务器多时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。  场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy或者synchronize 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2018-03-08-15204933934905.jpg">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2018-03-08-15204934306246.jpg">
-<meta property="og:updated_time" content="2018-03-09T07:00:08.384Z">
+<meta property="og:updated_time" content="2018-03-13T08:59:45.233Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用P2P软件(Murder)大规模分发大文件">
-<meta name="twitter:description" content="引言当服务器超过20+时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。  场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分发过程变得非常缓慢">
+<meta name="twitter:description" content="引言当服务器多时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。  场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy或者synchronize 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分">
 <meta name="twitter:image" content="http://orku2pa7o.bkt.clouddn.com/2018-03-08-15204933934905.jpg">
 
 
@@ -402,9 +402,9 @@
       
 
       
-        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>当服务器超过20+时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。</p>
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>当服务器多时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。</p>
 <blockquote>
-<p>场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分发过程变得非常缓慢，甚至出现Ansible卡死。</p>
+<p>场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy或者synchronize 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分发过程变得非常缓慢，甚至出现Ansible卡死。</p>
 </blockquote>
 <p>使用 Ansible 来分发小文件速度很快，但对于大文件，文件分发就是一个很大的问题。在使用单一分布点和固定出口带宽的情况下，经常存在带宽拥堵、耗费时间长的问题。</p>
 <p>对于大文件分发，首先想到的是 BitTorrent ，利用 P2P 协议实现快速分发，节省带宽，提高效率。</p>
@@ -444,6 +444,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># netstat -tnlp|grep 8998</div></pre></td></tr></table></figure>
 <p>实时查看日志输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># tailf /var/log/murder_tracker.log</div></pre></td></tr></table></figure>
+<p>配置防火墙（如果防火墙是关闭的，则不用此操作）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># iptables -I INPUT -s 192.168.100.0/24 -p tcp --dport 8998 -j ACCEPT</div></pre></td></tr></table></figure>
 <p><code>murder_tracker.py</code> 实际上是调用 <code>BitTornado/BT1/track.py</code> 这个文件。 <code>track.py</code> 有很多参数，如果需要添加参数，可以修改 <code>murder_tracker.py</code>。</p>
 <p>几个重要参数：</p>
 <ul>
@@ -464,8 +466,22 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment"># 用于各个 peer 节点根据种子文件信息，执行下载任务</span></div><div class="line"></div><div class="line"><span class="comment"># 定义变量</span></div><div class="line">torrent_file=~/deploy.test.tar.gz.torrent</div><div class="line">download_file=~/download/deploy.test.tar.gz</div><div class="line"><span class="comment"># 这里获取各个 peer 节点自己的内网IP</span></div><div class="line">local_ip=$(hostname -I|awk <span class="string">'&#123;print $2&#125;'</span>)</div><div class="line">murder_client_bin=~/murder/dist/murder_client.py</div><div class="line"></div><div class="line"><span class="comment"># 在各个 peer 节点执行 P2P 下载命令</span></div><div class="line">python  <span class="variable">$murder_client_bin</span> peer <span class="variable">$torrent_file</span> <span class="variable">$download_file</span> <span class="variable">$local_ip</span></div></pre></td></tr></table></figure>
 <p>利用ansible远程操控，在每个peer节点都执行下载脚本。使用ansible的 script 模块，在本地写一个脚本，然后在远程服务器执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># ansible all -m script -a &quot;peer_download.sh&quot;</div></pre></td></tr></table></figure>
-<p>服务器越多时，P2P方式分发文件速度越快。服务器不超过50+时，还是用 ansible 直接分发更快。</p>
+<h2 id="下载速度分析"><a href="#下载速度分析" class="headerlink" title="下载速度分析"></a>下载速度分析</h2><p>Murder 默认是服务器都存于一个数据中心的彼此相互信任的内网，并且每台服务器都是关闭防火墙的。</p>
+<p>Murder 封装的是 BitTornado，在 <code>BitTornado/download_bt1.py</code> 代码中默认是启动一个 <code>10000-60000</code> 范围的随机端口，每个 peer 在下载的同时向其他 peer 提供下载服务也是通过这个随机端口。</p>
+<p>对于端口的配置，把防火墙关了当然好，当然为了安全，还是开放端口更好。然而开放这个大的端口范围，肯定是不行的，这里选择开放 <code>10000-10500</code> 500个端口，只允许内网IP访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># iptables -I INPUT -s 192.168.1.0/24 -p tcp --dport 10000:10500 -j ACCEPT</div></pre></td></tr></table></figure>
+<p>并且在 <code>dist/BitTornado/download_bt1.py</code> 中修改代码的端口范围：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(&apos;minport&apos;, 10000, &apos;minimum port to listen on, counts up if unavailable&apos;),</div><div class="line">(&apos;maxport&apos;, 10500, &apos;maximum port to listen on&apos;),</div><div class="line">(&apos;random_port&apos;, 1, &apos;whether to choose randomly inside the port range &apos; + &apos;instead of counting up linearly&apos;),</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这一步最好在把Murder代码分发到各个peer节点前做，如果已经做了，只能重新分发覆盖了。</p>
+</blockquote>
+<p>分发测试的机器有11台，都是内网IP，千兆路由器，但防火墙开启，测试文件有 560 M 大小。</p>
+<blockquote>
+<p>第一次分发：没有配好防火墙，用时 5m 分发完成。<br>第二次分发：配好了防火墙，用时 2m40s 分发完成。<br>第三次分发：不用Murder，用 ansible 直接分发，用时 36s 分发完成。</p>
+</blockquote>
+<p>这里测试的服务器还是太少，服务器越多时，P2P方式分发文件速度越快。服务器不超过50+时，还是用 ansible 直接分发更快。</p>
 <h2 id="文件都下载完后，关闭-seeder-服务器进程"><a href="#文件都下载完后，关闭-seeder-服务器进程" class="headerlink" title="文件都下载完后，关闭 seeder 服务器进程"></a>文件都下载完后，关闭 seeder 服务器进程</h2><p>kill 掉 seeder 的进程PID，避免它一直做种子和提升安全性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># pgrep -f seed|xargs kill -9</div></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="http://blog.51cto.com/john88wang/1793080" target="_blank" rel="external">结合P2P软件使用Ansible分发大文件</a></li>
 <li><a href="http://jaminzhang.github.io/p2p/use-Murder-to-distribute-big-software-package-in-production-environment/" target="_blank" rel="external">Murder 在生产环境中分发大软件包的应用</a></li>
@@ -713,7 +729,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#P2P软件介绍"><span class="nav-number">2.</span> <span class="nav-text">P2P软件介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署Murder"><span class="nav-number">3.</span> <span class="nav-text">部署Murder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Murder-组件介绍"><span class="nav-number">3.1.</span> <span class="nav-text">Murder 组件介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">3.2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-tracker-服务"><span class="nav-number">3.3.</span> <span class="nav-text">启动 tracker 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-seeder-服务器上准备要分发的文件并创建种子"><span class="nav-number">3.4.</span> <span class="nav-text">在 seeder 服务器上准备要分发的文件并创建种子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分发种子文件给所有的peer节点"><span class="nav-number">3.5.</span> <span class="nav-text">分发种子文件给所有的peer节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-seeder-服务"><span class="nav-number">3.6.</span> <span class="nav-text">启动 seeder 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在各个peer节点执行下载任务"><span class="nav-number">3.7.</span> <span class="nav-text">在各个peer节点执行下载任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件都下载完后，关闭-seeder-服务器进程"><span class="nav-number">3.8.</span> <span class="nav-text">文件都下载完后，关闭 seeder 服务器进程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#P2P软件介绍"><span class="nav-number">2.</span> <span class="nav-text">P2P软件介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署Murder"><span class="nav-number">3.</span> <span class="nav-text">部署Murder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Murder-组件介绍"><span class="nav-number">3.1.</span> <span class="nav-text">Murder 组件介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">3.2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-tracker-服务"><span class="nav-number">3.3.</span> <span class="nav-text">启动 tracker 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-seeder-服务器上准备要分发的文件并创建种子"><span class="nav-number">3.4.</span> <span class="nav-text">在 seeder 服务器上准备要分发的文件并创建种子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分发种子文件给所有的peer节点"><span class="nav-number">3.5.</span> <span class="nav-text">分发种子文件给所有的peer节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-seeder-服务"><span class="nav-number">3.6.</span> <span class="nav-text">启动 seeder 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在各个peer节点执行下载任务"><span class="nav-number">3.7.</span> <span class="nav-text">在各个peer节点执行下载任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载速度分析"><span class="nav-number">3.8.</span> <span class="nav-text">下载速度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件都下载完后，关闭-seeder-服务器进程"><span class="nav-number">3.9.</span> <span class="nav-text">文件都下载完后，关闭 seeder 服务器进程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
