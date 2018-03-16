@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="wondershaper,speedtest," />
 
 
 
@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="根据业务的需求，整合数据，想把 test 库所有的表（表结构 + 表数据）导入到主库 dev 中，并且这些表的前缀都为 dev_。">
-<meta name="keywords" content="mysql">
+<meta name="description" content="公司用的是实体服务器，租用机房带宽，买了30M的带宽，然而经常有带宽超额的问题，每个月都要额外交几千块，因此打算限制带宽。 在交换机上限制带宽是一种方法，但是这个挺麻烦的。另外，也可以通过软件限制带宽，在对外提供服务的服务器上限制带宽。">
+<meta name="keywords" content="wondershaper,speedtest">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql导表">
-<meta property="og:url" content="http://yoursite.com/2017/Mysql-import-table.html">
+<meta property="og:title" content="在Linux中限制网络带宽的使用">
+<meta property="og:url" content="http://yoursite.com/2018/Limit-the-bandwidth-in-Linux.html">
 <meta property="og:site_name" content="Hjqjk&#39;s Blog">
-<meta property="og:description" content="根据业务的需求，整合数据，想把 test 库所有的表（表结构 + 表数据）导入到主库 dev 中，并且这些表的前缀都为 dev_。">
-<meta property="og:updated_time" content="2017-11-08T07:16:09.388Z">
+<meta property="og:description" content="公司用的是实体服务器，租用机房带宽，买了30M的带宽，然而经常有带宽超额的问题，每个月都要额外交几千块，因此打算限制带宽。 在交换机上限制带宽是一种方法，但是这个挺麻烦的。另外，也可以通过软件限制带宽，在对外提供服务的服务器上限制带宽。">
+<meta property="og:updated_time" content="2018-03-15T03:49:37.220Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mysql导表">
-<meta name="twitter:description" content="根据业务的需求，整合数据，想把 test 库所有的表（表结构 + 表数据）导入到主库 dev 中，并且这些表的前缀都为 dev_。">
+<meta name="twitter:title" content="在Linux中限制网络带宽的使用">
+<meta name="twitter:description" content="公司用的是实体服务器，租用机房带宽，买了30M的带宽，然而经常有带宽超额的问题，每个月都要额外交几千块，因此打算限制带宽。 在交换机上限制带宽是一种方法，但是这个挺麻烦的。另外，也可以通过软件限制带宽，在对外提供服务的服务器上限制带宽。">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/Mysql-import-table.html"/>
+  <link rel="canonical" href="http://yoursite.com/2018/Limit-the-bandwidth-in-Linux.html"/>
 
 
 
 
 
-  <title>Mysql导表 | Hjqjk's Blog</title>
+  <title>在Linux中限制网络带宽的使用 | Hjqjk's Blog</title>
   
 
 
@@ -302,7 +302,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/Mysql-import-table.html">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/Limit-the-bandwidth-in-Linux.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hjqjk">
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Mysql导表</h1>
+          <h1 class="post-title" itemprop="name headline">在Linux中限制网络带宽的使用</h1>
         
 
         <div class="post-meta">
@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-07T17:16:54+08:00">
-                2017-11-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T20:23:52+08:00">
+                2018-03-14
               </time>
             
 
@@ -354,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/技术杂项/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂项</span>
                   </a>
                 </span>
 
@@ -371,7 +371,7 @@
 
           
           
-             <span id="/2017/Mysql-import-table.html" class="leancloud_visitors" data-flag-title="Mysql导表">
+             <span id="/2018/Limit-the-bandwidth-in-Linux.html" class="leancloud_visitors" data-flag-title="在Linux中限制网络带宽的使用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -399,36 +399,59 @@
       
 
       
-        <p>根据业务的需求，整合数据，想把 <code>test</code> 库所有的表（表结构 + 表数据）导入到主库 <code>dev</code> 中，并且这些表的前缀都为 <code>dev_</code>。</p>
+        <p>公司用的是实体服务器，租用机房带宽，买了30M的带宽，然而经常有带宽超额的问题，每个月都要额外交几千块，因此打算限制带宽。</p>
+<p>在交换机上限制带宽是一种方法，但是这个挺麻烦的。另外，也可以通过软件限制带宽，在对外提供服务的服务器上限制带宽。</p>
 <a id="more"></a>
-<h2 id="导表"><a href="#导表" class="headerlink" title="导表"></a>导表</h2><h3 id="备份-test-库数据"><a href="#备份-test-库数据" class="headerlink" title="备份 test 库数据"></a>备份 test 库数据</h3><p>利用 <code>mysqldump</code> 工具，备份 <code>test</code> 库的数据。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mysqldump -uroot -p test &gt; test_lastest.sql</div></pre></td></tr></table></figure>
-<h3 id="修改备份文件中的表名"><a href="#修改备份文件中的表名" class="headerlink" title="修改备份文件中的表名"></a>修改备份文件中的表名</h3><p>利用 <code>sed</code> 工具，在命令行修改备份文件里的表名，加上前缀 <code>dev_</code>，以下几项都必须修改，否则导入表时会出错。( <code>test</code> 库的表是没有表前缀的。)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># sed -i &apos;s@^DROP TABLE IF EXISTS `@DROP TABLE IF EXISTS `dev_@g&apos; test_lastest.sql</div><div class="line"># sed -i &apos;s@^CREATE TABLE `@CREATE TABLE `dev_@g&apos; test_lastest.sql</div><div class="line"># sed -i &apos;s@^LOCK TABLES `@LOCK TABLES `dev_@g&apos; test_lastest.sql</div><div class="line"># sed -i &apos;s@^INSERT INTO `@INSERT INTO `dev_@g&apos; test_lastest.sql</div><div class="line"># sed -i &apos;s@40000 ALTER TABLE `@40000 ALTER TABLE `dev_@g&apos; test_lastest.sql</div></pre></td></tr></table></figure>
-<p>还要加上以下这行，在第6行（只要在第一条建表语句之前，无论哪一行可以）加入 <code>USE master;</code>，方便导入数据。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># sed -i &apos;N;6iUSE dev;&apos; test_lastest.sql</div></pre></td></tr></table></figure>
-<p>查看给表加入前缀是否成功：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># grep &apos;DROP TABLE&apos; $sql_name</div><div class="line"># grep &apos;CREATE&apos; $sql_name</div><div class="line"># grep &apos;LOCK TABLES `&apos; $sql_name</div></pre></td></tr></table></figure>
-<h3 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mysql -uroot -p &lt; test_lastest.sql</div></pre></td></tr></table></figure>
-<p>检查数据。</p>
-<h3 id="shell脚本版"><a href="#shell脚本版" class="headerlink" title="shell脚本版"></a>shell脚本版</h3><p>把以上的操作写成脚本，迁移时方便些。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">sql_name=&quot;test_lastest.sql&quot;</div><div class="line"></div><div class="line">mysqldump -uroot -hlocalhost -pxxx test &gt; $sql_name</div><div class="line"></div><div class="line">sed -i &apos;s@^DROP TABLE IF EXISTS `@DROP TABLE IF EXISTS `dev_@g&apos; $sql_name</div><div class="line">sed -i &apos;s@^CREATE TABLE `@CREATE TABLE `dev_@g&apos; $sql_name</div><div class="line">sed -i &apos;s@^LOCK TABLES `@LOCK TABLES `dev_@g&apos; $sql_name</div><div class="line">sed -i &apos;s@^INSERT INTO `@INSERT INTO `dev_@g&apos; $sql_name</div><div class="line">sed -i &apos;s@40000 ALTER TABLE `@40000 ALTER TABLE `dev_@g&apos; $sql_name</div><div class="line"></div><div class="line">sed -i &apos;N;6iUSE dev;&apos; $sql_name</div><div class="line"></div><div class="line">mysql -uroot -hlocalhost -pxxx &lt; $sql_name</div></pre></td></tr></table></figure>
-<h2 id="扩展：MySQL批量修改表前缀"><a href="#扩展：MySQL批量修改表前缀" class="headerlink" title="扩展：MySQL批量修改表前缀"></a>扩展：MySQL批量修改表前缀</h2><p>本方法通过命令的方式实现批量修改表前缀。<br>假设有数据库 <code>test</code> ，原来表前缀是 <code>test_</code> ，现在全部换成 <code>dev_</code>。</p>
-<h3 id="生成替换命令"><a href="#生成替换命令" class="headerlink" title="生成替换命令"></a>生成替换命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SELECT CONCAT( &apos;ALTER TABLE &apos;, table_name, &apos; RENAME TO dev_&apos;, substring(table_name, 6), &apos;;&apos;) </div><div class="line">FROM information_schema.tables </div><div class="line">WHERE table_schema=&apos;test&apos; and table_name LIKE &apos;test_%&apos;;</div></pre></td></tr></table></figure>
+<h1 id="在Linux中限制一个网络接口的速率"><a href="#在Linux中限制一个网络接口的速率" class="headerlink" title="在Linux中限制一个网络接口的速率"></a>在Linux中限制一个网络接口的速率</h1><p>这里介绍的控制带宽资源的方式是在每一个接口上限制带宽。<a href="https://github.com/magnific0/wondershaper" target="_blank" rel="external"><strong>wondershaper</strong></a> 就是干这个的，github上的版本是基于原开发者代码的基础上做的二次开发，添加了些功能。</p>
+<p>wondershaper 实际上是一个 shell 脚本，它使用 tc 来定义流量调整命令，使用 QoS 来处理特定的网络接口。外发流量通过放在不同优先级的队列中，达到限制传出流量速率的目的；而传入流量通过丢包的方式来达到速率限制的目的。</p>
+<p>其实， wondershaper 的既定目标不仅仅是对一个接口增加其带宽上限；当批量下载或上传正在进行时，wondershaper 还试图去保持互动性会话如 SSH 的低延迟。同样的，它还会控制批量上传(例如 Dropbox 的同步)不会使得下载“窒息”，反之亦然。即 上传和下载 互不影响。</p>
+<h2 id="安装-wondershaper"><a href="#安装-wondershaper" class="headerlink" title="安装 wondershaper"></a>安装 wondershaper</h2><p>在 Fdora 或 CentOS/RHEL (带有 EPEL 软件仓库) 中安装 wondershaper（版本到 1.2 ）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install wondershaper</div></pre></td></tr></table></figure>
+<p>经二次开发的最新版本（ 最新为 1.4 ），直接下载github上的代码就可以了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># git clone  https://github.com/magnific0/wondershaper.git</div><div class="line"># cd wondershaper</div></pre></td></tr></table></figure>
+<h2 id="wondershaper-的使用"><a href="#wondershaper-的使用" class="headerlink" title="wondershaper 的使用"></a>wondershaper 的使用</h2><p>使用帮助：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"># ./wondershaper -h</div><div class="line">USAGE: ./wondershaper [-hcs] [-a &lt;adapter&gt;] [-d &lt;rate&gt;] [-u &lt;rate&gt;]</div><div class="line"></div><div class="line">Limit the bandwidth of an adapter</div><div class="line"></div><div class="line">OPTIONS:</div><div class="line">   -h           Show this message</div><div class="line">   -a &lt;adapter&gt; Set the adpter</div><div class="line">   -d &lt;rate&gt;    Set maximum download rate (in Kbps) and/or</div><div class="line">   -u &lt;rate&gt;    Set maximum upload rate (in Kbps)</div><div class="line">   -p           Use presets in /etc/conf.d/wondershaper.conf</div><div class="line">   -c           Clear the limits from adapter</div><div class="line">   -s           Show the current status of adapter</div><div class="line">   -v           Show the current version</div><div class="line"></div><div class="line">MODES:</div><div class="line">   wondershaper -a &lt;adapter&gt; -d &lt;rate&gt; -u &lt;rate&gt;</div><div class="line">   wondershaper -c -a &lt;adapter&gt;</div><div class="line">   wondershaper -s -a &lt;adapter&gt;</div><div class="line"></div><div class="line">EXAMPLES:</div><div class="line">   wondershaper -a eth0 -d 1024 -u 512</div><div class="line">   wondershaper -a eth0 -u 512</div><div class="line">   wondershaper -c -a eth0</div></pre></td></tr></table></figure>
+<p>参数说明：</p>
 <ul>
-<li><code>substring(table_name, 6)</code> ：从 <code>test_</code>后面字符(第6个字符)开始替换</li>
-<li><code>table_schema</code> ：指定数据库名</li>
+<li>-a <adapter> ：指定要限制的网卡名称或者接口名称</adapter></li>
+<li>-d <rate> ：最大下载速率，单位：Kbps 。Kbps 即 Kb/s，p 是 peer 的意思。1KB/s=8Kb/s。1MB/s=1024KB/s。</rate></li>
+<li>-u <rate> ：最大上传速率，单位：Kbps 。</rate></li>
+<li>-p ：使用 /etc/conf.d/wondershaper.conf 的配置</li>
+<li>-c ：清空所有规则，不再做任何限制</li>
+<li>-s ：显示接口的当前状态</li>
 </ul>
-<h3 id="批量替换"><a href="#批量替换" class="headerlink" title="批量替换"></a>批量替换</h3><p>上一步命令执行完，会生成替换表名的sql语句，复制到编辑器中，只保留sql语句(把 <code>|</code> 替换成空格就行了)，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE test_thread RENAME TO dev_thread;                             </div><div class="line">ALTER TABLE test_announcement RENAME TO dev_announcement;                     </div><div class="line">ALTER TABLE test_article RENAME TO dev_article;</div><div class="line">...</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>将上面结果保存为 <code>test2dev.sql</code> 文件，在到MySQL服务器上导入修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mysql -uroot -p test &lt; test2dev.sql</div></pre></td></tr></table></figure>
-<h2 id="扩展：改数据库名"><a href="#扩展：改数据库名" class="headerlink" title="扩展：改数据库名"></a>扩展：改数据库名</h2><p>注意：改数据库名是很危险的操作，改名之前一定记得先备份数据库数据。</p>
-<h3 id="方法1：重命名所有的表"><a href="#方法1：重命名所有的表" class="headerlink" title="方法1：重命名所有的表"></a>方法1：重命名所有的表</h3><p>可以利用 <code>RENMAE</code> 命令来修改，核心语句如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 创建新数据库</div><div class="line">CREATE DATABASE new_db_name;</div><div class="line"></div><div class="line"># 逐一修改所有的表</div><div class="line">RENAME TABLE db_name.table1 TO new_db_name.table1</div><div class="line">RENAME TABLE db_name.table2 TO new_db_name.table3;</div><div class="line">...</div><div class="line"></div><div class="line"># 删除旧数据库</div><div class="line">DROP DATABASE db_name;</div></pre></td></tr></table></figure>
-<p>写成shell脚本，则如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">mysqlconn=&quot;mysql -uxxx -hxxx -pxxx -S /xxx/mysql.sock&quot;</div><div class="line">olddb=&quot;test&quot;</div><div class="line">newdb=&quot;test_dev&quot;</div><div class="line"></div><div class="line">$&#123;mysqlconn&#125; -e &quot;CREATE DATABASE $newdb&quot;</div><div class="line"></div><div class="line"># 查出旧数据库的所有表名</div><div class="line">params=$($&#123;mysqlconn&#125; -N -e &quot;SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE table_schema=&apos;$&#123;olddb&#125;&apos; ;&quot;)</div><div class="line"></div><div class="line"># 循环修改每个表</div><div class="line">for name in $params</div><div class="line">do</div><div class="line">    $mysqlconn -e &quot;RENAME TABLE $olddb.$name to $newdb.$name&quot;</div><div class="line">done</div><div class="line"></div><div class="line">$&#123;mysqlconn&#125; -e &quot;DROP DATABASE $olddb&quot;</div></pre></td></tr></table></figure>
-<h3 id="方法2：利用mysqldump导出数据再导入"><a href="#方法2：利用mysqldump导出数据再导入" class="headerlink" title="方法2：利用mysqldump导出数据再导入"></a>方法2：利用mysqldump导出数据再导入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># mysqldump -uxxxx -pxxxx -h xxxx db_name &gt; db_name_dump.sql</div><div class="line"># mysql -uxxxx -pxxxx -h xxxx -e “CREATE DATABASE new_db_name”</div><div class="line"># mysql -uxxxx -pxxxx -h xxxx new_db_name &lt; db_name_dump.sql</div><div class="line"># mysql -uxxxx -pxxxx -h xxxx -e “DROP DATABASE db_name”</div></pre></td></tr></table></figure>
+<p>使用 <code>ip addr show</code> 查看要限制带宽的网卡名称，老的机器可能没有这个命令，改用 <code>ifconfig</code> 查看。</p>
+<p>例子：<br>将 eth0 的最大下载/上传带宽分别设定为 3072 kbps 和 2048 kbps</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># ./wondershaper -a eth0 -d 3072 -u 2048</div></pre></td></tr></table></figure>
+<p>清空规则，不再限制带宽</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># ./wondershaper -a eth0 -c</div></pre></td></tr></table></figure>
+<p>这里的规则，重启服务器后就会失效，可以把命令写进 <code>/etc/rc.local</code> ，开机自启动。</p>
+<h2 id="测试网速"><a href="#测试网速" class="headerlink" title="测试网速"></a>测试网速</h2><p>利用 speedtest-cli 来测试网速。</p>
+<h3 id="安装-speedtest-cli"><a href="#安装-speedtest-cli" class="headerlink" title="安装 speedtest-cli"></a>安装 speedtest-cli</h3><p><a href="https://github.com/sivel/speedtest-cli" target="_blank" rel="external"><strong>speedtest-cli</strong></a> 是一个用 Python 编写的轻量级的命令行工具，用于测试带宽。Python2.4+ 的环境下均可运行。它是基于 <code>speedtest.net</code> 的基础架构来测量网络的上/下行速率。</p>
+<p>pip/easy_install 方式安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># pip install speedtest-cli</div><div class="line"></div><div class="line">或</div><div class="line"># easy_install speedtest-cli</div></pre></td></tr></table></figure>
+<p>Github 方式安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># pip install git+https://github.com/sivel/speedtest-cli.git</div><div class="line"></div><div class="line">或</div><div class="line"># git clone https://github.com/sivel/speedtest-cli.git</div><div class="line"># python speedtest-cli/setup.py install</div></pre></td></tr></table></figure>
+<p>直接下载脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># wget -O speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py</div><div class="line"># chmod +x speedtest-cli</div><div class="line"></div><div class="line">或</div><div class="line"># curl -Lo speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py</div><div class="line"># chmod +x speedtest-cli</div></pre></td></tr></table></figure>
+<h3 id="使用-speedtest-cli-测试网速"><a href="#使用-speedtest-cli-测试网速" class="headerlink" title="使用 speedtest-cli 测试网速"></a>使用 speedtest-cli 测试网速</h3><p>使用speedtest-cli命令也很简单，它不需要任何参数即可工作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># speedtest-cli</div><div class="line">Retrieving speedtest.net configuration...</div><div class="line">Testing from China Telecom Guangdong (183.xxx.xxx.215)...</div><div class="line">Retrieving speedtest.net server list...</div><div class="line">Selecting best server based on ping...</div><div class="line">Hosted by ShenZhen Telecom (Shenzhen) [0.00 km]: 2.856 ms</div><div class="line">Testing download speed................................................................................</div><div class="line">Download: 28.35 Mbit/s</div><div class="line">Testing upload speed................................................................................................</div><div class="line">Upload: 11.97 Mbit/s</div></pre></td></tr></table></figure>
+<p>结果解释：</p>
+<ul>
+<li>183.xxx.xxx.215 ：本服务器IP</li>
+<li>Testing from China Telecom Guangdong ：ISP，这里是广东电信</li>
+<li>Hosted by ShenZhen Telecom (Shenzhen) ：服务器所在地址</li>
+<li>[0.00 km] ：本服务器和speedtest测试服务器地理位置之间距离</li>
+</ul>
+<p>输入这个命令后，它会自动发现离你最近的 speedtest.net 服务器（地理距离），然后打印出测试的网络上/下行速率。</p>
+<p>可以对比 wondershaper 配置前后的速率，验证限速是否生效。</p>
+<p>speedtest-cli 常用命令详解：</p>
+<ul>
+<li>–list ：根据距离显示 speedtest.net 的测试服务器列表</li>
+<li>–server=SERVER ：指定测试服务器列表中id的服务器来测试</li>
+<li>–share ：分享测试结果，会在speedtest.net 网站上生成网速测试结果的图片</li>
+<li>–bytes ：上传下载的带宽显示，用 bytes 代替 bits ，即 Mbyte/s 代替 Mbit/s 。换算关系： 1Mbyte/s = 8Mbit/s</li>
+</ul>
 
       
     </div>
@@ -458,7 +481,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i>  mysql</a>
+            <a href="/tags/wondershaper/" rel="tag"><i class="fa fa-tag"></i>  wondershaper</a>
+          
+            <a href="/tags/speedtest/" rel="tag"><i class="fa fa-tag"></i>  speedtest</a>
           
         </div>
       
@@ -471,8 +496,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/Python-moudle-Faker.html" rel="next" title="Python的伪造数据生成器:Faker">
-                <i class="fa fa-chevron-left"></i> Python的伪造数据生成器:Faker
+              <a href="/2018/Murder-distribute-large-file-via-P2p-technology.html" rel="next" title="利用P2P软件(Murder)大规模分发大文件">
+                <i class="fa fa-chevron-left"></i> 利用P2P软件(Murder)大规模分发大文件
               </a>
             
           </div>
@@ -480,10 +505,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/Common-operations-of-OPS.html" rel="prev" title="运维常用操作">
-                运维常用操作 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -673,7 +694,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导表"><span class="nav-number">1.</span> <span class="nav-text">导表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#备份-test-库数据"><span class="nav-number">1.1.</span> <span class="nav-text">备份 test 库数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改备份文件中的表名"><span class="nav-number">1.2.</span> <span class="nav-text">修改备份文件中的表名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入表"><span class="nav-number">1.3.</span> <span class="nav-text">导入表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell脚本版"><span class="nav-number">1.4.</span> <span class="nav-text">shell脚本版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展：MySQL批量修改表前缀"><span class="nav-number">2.</span> <span class="nav-text">扩展：MySQL批量修改表前缀</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成替换命令"><span class="nav-number">2.1.</span> <span class="nav-text">生成替换命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量替换"><span class="nav-number">2.2.</span> <span class="nav-text">批量替换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展：改数据库名"><span class="nav-number">3.</span> <span class="nav-text">扩展：改数据库名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法1：重命名所有的表"><span class="nav-number">3.1.</span> <span class="nav-text">方法1：重命名所有的表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法2：利用mysqldump导出数据再导入"><span class="nav-number">3.2.</span> <span class="nav-text">方法2：利用mysqldump导出数据再导入</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在Linux中限制一个网络接口的速率"><span class="nav-number">1.</span> <span class="nav-text">在Linux中限制一个网络接口的速率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-wondershaper"><span class="nav-number">1.1.</span> <span class="nav-text">安装 wondershaper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wondershaper-的使用"><span class="nav-number">1.2.</span> <span class="nav-text">wondershaper 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试网速"><span class="nav-number">1.3.</span> <span class="nav-text">测试网速</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-speedtest-cli"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装 speedtest-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-speedtest-cli-测试网速"><span class="nav-number">1.3.2.</span> <span class="nav-text">使用 speedtest-cli 测试网速</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

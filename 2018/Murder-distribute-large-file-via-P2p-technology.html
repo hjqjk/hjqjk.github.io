@@ -104,7 +104,7 @@
 <meta property="og:description" content="引言当服务器多时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。  场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy或者synchronize 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2018-03-08-15204933934905.jpg">
 <meta property="og:image" content="http://orku2pa7o.bkt.clouddn.com/2018-03-08-15204934306246.jpg">
-<meta property="og:updated_time" content="2018-03-13T08:59:45.233Z">
+<meta property="og:updated_time" content="2018-03-13T09:20:19.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用P2P软件(Murder)大规模分发大文件">
 <meta name="twitter:description" content="引言当服务器多时，为了管理方便和提升效率，就会用到自动化管理工具（如Ansible）来自动部署和批量分发文件。  场景描述：目前有50+台服务器，已部署Ansible用于自动化部署和批量分发文件。批量分发文件时，一般把文件传到 Ansible 所在的服务器并通过 copy或者synchronize 模块传输，文件小于100M时，分发正常。当传输大文件时（100M+），受单节点及其带宽的影响，整个分">
@@ -469,6 +469,7 @@
 <h2 id="下载速度分析"><a href="#下载速度分析" class="headerlink" title="下载速度分析"></a>下载速度分析</h2><p>Murder 默认是服务器都存于一个数据中心的彼此相互信任的内网，并且每台服务器都是关闭防火墙的。</p>
 <p>Murder 封装的是 BitTornado，在 <code>BitTornado/download_bt1.py</code> 代码中默认是启动一个 <code>10000-60000</code> 范围的随机端口，每个 peer 在下载的同时向其他 peer 提供下载服务也是通过这个随机端口。</p>
 <p>对于端口的配置，把防火墙关了当然好，当然为了安全，还是开放端口更好。然而开放这个大的端口范围，肯定是不行的，这里选择开放 <code>10000-10500</code> 500个端口，只允许内网IP访问。</p>
+<p>在各个 peer 节点中配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># iptables -I INPUT -s 192.168.1.0/24 -p tcp --dport 10000:10500 -j ACCEPT</div></pre></td></tr></table></figure>
 <p>并且在 <code>dist/BitTornado/download_bt1.py</code> 中修改代码的端口范围：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(&apos;minport&apos;, 10000, &apos;minimum port to listen on, counts up if unavailable&apos;),</div><div class="line">(&apos;maxport&apos;, 10500, &apos;maximum port to listen on&apos;),</div><div class="line">(&apos;random_port&apos;, 1, &apos;whether to choose randomly inside the port range &apos; + &apos;instead of counting up linearly&apos;),</div></pre></td></tr></table></figure>
@@ -477,7 +478,7 @@
 </blockquote>
 <p>分发测试的机器有11台，都是内网IP，千兆路由器，但防火墙开启，测试文件有 560 M 大小。</p>
 <blockquote>
-<p>第一次分发：没有配好防火墙，用时 5m 分发完成。<br>第二次分发：配好了防火墙，用时 2m40s 分发完成。<br>第三次分发：不用Murder，用 ansible 直接分发，用时 36s 分发完成。</p>
+<p>第一次分发：没有配好防火墙，用时 5m 分发完成。<br>第二次分发：配好了防火墙，用时 2m30s 分发完成。<br>第三次分发：不用Murder，用 ansible 直接分发，用时 36s 分发完成。</p>
 </blockquote>
 <p>这里测试的服务器还是太少，服务器越多时，P2P方式分发文件速度越快。服务器不超过50+时，还是用 ansible 直接分发更快。</p>
 <h2 id="文件都下载完后，关闭-seeder-服务器进程"><a href="#文件都下载完后，关闭-seeder-服务器进程" class="headerlink" title="文件都下载完后，关闭 seeder 服务器进程"></a>文件都下载完后，关闭 seeder 服务器进程</h2><p>kill 掉 seeder 的进程PID，避免它一直做种子和提升安全性。</p>
@@ -540,6 +541,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/Limit-the-bandwidth-in-Linux.html" rel="prev" title="在Linux中限制网络带宽的使用">
+                在Linux中限制网络带宽的使用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -636,7 +641,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -658,7 +663,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
